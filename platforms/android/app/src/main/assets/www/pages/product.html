@@ -13,7 +13,26 @@
     </div>
     <div class="page-content">
       <div class="block-title">About {{product.title}}</div>
+      <div class="block">
+        
+       
+            <div class="row">
+                <!-- Each "cell" has col-[width in percents] class -->
+                <div class="col-50"> 
+                    <div class="stepper stepper-small-md stepper-small  stepper-init margin-left">
+                    <div class="stepper-button-minus"></div>
+                    <div class="stepper-input-wrap">
+                      <input type="text" readonly>
+                    </div>
+                    <div class="stepper-button-plus"></div>
+                  </div></div>
+                <div class="col-50"> <img src="{{product.img}}" width="80"></div>
+            </div>
+      </div>
+     
       <div class="block block-strong">
+        <!-- Add stepper-init class -->
+
         {{product.desc}}
       </div>
     </div>

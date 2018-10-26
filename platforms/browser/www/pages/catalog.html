@@ -7,27 +7,31 @@
     </div>
     <div class="page-content">
 
-        <div class="list-block media-list">
-            <ul>
-                {{#each products}}
-              <li>
-                <a href="/product/{{id}}/" class="item-link item-content">
-                  <div class="item-media"><img src="{{img}}" width="80"></div>
-                  <div class="item-inner">
+      <div class="list list-block media-list">
+        <ul>
+          {{#each products}}
+          <li class="swipeout">
+            <div class="swipeout-content">
+              <a href="/product/{{id}}/" class="item-link item-content">
+                <div class="item-media"><img src="{{img}}" width="80"></div>
+                <div class="item-inner">
                     <div class="item-title-row">
-                      <div class="item-title">{{title}}</div>
-                      <div class="item-after">${{price}}</div>
+                        <div class="item-title">{{title}}</div>
+                        <div class="item-after">₱{{price}}</div>
                     </div>
-                    <div class="item-subtitle">Beatles</div>
-                    <div class="item-text">Lorem ipsum dolor sit amet...</div>
-                  </div>
-                </a>
-              </li>
-              {{/each}}
-            </ul>
-          </div>
+                  <div class="item-subtitle">Beatles</div>
+                  <div class="item-text">Lorem ipsum dolor sit amet...</div>
+                </div>
+              </a>
+              <div class="swipeout-actions-right"><a href="#" class="task1 bg-green">Task 1</a><a href="#" class="task2 bg-blue">Task
+                  2</a><a href="#" data-confirm="Are you sure to delete this item?" data-close-on-cancel="true" class="swipeout-delete bg-yellow">Delete</a></div>
+          </li>
 
-     
+          {{/each}}
+        </ul>
+      </div>
+
+
     </div>
   </div>
 </template>
@@ -39,16 +43,16 @@
       };
     }
   };
-/*
-  var data = [{"name":"Lenovo Thinkpad 41A4298","website":"google"},
-{"name":"Lenovo Thinkpad 41A2222","website":"google"},
-{"name":"Lenovo Thinkpad 41Awww33","website":"yahoo"},
-{"name":"Lenovo Thinkpad 41A424448","website":"google"},
-{"name":"Lenovo Thinkpad 41A429rr8","website":"ebay"},
-{"name":"Lenovo Thinkpad 41A429ff8","website":"ebay"},
-{"name":"Lenovo Thinkpad 41A429ss8","website":"rediff"},
-{"name":"Lenovo Thinkpad 41A429sg8","website":"yahoo"}]
+  /*
+    var data = [{"name":"Lenovo Thinkpad 41A4298","website":"google"},
+  {"name":"Lenovo Thinkpad 41A2222","website":"google"},
+  {"name":"Lenovo Thinkpad 41Awww33","website":"yahoo"},
+  {"name":"Lenovo Thinkpad 41A424448","website":"google"},
+  {"name":"Lenovo Thinkpad 41A429rr8","website":"ebay"},
+  {"name":"Lenovo Thinkpad 41A429ff8","website":"ebay"},
+  {"name":"Lenovo Thinkpad 41A429ss8","website":"rediff"},
+  {"name":"Lenovo Thinkpad 41A429sg8","website":"yahoo"}]
 
-var data_filter = data.filter( element => element.cat =="baby")
-console.log(data_filter)*/
+  var data_filter = data.filter( element => element.cat =="baby")
+  console.log(data_filter)*/
 </script>
