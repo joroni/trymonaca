@@ -1,10 +1,11 @@
-
-
-
 /*************************************** WEBSQL */
 
 var db = openDatabase('super8', '1.0', 'Customers and Order processing', 100 * 1024);
 
+//$$(document).on('pageInit', '.page[data-page="home"]', function (e) {
+  
+ //  alert('Customers page');
+  
 //$$(document).ready(function () {
 
 console.info("Initialize...");
@@ -13,6 +14,7 @@ init();
 
 memberList();
 
+//mockData();
 selectCustomertoShop();
 console.info("Carga Complete...");
 
@@ -34,21 +36,21 @@ $$('#submit').click(function () {
         return;
     }
 
-    var integrante = Object();
+    var member = Object();
 
-    integrante.fname = txtFname.val();
-    integrante.lname = txtLname.val();
-    integrante.phone = txtPhone.val();
-    integrante.email = txtEmail.val();
+    member.fname = txtFname.val();
+    member.lname = txtLname.val();
+    member.phone = txtPhone.val();
+    member.email = txtEmail.val();
 
 
 
     if (txtId.val() === '') { //Lo guarda
-        integrante.id = new Date().getTime();
-        saveMember(integrante);
+        member.id = new Date().getTime();
+        saveMember(member);
     } else { //Lo actualiza
-        integrante.id = parseInt(txtId.val());
-        updateMember(integrante);
+        member.id = parseInt(txtId.val());
+        updateMember(member);
     }
 
     memberList();
@@ -96,6 +98,7 @@ $$('#btnCustomers').on('click', function () {
 $$('#btnStore').on('click', function () {
     loadStore();
 });
+
 //});
 
 ////////////////////////////////////////////////////////////////////
@@ -115,9 +118,9 @@ function memberList() {
                 var lisHtml = "";
 
                 for (var i = 0; i < rs.rows.length; i++) {
-                    var integrante = rs.rows.item(i);
-                    var id = integrante.ID;
-                    var fullname = integrante.FNAMES + ' ' + integrante.LNAMES;
+                    var member = rs.rows.item(i);
+                    var id = member.ID;
+                    var fullname = member.FNAMES + ' ' + member.LNAMES;
 
                     lisHtml += '<li><a href="/customerinfo/" onclick="selectMember(' + id + ')">' + fullname + '</a></li>';
                     // $$('#ccompleteName').html(fullname);
@@ -178,20 +181,20 @@ function selectCustomertoShop() {
                 var lisHtml = '';
 
                 for (var i = 0; i < rs.rows.length; i++) {
-                    var integrante = rs.rows.item(i);
-                    var id = integrante.ID;
+                    var member = rs.rows.item(i);
+                    var id = member.ID;
 
 
 
                     /*    lisHtml += '<div class="list-group-item customer-list list-group-item-action">'+
                                 '<div class="media"><i class="material-icons"></i>' +
-                                    '<a href="#" onclick="viewidMember('+ id +')"><img src="img/user.svg" class="mr-3 btn-user-info img-circle" width="48" alt=' + integrante.FNAMES + ' ' + integrante.LNAMES +" /></a>" +
-                                    '<div class="media-body"><h5 class="mt-0 customer-name">' + integrante.FNAMES + ' ' + integrante.LNAMES + '</h5><p> ' + integrante.PHONE + '</p></div>'+
+                                    '<a href="#" onclick="viewidMember('+ id +')"><img src="img/user.svg" class="mr-3 btn-user-info img-circle" width="48" alt=' + member.FNAMES + ' ' + member.LNAMES +" /></a>" +
+                                    '<div class="media-body"><h5 class="mt-0 customer-name">' + member.FNAMES + ' ' + member.LNAMES + '</h5><p> ' + member.PHONE + '</p></div>'+
                                 '</div>'+
                             '</div>';
 */
 
-                    lisHtml += '<li><a href="#" onclick="viewidMember(' + id + ')">' + integrante.FNAMES + ' ' + integrante.LNAMES + '</li>'
+                    lisHtml += '<li><a href="#" onclick="viewidMember(' + id + ')">' + member.FNAMES + ' ' + member.LNAMES + '</li>'
 
                 }
 
@@ -228,13 +231,18 @@ function selectCustomertoShop() {
     });
 }
 
+/*function mockData() {
+    var str = '{ID: "1",FNAMES: "John", LNAMES: "Dough",PHONE: "0995475142",EMAIL: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis."}';
 
+    db.transaction(function (tx) {
+        tx.executeSql('INSERT INTO CUSTOMERS (ID, FNAMES, LNAMES, PHONE, EMAIL) VALUES(?, ?, ?,?,?)', [94, str]);
+    });
+}*/
 
-
-function saveMember(integrante) {
+function saveMember(member) {
     db.transaction(function (tx) {
         tx.executeSql('INSERT INTO CUSTOMERS(ID, FNAMES, LNAMES, PHONE, EMAIL) VALUES(?, ?, ?,?,?)', [
-            integrante.id, integrante.fname, integrante.lname, integrante.phone, integrante.email
+            member.id, member.fname, member.lname, member.phone, member.email
         ]);
     }, error, function () {
         alert("Item Saved.");
@@ -253,11 +261,11 @@ function selectMember(idMember) {
             function (t, rs) {
                 if (rs.rows.length > 0) {
                     var lisHtml = '';
-                    var integrante = new Object();
-                    integrante.fname = rs.rows.item(0).FNAMES;
-                    integrante.lname = rs.rows.item(0).LNAMES;
-                    integrante.phone = rs.rows.item(0).PHONE;
-                    integrante.email = rs.rows.item(0).EMAIL;
+                    var member = new Object();
+                    member.fname = rs.rows.item(0).FNAMES;
+                    member.lname = rs.rows.item(0).LNAMES;
+                    member.phone = rs.rows.item(0).PHONE;
+                    member.email = rs.rows.item(0).EMAIL;
                     /* $$('#txt-id').val(rs.rows.item(0).ID);
                      $$('#fname').val(rs.rows.item(0).FNAMES);
                      $$('#lname').val(rs.rows.item(0).LNAMES);
@@ -308,12 +316,12 @@ function memberProfile(idMember) {
                     var lisHtml = '';
 
                     for (var i = 0; i < rs.rows.length; i++) {
-                        var integrante = rs.rows.item(i);
-                        var id = integrante.ID;
-                        var fname = integrante.FNAMES;
-                        var lname = integrante.LNAMES;
-                        var phone = integrante.PHONE;
-                        var email = integrante.EMAIL;
+                        var member = rs.rows.item(i);
+                        var id = member.ID;
+                        var fname = member.FNAMES;
+                        var lname = member.LNAMES;
+                        var phone = member.PHONE;
+                        var email = member.EMAIL;
 
 
                         lisHtml += '<li>'
@@ -370,11 +378,11 @@ function viewidMember(idMember) {
         t.executeSql('SELECT ID, FNAMES, LNAMES , PHONE, EMAIL FROM CUSTOMERS WHERE ID = ?', [idMember],
             function (t, rs) {
                 if (rs.rows.length > 0) {
-                    var integrante = new Object();
-                    integrante.fname = rs.rows.item(0).FNAMES;
-                    integrante.lname = rs.rows.item(0).LNAMES;
-                    integrante.phone = rs.rows.item(0).PHONE;
-                    integrante.email = rs.rows.item(0).EMAIL;
+                    var member = new Object();
+                    member.fname = rs.rows.item(0).FNAMES;
+                    member.lname = rs.rows.item(0).LNAMES;
+                    member.phone = rs.rows.item(0).PHONE;
+                    member.email = rs.rows.item(0).EMAIL;
                     $$('#txt-id').val(rs.rows.item(0).ID);
                     $$('#fname').html(rs.rows.item(0).FNAMES);
                     $$('#lname').html(rs.rows.item(0).LNAMES);
@@ -386,10 +394,10 @@ function viewidMember(idMember) {
     });
 }
 
-function updateMember(integrante) {
+function updateMember(member) {
     db.transaction(function (tx) {
         tx.executeSql('UPDATE CUSTOMERS SET FNAMES = ?, LNAMES = ?, PHONE = ?, EMAIL = ?, WHERE ID = ?', [
-            integrante.phone, integrante.fname, integrante.lname, integrante.id
+            member.phone, member.fname, member.lname, member.id
         ]);
     }, error, function () {
         alert("The member has been updated successfully");
@@ -421,10 +429,10 @@ function removeMember(idMember) {
       });*/
 }
 
-function savePO(integrante) {
+function savePO(member) {
     db.transaction(function (tx) {
         tx.executeSql('INSERT INTO CUSTOMERS(ID, FNAMES, LNAMES, PHONE, EMAIL) VALUES(?, ?, ?,?,?)', [
-            integrante.id, integrante.fname, integrante.lname, integrante.phone, integrante.email
+            member.id, member.fname, member.lname, member.phone, member.email
         ]);
     }, error, function () {
         alert("Item Saved.");
@@ -444,4 +452,3 @@ var exito = function () {
     console.info("Table created...");
 };
 /*************************************** WEBSQL */
-

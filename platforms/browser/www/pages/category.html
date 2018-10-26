@@ -9,12 +9,22 @@
       <div class="list links-list">
         <ul id="categories">
           {{#each products}}
-            <li><a class="category" href="/catalog/{{cat}}/">{{cat}}</a></li>
+           <!--   <li><a class="category" href="/catalog/{{cat}}/">{{cat}}</a></li>-->
           
-         <!--  <li><a class="category  popup-open" href="#"  data-popup="#my-popup-products">{{cat}}</a></li>-->
+         <li><a class="category  popup-open" href="#"  data-popup="#my-popup-products">{{cat}}</a></li>
           {{/each}}
         </ul>
       </div>
+
+      <div class="list links-list">
+          <ul id="categories">
+            {{#each products}}
+                <li><a class="category" href="/catalog/{{cat}}/">{{cat}}</a></li>
+            
+          
+            {{/each}}
+          </ul>
+        </div>
     </div>
   </div>
 </template>

@@ -270,6 +270,10 @@ $$(document).on('pageInit', '.page[data-page="catalogb"]', function (e) {
 })
 */
 
+$$('.task1').on('click', function () {
+    app.alert('Task 1 Clicked !!');
+ });
+
 
 
 
@@ -479,10 +483,11 @@ function loadStore() {
                 content += '<div class="col-4 col-sm-4 no-gutter">'
                 content += '<div class="cards productsonsale" id="prod_click' + products[i].id + '">'
                 content += '<div class="view">'
+                  content += '<a href="product-page.html" onclick=getSKU("' + products[i].sku + '") data-sku="' + products[i].sku + '">'
                 content += '<img src="' + products[i].img + '"class="card-img-top"  alt="' + products[i].name + '">'
-                //content += '<a href="product-page.html" onclick=getSKU("' + products[i].sku + '") data-sku="' + products[i].sku + '">'
-                content += '<a href="#" class="getsku" data-sku="' + products[i].sku + '">'
-                content += '<div class="mask rgba-white-slight"></div>'
+              
+               // content += '<a href="#" class="getsku" data-sku="' + products[i].sku + '">'
+               // content += '<div class="mask rgba-white-slight"></div>'
                 content += '</a>'
                 content += '</div>'
                 content += '<div class="card-body text-center parent">'
@@ -535,7 +540,8 @@ function loadStore() {
         if (!localStorage.getItem("idMember")) {
 
             alert("Please select a customer.");
-            window.location.href = "customer-select.html";
+            localStorage.setItem("idMember","1");
+          //  window.location.href = "customer-select.html";
             return false;
         } else {
             console.log("continue shopping");
