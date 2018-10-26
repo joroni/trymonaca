@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="eng" class="md device-pixel-ratio-1 device-desktop device-windows support-position-sticky">
 <head>
   <meta charset="utf-8">
+  
   <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: content: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,7 +17,7 @@
 
 
   <link rel="stylesheet" href="framework7/css/framework7.min.css">
-  <link rel="stylesheet" href="framework7/css/framework7.ios.min.css">
+  <!--<link rel="stylesheet" href="framework7/css/framework7.ios.min.css">-->
   <link rel="stylesheet" href="css/icons.css">
   <link rel="stylesheet" href="css/icons.css">
 	<link rel="stylesheet" href="css/app.css">
@@ -61,7 +62,7 @@
     </div>
 
     <!-- Your main view, should have "view-main" class -->
-    <div class="view view-main ios-edges">
+    <div class="view view-main md-edges">
       <!-- Tabbar for switching views-tabs -->
 			<div class="toolbar tabbar-labels toolbar-bottom-md">
           <div class="toolbar-inner">
@@ -246,10 +247,10 @@
                         
                     </div>
                 </div>
-                <div class="page-content">
+                <div class="page-content" style="padding-top:30px;">
 
                   
-                    <div class="list no-hairlines-md">
+                    <div id="thisList" class="list no-hairlines-md mt-0">
                         <div id="productosWrapper" class="row wow fadeIn list no-hairlines-md"> </div>
                     </div>
                  
@@ -465,7 +466,7 @@
   <!-- Framework7 library -->
   <script src="framework7/js/framework7.min.js"></script>
   <!-- Monaca JS library -->
-  <script src="components/loader.js"></script>
+ <!--<script src="components/loader.js"></script>--> 
   <!-- App routes -->
   <script src="js/routes.js"></script>
   <!-- Your custom app scripts -->
