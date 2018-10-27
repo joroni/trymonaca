@@ -1,5 +1,5 @@
 <template>
-  <div class="page" data-name="catalog">
+  <div class="page" data-name="catalog" id="catalog">
     <div class="navbar">
       <div class="navbar-inner sliding">
         <div class="title">Products</div>
@@ -19,12 +19,23 @@
                         <div class="item-title">{{title}}</div>
                         <div class="item-after">₱{{price}}</div>
                     </div>
-                  <div class="item-subtitle">Beatles</div>
-                  <div class="item-text">Lorem ipsum dolor sit amet...</div>
+                  <!--<div class="item-subtitle"><a href=""><span class="mybadge badge {{statecolor}} mr-1">{{state}}</span></a></div>-->
+                  <div class="item-text">{{desc}}</div>
                 </div>
+               
               </a>
-              <div class="swipeout-actions-right"><a href="#" class="task1 bg-green">Task 1</a><a href="#" class="task2 bg-blue">Task
-                  2</a><a href="#" data-confirm="Are you sure to delete this item?" data-close-on-cancel="true" class="swipeout-delete bg-yellow">Delete</a></div>
+              
+              <div class="swipeout-actions-right">
+                  <div class="stepper stepper-small-md stepper-small  stepper-init margin-left">
+                     <!-- <div class="stepper-button-minus prod_{{id}}" onclick="app.updateItem('{{id}}' ,'{{stock}}')"  ></div>-->
+                      <div class="stepper-button-minus prod_{{id}}" data-id="{{id}}" data-stock="{{stock}}"  ></div>
+                      <div class="stepper-input-wrap">
+                         <input type="number" id="prod_{{id}}" readonly name="quant[{{id}}]" class="form-control input-number quantity manage-qtty"  value="0" min="0" max="100">
+  
+                      </div>
+                   <div class="stepper-button-plus prod_{{id}}" onclick="app.addToCart('{{id}}')"></div>
+             <!--<div class="stepper-button-plus prod_{{id}}" data-id="{{id}}"></div>-->
+              </div>
           </li>
 
           {{/each}}
@@ -42,17 +53,5 @@
         products: this.$root.products,
       };
     }
-  };
-  /*
-    var data = [{"name":"Lenovo Thinkpad 41A4298","website":"google"},
-  {"name":"Lenovo Thinkpad 41A2222","website":"google"},
-  {"name":"Lenovo Thinkpad 41Awww33","website":"yahoo"},
-  {"name":"Lenovo Thinkpad 41A424448","website":"google"},
-  {"name":"Lenovo Thinkpad 41A429rr8","website":"ebay"},
-  {"name":"Lenovo Thinkpad 41A429ff8","website":"ebay"},
-  {"name":"Lenovo Thinkpad 41A429ss8","website":"rediff"},
-  {"name":"Lenovo Thinkpad 41A429sg8","website":"yahoo"}]
-
-  var data_filter = data.filter( element => element.cat =="baby")
-  console.log(data_filter)*/
+  }
 </script>

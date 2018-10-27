@@ -9,7 +9,10 @@ routes = [
   },
   
   
-  
+  {
+    path: '/catalogc/',
+    componentUrl: './pages/catalogc.html',
+  },
   {
     path: '/catalogb/',
     componentUrl: './pages/catalogb.html',

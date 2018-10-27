@@ -2,7 +2,6 @@
 <html lang="eng" class="md device-pixel-ratio-1 device-desktop device-windows support-position-sticky">
 <head>
   <meta charset="utf-8">
-  
   <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: content: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -10,12 +9,7 @@
   <meta name="theme-color" content="#2196f3">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
- 
-
   <!-- Your custom styles (optional) -->
-  
-
-
   <link rel="stylesheet" href="framework7/css/framework7.min.css">
   <!--<link rel="stylesheet" href="framework7/css/framework7.ios.min.css">-->
   <link rel="stylesheet" href="css/icons.css">
@@ -23,8 +17,6 @@
 	<link rel="stylesheet" href="css/app.css">
 	<link rel="stylesheet" href="components/loader.css">
 	<link rel="stylesheet" href="css/style.css">
-   
-  
 </head>
 <body>
   <div id="app">
@@ -60,7 +52,6 @@
         </div>
       </div>
     </div>
-
     <!-- Your main view, should have "view-main" class -->
     <div class="view view-main md-edges">
       <!-- Tabbar for switching views-tabs -->
@@ -79,18 +70,17 @@
               <span class="tabbar-label">Customers</span>
             </a>
             <a href="/category/" id="btnStore"  class="tab-link">
-              <i class="icon f7-icons ios-only">list</i>
-              <i class="icon f7-icons ios-only icon-ios-fill">list_fill</i>
-              <i class="icon material-icons md-only">view_list</i>
+              <i class="icon f7-icons ios-only">shopping_basket</i>
+              <i class="icon f7-icons ios-only icon-ios-fill">shopping_basket_fill</i>
+              <i class="icon material-icons md-only">shopping_basket</i>
               <span class="tabbar-label">Store</span>
             </a>
-            <a href="/about/" id="btnSettings" class="tab-link">
-              <i class="icon f7-icons ios-only">settings</i>
-              <i class="icon f7-icons ios-only icon-ios-fill">settings_fill</i>
-              <i class="icon material-icons md-only">settings</i>
-              <span class="tabbar-label">Settings</span>
+            <a href="#" id="btnCart" class="tab-link  popup-open" data-popup="#my-cart-screen">
+              <i class="icon f7-icons ios-only">shopping_cart</i>
+              <i class="icon f7-icons ios-only icon-ios-fill">shopping_cart_fill</i>
+              <i class="icon material-icons md-only">shopping_cart<span class="badge color-red">5</span></i>
+              <span class="tabbar-label">Cart</span>            
             </a>
-  
           </div>
         </div>
       <!-- Page, data-name contains page name which can be used in callbacks -->
@@ -125,7 +115,6 @@
           <div class="block block-strong">
             <p>Here is your blank Framework7 app. Let's see what we have here.</p>
           </div>
-
           <div class="block-title">Navigation</div>
           <div class="list">
             <ul>
@@ -150,7 +139,6 @@
                   </div>
                 </a>
               </li>
-
               <li>
                 <a  href="/catalogb/"  id="btnCustomers"  class="tab-link item-content item-link">
                   <div class="item-inner">
@@ -158,25 +146,19 @@
                   </div>
                 </a>
               </li>
-
-
-             
             </ul>
           </div>
-
           <div class="block-title">Modals</div>
           <div class="block block-strong">
             <div class="row">
                 <div class="col-50">
                     <a href="#" class="button button-raised button-fill popup-open" data-popup="#my-popup">Popup</a>
                   </div>
-              
               <div class="col-50">
                 <a href="#" class="button button-raised button-fill login-screen-open" data-login-screen="#my-login-screen">Login Screen</a>
               </div>
             </div>
           </div>
-
           <div class="block-title">Panels</div>
           <div class="block block-strong">
             <div class="row">
@@ -188,7 +170,6 @@
               </div>
             </div>
           </div>
-
           <div class="block-title searchbar-hide-on-search">Page Loaders & Router</div>
           <div class="list links-list searchbar-hide-on-search">
             <ul>
@@ -209,31 +190,22 @@
         </div>
       </div>
     </div>
-
-
-
     	<!-- Catalog View -->
 			<div id="view-catalog" class="view tab">
 				<!-- Catalog page will be loaded here dynamically from /catalog/ route -->
 			</div>
-
 			<!-- Settings View -->
 			<div id="view-settings" class="view tab">
 				<!-- Settings page will be loaded here dynamically from /settings/ route -->
 			</div>
-
 			<!-- Settings View -->
 			<div id="view-catalogb" class="view tab">
 				<!-- Customers page will be loaded here dynamically from /customers/ route -->
 			</div>
-
-      
 			<!-- Settings View -->
 			<div id="view-category" class="view tab">
           <!-- Customers page will be loaded here dynamically from /customers/ route -->
         </div>
-  
-   
      <!-- Popup Products -->
      <div class="popup" id="my-popup-products">
         <div class="view">
@@ -244,23 +216,17 @@
                             <a href="#" class="link popup-close">Back</a>
                         </div>
                         <div class="title"></div>
-                        
                     </div>
                 </div>
                 <div class="page-content" style="padding-top:30px;">
-
-                  
                     <div id="thisList" class="list no-hairlines-md mt-0">
                         <div id="productosWrapper" class="row wow fadeIn list no-hairlines-md"> </div>
                     </div>
-                 
                     <br>
                 </div>
             </div>
         </div>
     </div>
-
-
      <!-- Popup -->
      <div class="popup" id="my-popup">
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -269,9 +235,8 @@
         <link rel="stylesheet" href="css/store.css">
         <div class="view">
             <div class="page">
-                <div class="navbar">
+                <div class="navbar no-border">
                     <div class="navbar-inner">
-                           
                         <div class="title"></div>
                         <div class="right">
                             <a href="#" class="link popup-close">Close</a>
@@ -279,8 +244,6 @@
                     </div>
                 </div>
                 <div class="page-content">
-
-
                     <div class="block-title"></div>
                     <div class="list no-hairlines-md">
                         <ul>
@@ -346,7 +309,6 @@
                                     </div>
                                 </div>
                             </li>
-
                             <li>
                                 <div class="item-content item-input">
                                     <div class="item-inner">
@@ -371,14 +333,11 @@
                                                 <option>Pasay</option>
                                                 <option>Taguig</option>
                                                 <option>Las Piñas</option>
-
-
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-
                             <li>
                                 <div class="item-content item-input">
                                     <div class="item-inner">
@@ -399,7 +358,6 @@
                                     </div>
                                 </div>
                             </li>
-
                             <li>
                                 <div class="item-content item-input">
                                     <div class="item-inner">
@@ -411,7 +369,6 @@
                                     </div>
                                 </div>
                             </li>
-
                         </ul>
                     </div>
                     <div class="block">
@@ -423,6 +380,64 @@
         </div>
     </div>
 
+  <!-- Customer Select Screen -->
+  <div class="popup" id="my-customer-popup">
+      <div class="view">
+          <div class="page" id="catalogc" data-name="catalogc">
+          <div class="navbar">
+            <div class="navbar-inner sliding">
+              <div class="title">Customers</div>
+              <div class="subnavbar">
+                <form data-search-container=".virtual-list" data-search-item="li" data-search-in=".item-title" class="searchbar searchbar-init">
+                  <div class="searchbar-inner">
+                    <div class="searchbar-input-wrap">
+                      <input type="search" placeholder="Search"/>
+                      <i class="searchbar-icon"></i>
+                      <span class="input-clear-button"></span>
+                    </div>
+                    <span class="searchbar-disable-button">Cancel</span>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="searchbar-backdrop"></div>
+          <div class="page-content">
+            <div class="list simple-list searchbar-not-found">
+              <ul>
+                <li>Nothing found</li>
+              </ul>
+            </div>
+            <div class="list virtual-list media-list searchbar-found"></div>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    <!-- Cart Screen -->
+  <div class="popup" id="my-cart-screen">
+      <div class="view">
+          <div class="page">
+              <div class="navbar no-border">
+                  <div class="navbar-inner">
+                      <div class="title">Cart</div>
+                      <div class="right">
+                          <a href="#" class="link popup-close">Close</a>
+                      </div>
+                  </div>
+              </div>
+              <div class="page-content">
+                  <div class="block-title"></div>
+                  <div class="list no-hairlines-md">
+                  </div>
+                  <div class="block">
+                      <a href="#" id="submit" class="button form-to-data button button-raised button-fill popup-close">Submit</a>
+                  </div>
+                  <br>
+              </div>
+          </div>
+      </div>
+    </div>
     <!-- Login Screen -->
     <div class="login-screen" id="my-login-screen">
       <div class="view">
@@ -462,7 +477,6 @@
       </div>
     </div>
   </div>
-
   <!-- Framework7 library -->
   <script src="framework7/js/framework7.min.js"></script>
   <!-- Monaca JS library -->
@@ -473,13 +487,10 @@
   <script src="js/app.js"></script>
   <script src="js/customers.js"></script>
   <script src="js/jquery-3.3.1.min.js"></script>
-  
   <script src='js/lodash.min.js'></script>
   <script src='js/spin.min.js'></script>
   <script src='js/ladda.min.js'></script>
-
 <script>
-
 $('#categories a.category').on('click', function () {
     var selectedCat = $$(this).html();
     // Alert username and password

@@ -270,7 +270,17 @@ $$(document).on('pageInit', '.page[data-page="catalogb"]', function (e) {
 })
 */
 
-$$('.task1').on('click', function () {
+
+$$("#catalog").on('pageInit', function() {
+    var queryForm = null;
+    $$('.stepper-button-minus').on('click', function () {
+     alert("test");
+        //queryForm = app.formToJSON('#query-form');
+       //console.log(JSON.stringify(queryForm));
+    });
+});
+
+$$('.stepper-button-minuss ').on('click', function () {
     app.alert('Task 1 Clicked !!');
  });
 
@@ -517,6 +527,7 @@ function loadStore() {
                 content += '<img src="icons/noun_Plus_1807498-rounded-green.svg">'
                 content += '</button>'
                 content += '</span>'
+                content += '</div>'
                 content += '</div></div>'
                 content += '</div>'
                 content += '</div>'
@@ -534,14 +545,20 @@ function loadStore() {
         localStorage.setItem('products', JSON.stringify(products))
     }
 
-    app.addtoCart = function (id) {
-        //function checkHasUer(){
+    /*************************************************** */
 
+    $$(".stepper-button-plus").on("click", function (id) {
+        //function checkHasUer(){
+           var id = $$(this).data(id);
+            
         if (!localStorage.getItem("idMember")) {
 
             alert("Please select a customer.");
-            localStorage.setItem("idMember","1");
-          //  window.location.href = "customer-select.html";
+            //localStorage.setItem("idMember","1");
+           // window.location.href = "/catalogc/";
+         //  app.popup('.popup-first_page');
+            app.popup.open('#my-customer-popup');
+           //app.router.navigate({ path: 'catalog' });
             return false;
         } else {
             console.log("continue shopping");
@@ -585,6 +602,84 @@ function loadStore() {
                                 producto.smname = localStorage.getItem("idSalesMngr"),
                                 producto.timestamp,
                                 producto.ponumber,
+                                producto.birthdate,      
+                                producto.total = localStorage.getItem("grndTotal")
+                            )
+
+                            l.stop();
+                            console.log(parseInt(cant))
+                            $$('body').css('opacity', '1');
+                        }, 100)
+
+                    } else {
+                        alert('Only larger quantities are allowed to zero');
+                    }
+                } else {
+                    alert('Oops! Something we wrong, try again later')
+                }
+            } else {
+                alert('You can not add more of this product');
+            }
+
+        }
+    });
+   
+    app.addtoCart = function (id) {
+        //function checkHasUer(){
+           
+            
+        if (!localStorage.getItem("idMember")) {
+
+            alert("Please select a customer.");
+            //localStorage.setItem("idMember","1");
+           // window.location.href = "/catalogc/";
+         //  app.popup('.popup-first_page');
+            app.popup.open('#my-customer-popup');
+           //app.router.navigate({ path: 'catalog' });
+            return false;
+        } else {
+            console.log("continue shopping");
+
+
+
+
+            //console.log("add to cart");
+            var l = Ladda.create(document.querySelector('.prod-' + id));
+
+            l.start();
+            var products = JSON.parse(localStorage.getItem('products')),
+                producto = _.find(products, {
+                    'id': id
+                }),
+                cant = 1;
+            $$('body').css('opacity', '0.5');
+            if (cant <= producto.stock) {
+                if (undefined != producto) {
+                    if (cant > 0) {
+                        setTimeout(function () {
+                            var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
+                                items: []
+                            };
+                            app.searchProd(cart,
+                                producto.id,
+                                producto.sku,
+                                parseInt(cant),
+                                producto.name,
+                                producto.price,
+                                producto.img,
+                                producto.stock,
+                                producto.oldprice,
+
+                                producto.notes,
+
+                                producto.cname = localStorage.getItem("idMember"),
+                                producto.check = "notsync",
+                                producto.select,
+                                producto.email,
+                                producto.smname = localStorage.getItem("idSalesMngr"),
+                                producto.timestamp,
+                                producto.ponumber,
+                                producto.birthdate,      
                                 producto.total = localStorage.getItem("grndTotal")
                             )
 
@@ -605,7 +700,7 @@ function loadStore() {
 
         }
     }
-
+ /********************************************************8 */
     app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
         //si le pasamos un valor negativo a la cantidad, se descuenta del carrito
         var curProd = _.find(cart.items, {
@@ -696,6 +791,35 @@ function loadStore() {
         }
     }
 
+  
+/*************************************** Minus Button */
+$$(document).on('pageInit', '.page[data-page="catalog"]', function (e) {
+    
+    $$(".stepper-button-minus").on("click",function (id, available) {
+alert("test");  
+        var id = $(this).data("id");
+       var available =  $(this).data("stock");
+        //resta uno a la cantidad del carrito de compras
+        var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
+                items: []
+            },
+            curProd = _.find(cart.items, {
+                'id': id
+            })
+        //actualizar el carrito
+        curProd.cant = curProd.cant - 1;
+        //validar que la cantidad no sea menor a 0
+        if (curProd.cant > 0) {
+            localStorage.setItem('cart', JSON.stringify(cart))
+            app.init()
+            app.getProducts()
+            app.updatePayForm()
+        } else {
+            app.deleteProd(id, true)
+        }
+    })
+});
+
 
     app.updateItem = function (id, available) {
         //resta uno a la cantidad del carrito de compras
@@ -717,6 +841,9 @@ function loadStore() {
             app.deleteProd(id, true)
         }
     }
+
+
+    /*************************************** Minus Button */
 
     app.delete = function (id) {
         var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
@@ -815,45 +942,7 @@ function loadStore() {
 }
 
 
- app.showMenu = function() {
-    // alert("orders");
-    var myObj, i, j, items = "";
-    myObj = {
-        "name": "John",
-        "age": 30,
-        "menuitems": [{
-                "name": "Home",
-                "url": "index.html"
-            },
-            {
-                "name": "Acount",
-                "url": "user.html"
-            },
-            {
-                "name": "Customers",
-                "url": "customer-list.html"
-            },
-            {
-                "name": "Orders",
-                "url": "orders.html"
-            },
-            {
-                "name": "Store",
-                "url": "storegroup.html"
-            }
-        ]
-    }
-    for (i in myObj.menuitems) {
-        items += '<li class="nav-item"><a class="nav-link waves-effect" href="' + myObj.menuitems[i].url + '">' + myObj.menuitems[i].name + '</li>';
-        /* for (j in myObj.menuitems[i].models) {
-             items += myObj.menuitems[i].models[j] + "<li class='hidden'>";
-         }*/
-    }
-
-    $$("#mainMenu").html(items);
-
-
-}
+ 
 /************************************* */
 
  app.getSKU = function(ThisSKU){
@@ -950,7 +1039,7 @@ function loadStore() {
         /******************* */
 
          // showQuantity();
-    app.showMenu();
+   // app.showMenu();
     //addCustomer();
     app.showOrders();
     currency_icon = '₱';

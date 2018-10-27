@@ -14,7 +14,7 @@ init();
 
 memberList();
 
-//mockData();
+mockData();
 selectCustomertoShop();
 console.info("Carga Complete...");
 
@@ -27,6 +27,7 @@ $$('#submit').click(function () {
     var txtLname = $$('#lname');
     var txtPhone = $$('#phone');
     var txtEmail = $$('#email');
+    var txtEmail = $$('#birthdate');
 
     var input = $$('input');
 
@@ -54,7 +55,7 @@ $$('#submit').click(function () {
     }
 
     memberList();
-
+    mockData();
     txtFname.val(null);
     txtLname.val(null);
     txtPhone.val(null);
@@ -231,13 +232,13 @@ function selectCustomertoShop() {
     });
 }
 
-/*function mockData() {
-    var str = '{ID: "1",FNAMES: "John", LNAMES: "Dough",PHONE: "0995475142",EMAIL: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis."}';
-
+function mockData() {
+    var str = '{ID: 4,FNAMES: "John", LNAMES: "Dough",PHONE: "0995475142",EMAIL: "johnd@mail.com"}';
+    console.log(str);
     db.transaction(function (tx) {
-        tx.executeSql('INSERT INTO CUSTOMERS (ID, FNAMES, LNAMES, PHONE, EMAIL) VALUES(?, ?, ?,?,?)', [94, str]);
+        tx.executeSql('INSERT INTO CUSTOMERS (ID, FNAMES, LNAMES, PHONE, EMAIL) VALUES(?, ?, ?,?,?)', [str]);
     });
-}*/
+}
 
 function saveMember(member) {
     db.transaction(function (tx) {
