@@ -282,31 +282,6 @@ $$(document).on('page:init', '.page[data-name="store"]', function (e) {
 })
 
 
-$$(document).on('page:init', '.page[data-name="customerinfo"]', function (e) {
-    console.log('Customer Info');
-    memberList();
-   
-    $$("#btnMemberID").on("click", function(){
-        var mid = $$("input#memberID").val();
-        console.log(mid);
-        localStorage.setItem("idMember", mid);
-       
-        if (!localStorage.getItem("idMember")) {
-
-            alert("Please select a customer.");
-         
-            app.router.navigate('/catalogb/');
-         
-            return false;
-        } else {
-            app.router.navigate('/store/');
-            console.log("continue shopping");
-        }
-    })
-   // loadStore();
-  // memberList();
-    // Do something here when page with data-name="about" attribute loaded and initialized
-})
 
 
 $$(document).on('page:init', '.page[data-name="catalogb"]', function (e) {
@@ -315,6 +290,7 @@ $$(document).on('page:init', '.page[data-name="catalogb"]', function (e) {
    memberList();
     // Do something here when page with data-name="about" attribute loaded and initialized
 })
+
 
 
 $$('.task1').on('click', function () {
@@ -833,6 +809,8 @@ function loadStore() {
         }
     }
 
+
+    
     app.updatePayForm = function () {
         //eso va a generar un formulario dinamico para paypal
         //con los products y sus precios
@@ -843,7 +821,7 @@ function loadStore() {
         localStorage.setItem("purchaseorder", JSON.stringify(cart));
         var grandtotal = localStorage.getItem("grndTotal");
         //var statics = '<form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_cart"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="USD" /><input type="hidden" name="business" value="' + business_paypal + '">',
-        var statics = '<form action="/" method="post"><input type="hidden" name="cmd" value="_cart"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="PHP" /><input type="hidden" name="business" value="SUPER 8"><input type="hidden" name="grandtotal" id="grandtotal" value="' + grandtotal + '">',
+        var statics = '<form><input type="hidden" name="cmd" value="_cart"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="PHP" /><input type="hidden" name="business" value="SUPER 8"><input type="hidden" name="grandtotal" id="grandtotal" value="' + grandtotal + '">',
             dinamic = '',
             wrapper = $$('#submitForm')
 
@@ -852,18 +830,20 @@ function loadStore() {
         if (undefined != cart && null != cart && cart != '') {
             var i = 1;
             _.forEach(cart.items, function (prod, key) {
-                dinamic += '<input type="hidden" name="item_name_' + i + '" value="' + prod.name + '">'
-                dinamic += '<input type="hidden" name="amount_' + i + '" value="' + prod.price + '">'
-                dinamic += '<input type="hidden" name="iuem_sku_' + i + '" value="' + prod.sku + '">'
-                dinamic += '<input type="hidden" name="item_number_' + i + '" value="' + prod.id + '" />'
-                dinamic += '<input type="hidden" name="quantity_' + i + '" value="' + prod.cant + '" />'
-                dinamic += '<input type="hidden" id="grndTotal" name="total_' + i + '" value="' + grandtotal + '" />' // added by jrn
+                dinamic += '<input type="hidden" id="itemName' + i + '" name="item_name_' + i + '" value="' + prod.name + '">'
+                dinamic += '<input type="hidden" id="itemPrice' + i + '" name="amount_' + i + '" value="' + prod.price + '">'
+                dinamic += '<input type="hidden" id="itemSKU' + i + '" name="item_sku_' + i + '" value="' + prod.sku + '">'
+                dinamic += '<input type="hidden" id="itemID' + i + '" name="item_number_' + i + '" value="' + prod.id + '" />'
+                dinamic += '<input type="hidden" id="itemCant' + i + '" name="quantity_' + i + '" value="' + prod.cant + '" />'
+                dinamic += '<input type="hidden" id="itemTotal' + i + '" class="grndTotal" name="total_' + i + '" value="' + grandtotal + '" />' // added by jrn
                 i++;
             })
 
             statics += dinamic + '<button type="submit" class="pay btn btn-success">Submit<i class="ion-chevron-right"></i></button></form>'
 
-            wrapper.html(statics)
+            wrapper.html(statics);
+
+           
         }
 
 

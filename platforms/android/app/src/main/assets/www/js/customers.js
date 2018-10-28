@@ -3,9 +3,9 @@
 var db = openDatabase('super8', '1.0', 'Customers and Order processing', 100 * 1024);
 
 //$$(document).on('pageInit', '.page[data-page="home"]', function (e) {
-  
- //  alert('Customers page');
-  
+
+//  alert('Customers page');
+
 //$$(document).ready(function () {
 
 console.info("Initialize...");
@@ -67,7 +67,9 @@ $$('#submit').click(function () {
 
 
 $$('#customerList').on("click", ".btn-user-info", function () {
-    var idMember = $$(this).data("id");
+ //   var idMember = $$(this).data("id");
+    var idMember = $$('input.customerid').value();
+ 
     selectMember(idMember);
     $$("label").addClass("active");
     //$$("#modal-Title").html("View Customer");
@@ -76,7 +78,8 @@ $$('#customerList').on("click", ".btn-user-info", function () {
 
 
 $$('#customerList').on("click", ".btn-editar", function () {
-    var idMember = $$(this).data("id");
+   // var idMember = $$(this).data("id");
+    var idMember = $$('input.customerid').value();
     selectMember(idMember);
     $$("label").addClass("active");
     $$("#modal-Title").html("Edit Customer");
@@ -84,13 +87,47 @@ $$('#customerList').on("click", ".btn-editar", function () {
 });
 
 $$('#customerList').on("click", ".btn-eliminar", function () {
-    var idMember = $$(this).data("id");
+  //  var idMember = $$(this).data("id");
+    var idMember = $$('input.customerid').value();
     removeMember(idMember);
     memberList();
     //selectMemberList();
 });
 
 
+$$(document).on('page:init', '.page[data-name="customerinfo"]', function (e) {
+    console.log('Customer Info');
+    $$('.page-content').on('click', function () {
+        memberList();
+    })
+
+
+    $$(".btn-eliminar").on("click", function () {
+        var idMember = $$(this).data("id");
+        removeMember(idMember);
+        memberList();
+        //selectMemberList();
+    });
+
+    $$(".btnMemberID").on("click", function () {
+        var mid = $$("input#memberID").val();
+        console.log(mid);
+        localStorage.setItem("idMember", mid);
+
+        if (!localStorage.getItem("idMember")) {
+
+            alert("Please select a customer.");
+
+            app.router.navigate('/catalogb/');
+
+            return false;
+        } else {
+            app.router.navigate('/store/');
+            console.log("continue shopping");
+        }
+    })
+
+})
 
 
 $$('#btnCustomers').on('click', function () {
@@ -111,7 +148,7 @@ $$('#btnStore').on('click', function () {
 function init() {
     db.transaction(function (tx) {
         tx.executeSql('create table if not exists CUSTOMERS(ID, FNAMES, LNAMES,PHONE, EMAIL)');
-        tx.executeSql('create table if not exists PURCHASEORDER(ID, FNAMES, LNAMES,PHONE, EMAIL)');
+        tx.executeSql('create table if not exists PURCHASEORDER(id,sku,cant,name,price,img,available,oldprice,smname,notes,email,timestamp,total)');
     }, error, exito);
 }
 
@@ -340,6 +377,7 @@ function selectMember(idMember) {
                         '<div class="item-content">' +
                         '<div class="item-media"><i class="material-icons icon-f7">person</i></div>' +
                         '<div class="item-inner">' +
+                        '<input type="hidden" class="customerid" value="'+ rs.rows.item(0).ID + '" />'+
                         '<div class="item-title">' + rs.rows.item(0).FNAMES + ' ' + rs.rows.item(0).LNAMES + '</div>' +
                         '<div class="item-after"></div>' +
                         '</div>' +
@@ -362,12 +400,12 @@ function selectMember(idMember) {
                         '<div class="item-after"></div>' +
                         '</div>' +
                         '</div>' +
-                        '</li>'+
+                        '</li>' +
                         '<li>' +
                         '<div class="item-content">' +
                         '<div class="item-media"><i class="material-icons icon-f7">mail</i></div>' +
                         '<div class="item-inner">' +
-                        '<div class="item-title">' + rs.rows.item(0).ID + '<input id="memberID" type="hidden" value="' + rs.rows.item(0).ID+'"/></div>' +
+                        '<div class="item-title">' + rs.rows.item(0).ID + '<input id="memberID" type="hidden" value="' + rs.rows.item(0).ID + '"/></div>' +
                         '<div class="item-after"></div>' +
                         '</div>' +
                         '</div>' +
@@ -402,6 +440,7 @@ function memberProfile(idMember) {
                         '<div class="item-content">'
                         '<div class="item-media"><i class="material-icons icon-f7">person</i></div>'
                         '<div class="item-inner">'
+                        '<input type="hidden" class="customerid" value="'+ id + '" />'+
                         '<div class="item-title">' + fname + ' ' + lname + '</div>'
                         '<div class="item-after"></div>'
                         '</div>'
@@ -514,6 +553,17 @@ function savePO(member) {
     });
 }
 
+
+
+function saveOrderLocal(order){
+    var str  = localStorage.getItem("purchaseorder");
+    db.transaction(function (tx) {
+    tx.executeSql('INSERT INTO PURCHASEORDER (id,sku,cant,name,price,img,available,oldprice,smname,notes,email,timestamp,total) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',[94,JSON.parse(str)]);
+}, error, function () {
+    alert("Item Saved.");
+    $$(".close").trigger();
+});
+}
 
 ////////////////////////////////////////////////////////////////////
 ////////////////////////Funciones de logueo////////////////////
