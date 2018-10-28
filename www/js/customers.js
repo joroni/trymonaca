@@ -13,7 +13,7 @@ console.info("Initialize...");
 init();
 
 memberList();
-
+//selectMemberList();
 mockData();
 selectCustomertoShop();
 console.info("Carga Complete...");
@@ -55,6 +55,7 @@ $$('#submit').click(function () {
     }
 
     memberList();
+    //selectMemberList();
     mockData();
     txtFname.val(null);
     txtLname.val(null);
@@ -86,6 +87,7 @@ $$('#customerList').on("click", ".btn-eliminar", function () {
     var idMember = $$(this).data("id");
     removeMember(idMember);
     memberList();
+    //selectMemberList();
 });
 
 
@@ -93,6 +95,7 @@ $$('#customerList').on("click", ".btn-eliminar", function () {
 
 $$('#btnCustomers').on('click', function () {
     memberList();
+    //selectMemberList();
 });
 
 
@@ -171,6 +174,66 @@ function memberList() {
     });
 }
 
+
+
+function selectMemberList() {
+    db.readTransaction(function (t) {
+        t.executeSql('SELECT rowid, ID, FNAMES, LNAMES, PHONE, EMAIL FROM CUSTOMERS', [], function (t, rs) {
+            if (rs.rows.length > 0) {
+                var lisHtml = "";
+
+                for (var i = 0; i < rs.rows.length; i++) {
+                    var member = rs.rows.item(i);
+                    var id = member.ID;
+                    var fullname = member.FNAMES + ' ' + member.LNAMES;
+
+                    lisHtml += '<li><a href="/catalog/" onclick="selectMember(' + id + ')">' + fullname + '</a></li>';
+                    // $$('#ccompleteName').html(fullname);
+
+                }
+
+                localStorage.setItem("listHTML", lisHtml);
+
+                // var permdata = localStorage.getItem("listHTML");
+                // console.log(permdata);
+
+                $$('#customerListSelect').html(lisHtml);
+
+
+                /* $$(function () {
+                     $$('.icon-btn').on('click', function () {
+                         $$('.showData').toggle();
+                     });
+                 });*/
+
+
+                $$('[data-toggle="class"]').click(function () {
+                    var $target = $$($$(this).data('target'));
+                    var classes = $$(this).data('classes');
+
+                    $target.toggleClass(classes);
+                    return false;
+                });
+
+
+
+
+                $$("#btnNew").click(function () {
+                    console.log("reset fields");
+                    $$('#dynamic-form')[0].reset();
+                    $$('#modalBody').html("")
+                    $$('#txt-id').val("");
+                    $$("#modal-Title").html("Add Customer");
+
+                })
+
+
+
+            }
+
+        }, error);
+    });
+}
 
 
 
@@ -263,6 +326,7 @@ function selectMember(idMember) {
                 if (rs.rows.length > 0) {
                     var lisHtml = '';
                     var member = new Object();
+                    member.id = rs.rows.item(0).ID;
                     member.fname = rs.rows.item(0).FNAMES;
                     member.lname = rs.rows.item(0).LNAMES;
                     member.phone = rs.rows.item(0).PHONE;
@@ -295,6 +359,15 @@ function selectMember(idMember) {
                         '<div class="item-media"><i class="material-icons icon-f7">mail</i></div>' +
                         '<div class="item-inner">' +
                         '<div class="item-title">' + rs.rows.item(0).EMAIL + '</div>' +
+                        '<div class="item-after"></div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</li>'+
+                        '<li>' +
+                        '<div class="item-content">' +
+                        '<div class="item-media"><i class="material-icons icon-f7">mail</i></div>' +
+                        '<div class="item-inner">' +
+                        '<div class="item-title">' + rs.rows.item(0).ID + '<input id="memberID" type="hidden" value="' + rs.rows.item(0).ID+'"/></div>' +
                         '<div class="item-after"></div>' +
                         '</div>' +
                         '</div>' +

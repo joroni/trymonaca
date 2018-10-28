@@ -75,6 +75,12 @@
               <i class="icon material-icons md-only">shopping_basket</i>
               <span class="tabbar-label">Store</span>
             </a>
+            <a href="/store/" class="tab-link">
+                <i class="icon f7-icons ios-only">shopping_cart</i>
+                <i class="icon f7-icons ios-only icon-ios-fill">shopping_cart_fill</i>
+                <i class="icon material-icons md-only">shopping_cart</i>
+                <span class="tabbar-label">StoreB</span>            
+              </a>
             <a href="#" id="btnCart" class="tab-link  popup-open" data-popup="#my-cart-screen">
               <i class="icon f7-icons ios-only">shopping_cart</i>
               <i class="icon f7-icons ios-only icon-ios-fill">shopping_cart_fill</i>
@@ -206,6 +212,11 @@
 			<div id="view-category" class="view tab">
           <!-- Customers page will be loaded here dynamically from /customers/ route -->
         </div>
+
+        			<!-- Store View -->
+			<div id="view-store" class="view tab">
+          <!-- Customers page will be loaded here dynamically from /customers/ route -->
+        </div>
      <!-- Popup Products -->
      <div class="popup" id="my-popup-products">
         <div class="view">
@@ -219,8 +230,13 @@
                     </div>
                 </div>
                 <div class="page-content" style="padding-top:30px;">
-                    <div id="thisList" class="list no-hairlines-md mt-0">
+                  <!--  <div class="list list-block media-list">
+                            <ul id="productosWrapper" ></ul>
                         <div id="productosWrapper" class="row wow fadeIn list no-hairlines-md"> </div>
+                    </div>-->
+                    <div id="thisList" class="list no-hairlines-md mt-0">
+                     
+                        <div id="productosWrapper" class="productosWrapper row wow fadeIn list no-hairlines-md"> </div>
                     </div>
                     <br>
                 </div>
@@ -383,37 +399,23 @@
   <!-- Customer Select Screen -->
   <div class="popup" id="my-customer-popup">
       <div class="view">
-          <div class="page" id="catalogc" data-name="catalogc">
-          <div class="navbar">
-            <div class="navbar-inner sliding">
-              <div class="title">Customers</div>
-              <div class="subnavbar">
-                <form data-search-container=".virtual-list" data-search-item="li" data-search-in=".item-title" class="searchbar searchbar-init">
-                  <div class="searchbar-inner">
-                    <div class="searchbar-input-wrap">
-                      <input type="search" placeholder="Search"/>
-                      <i class="searchbar-icon"></i>
-                      <span class="input-clear-button"></span>
-                    </div>
-                    <span class="searchbar-disable-button">Cancel</span>
+          <div class="page" id="catalogb" data-name="catalogb">
+              <div class="navbar">
+                  <div class="navbar-inner sliding">
+                      <div class="title">Customers</div>
                   </div>
-                </form>
               </div>
-            </div>
+              
+              <div class="page-content">
+                  <div class="list links-list">
+                      <ul id="customerListSelect"></ul>
+                  
+                  </div>
+      
+              </div>
+             
           </div>
-          <div class="searchbar-backdrop"></div>
-          <div class="page-content">
-            <div class="list simple-list searchbar-not-found">
-              <ul>
-                <li>Nothing found</li>
-              </ul>
-            </div>
-            <div class="list virtual-list media-list searchbar-found"></div>
-          </div>
-        </div>
-    
-      </div>
-    </div>
+  </div>
     <!-- Cart Screen -->
   <div class="popup" id="my-cart-screen">
       <div class="view">

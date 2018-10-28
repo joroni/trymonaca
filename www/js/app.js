@@ -234,6 +234,10 @@ var settingsView = app.views.create('#view-settings', {
     url: '/settings/'
 });
 
+var storeView = app.views.create('#view-store', {
+    url: '/store/'
+});
+
 var customersView = app.views.create('#view-catalog', {
     url: '/catalog/'
 });
@@ -271,16 +275,49 @@ $$(document).on('pageInit', '.page[data-page="catalogb"]', function (e) {
 */
 
 
-$$("#catalog").on('pageInit', function() {
-    var queryForm = null;
-    $$('.stepper-button-minus').on('click', function () {
-     alert("test");
-        //queryForm = app.formToJSON('#query-form');
-       //console.log(JSON.stringify(queryForm));
-    });
-});
+$$(document).on('page:init', '.page[data-name="store"]', function (e) {
+    console.log('Store');
+    loadStore();
+    // Do something here when page with data-name="about" attribute loaded and initialized
+})
 
-$$('.stepper-button-minuss ').on('click', function () {
+
+$$(document).on('page:init', '.page[data-name="customerinfo"]', function (e) {
+    console.log('Customer Info');
+    memberList();
+   
+    $$("#btnMemberID").on("click", function(){
+        var mid = $$("input#memberID").val();
+        console.log(mid);
+        localStorage.setItem("idMember", mid);
+       
+        if (!localStorage.getItem("idMember")) {
+
+            alert("Please select a customer.");
+         
+            app.router.navigate('/catalogb/');
+         
+            return false;
+        } else {
+            app.router.navigate('/store/');
+            console.log("continue shopping");
+        }
+    })
+   // loadStore();
+  // memberList();
+    // Do something here when page with data-name="about" attribute loaded and initialized
+})
+
+
+$$(document).on('page:init', '.page[data-name="catalogb"]', function (e) {
+    console.log('Catalogb');
+   // loadStore();
+   memberList();
+    // Do something here when page with data-name="about" attribute loaded and initialized
+})
+
+
+$$('.task1').on('click', function () {
     app.alert('Task 1 Clicked !!');
  });
 
@@ -477,7 +514,8 @@ function loadStore() {
                     total: ''
                 }
             ],
-            wrapper = $$('#productosWrapper'),
+            wrapper = $$('.productosWrapper'),
+            
             content = '',
             oldpricing = ''
         for (var i = 0; i < products.length; i++) {
@@ -493,7 +531,8 @@ function loadStore() {
                 content += '<div class="col-4 col-sm-4 no-gutter">'
                 content += '<div class="cards productsonsale" id="prod_click' + products[i].id + '">'
                 content += '<div class="view">'
-                  content += '<a href="product-page.html" onclick=getSKU("' + products[i].sku + '") data-sku="' + products[i].sku + '">'
+                content += '<a href="/product/' + products[i].id + '" data-sku="' + products[i].sku + '" class="item-link item-content">'
+              // content += '<a href="/product/' + products[i].id + '" onclick=getSKU("' + products[i].sku + '") data-sku="' + products[i].sku + '">'
                 content += '<img src="' + products[i].img + '"class="card-img-top"  alt="' + products[i].name + '">'
               
                // content += '<a href="#" class="getsku" data-sku="' + products[i].sku + '">'
@@ -545,84 +584,6 @@ function loadStore() {
         localStorage.setItem('products', JSON.stringify(products))
     }
 
-    /*************************************************** */
-
-    $$(".stepper-button-plus").on("click", function (id) {
-        //function checkHasUer(){
-           var id = $$(this).data(id);
-            
-        if (!localStorage.getItem("idMember")) {
-
-            alert("Please select a customer.");
-            //localStorage.setItem("idMember","1");
-           // window.location.href = "/catalogc/";
-         //  app.popup('.popup-first_page');
-            app.popup.open('#my-customer-popup');
-           //app.router.navigate({ path: 'catalog' });
-            return false;
-        } else {
-            console.log("continue shopping");
-
-
-
-
-            //console.log("add to cart");
-            var l = Ladda.create(document.querySelector('.prod-' + id));
-
-            l.start();
-            var products = JSON.parse(localStorage.getItem('products')),
-                producto = _.find(products, {
-                    'id': id
-                }),
-                cant = 1;
-            $$('body').css('opacity', '0.5');
-            if (cant <= producto.stock) {
-                if (undefined != producto) {
-                    if (cant > 0) {
-                        setTimeout(function () {
-                            var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
-                                items: []
-                            };
-                            app.searchProd(cart,
-                                producto.id,
-                                producto.sku,
-                                parseInt(cant),
-                                producto.name,
-                                producto.price,
-                                producto.img,
-                                producto.stock,
-                                producto.oldprice,
-
-                                producto.notes,
-
-                                producto.cname = localStorage.getItem("idMember"),
-                                producto.check = "notsync",
-                                producto.select,
-                                producto.email,
-                                producto.smname = localStorage.getItem("idSalesMngr"),
-                                producto.timestamp,
-                                producto.ponumber,
-                                producto.birthdate,      
-                                producto.total = localStorage.getItem("grndTotal")
-                            )
-
-                            l.stop();
-                            console.log(parseInt(cant))
-                            $$('body').css('opacity', '1');
-                        }, 100)
-
-                    } else {
-                        alert('Only larger quantities are allowed to zero');
-                    }
-                } else {
-                    alert('Oops! Something we wrong, try again later')
-                }
-            } else {
-                alert('You can not add more of this product');
-            }
-
-        }
-    });
    
     app.addtoCart = function (id) {
         //function checkHasUer(){
@@ -631,11 +592,9 @@ function loadStore() {
         if (!localStorage.getItem("idMember")) {
 
             alert("Please select a customer.");
-            //localStorage.setItem("idMember","1");
-           // window.location.href = "/catalogc/";
-         //  app.popup('.popup-first_page');
-            app.popup.open('#my-customer-popup');
-           //app.router.navigate({ path: 'catalog' });
+         
+            app.router.navigate('/catalogb/');
+         
             return false;
         } else {
             console.log("continue shopping");
@@ -700,7 +659,7 @@ function loadStore() {
 
         }
     }
- /********************************************************8 */
+
     app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
         //si le pasamos un valor negativo a la cantidad, se descuenta del carrito
         var curProd = _.find(cart.items, {
@@ -793,10 +752,9 @@ function loadStore() {
 
   
 /*************************************** Minus Button */
-$$(document).on('pageInit', '.page[data-page="catalog"]', function (e) {
-    
+
     $$(".stepper-button-minus").on("click",function (id, available) {
-alert("test");  
+
         var id = $(this).data("id");
        var available =  $(this).data("stock");
         //resta uno a la cantidad del carrito de compras
@@ -817,8 +775,8 @@ alert("test");
         } else {
             app.deleteProd(id, true)
         }
-    })
-});
+    });
+
 
 
     app.updateItem = function (id, available) {
@@ -923,7 +881,7 @@ alert("test");
     myObj = po;
     for (i in myObj.items) {
 
-        item += '<a href="product-page.html" onclick=getSKU("' + myObj.items[i].sku + '") data-sku="' +  myObj.items[i].sku + '" class="list-group-item list-group-item-action flex-column align-items-start">'
+        item += '<a href="product-page.html" onclick=app.getSKU("' + myObj.items[i].sku + '") data-sku="' +  myObj.items[i].sku + '" class="list-group-item list-group-item-action flex-column align-items-start">'
         item += '<div class="d-flex w-100 justify-content-between">'
         item += '<h5 class="mb-2 h5">' + myObj.items[i].notes + '</h5>'
         item += '<small class="order-status">Not Synced</small>'
@@ -945,9 +903,17 @@ alert("test");
  
 /************************************* */
 
- app.getSKU = function(ThisSKU){
-    sessionStorage.setItem("skuItem", ThisSKU);
-}
+
+$$(document).on('page:init', '.page[data-name="store"]', function (e) {
+  //  alert("sku");
+    /*app.getSKU = function(ThisSKU){
+       // ThisSKU = $$(this).attr("data-sku");
+        
+      //  sessionStorage.setItem("skuItem", ThisSKU);
+      //  var activeSKU = sessionStorage.getItem("ThisSKU");
+    }*/
+})
+
 
  app.productsPage = function() {
 

@@ -7,7 +7,10 @@ routes = [
     path: '/about/',
     url: './pages/about.html',
   },
-  
+  {
+    path: '/store/',
+    componentUrl: './pages/store.html',
+  },
   
   {
     path: '/catalogc/',
