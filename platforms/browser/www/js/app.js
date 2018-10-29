@@ -855,11 +855,25 @@ function loadStore() {
    
 
    $$(".reset").on('click',function(){
-    localStorage.removeItem("cart");
-    localStorage.removeItem("idMember");
-     localStorage.removeItem("purchaseorder");
+       
+    var retVal = confirm("This will clear cart data? Do you want to continue ?");
+    if (retVal == true) {
+        localStorage.removeItem("cart");
+        localStorage.removeItem("idMember");
+         localStorage.removeItem("purchaseorder");
     
-    alert("Cache is now cleared.");
+         mainView.router.refreshPage();
+        
+         alert("Cache is now cleared.");
+    
+        return true;
+    } else {
+
+        return false;
+    }
+
+   
+    
    });
 
  app.showOrders = function() {
