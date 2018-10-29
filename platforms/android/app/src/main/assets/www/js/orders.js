@@ -17,7 +17,7 @@ console.info("Carga Complete...");
 ////////////////////////////////////////////////////////////////////
 
 
-$$('#submitOrder').click(function () {
+$$('.submitOrder').click(function () {
     var i = 1;
     var txtName = $$("#itemName'" + i );
     var txtPrice = $$("#itemPrice'" + i);
@@ -491,7 +491,7 @@ function viewidMember(idMember) {
                     order.cant = rs.rows.item(0).EMAIL;
                     $$('#txt-id').val(rs.rows.item(0).ID);
                     $$('#name').html(rs.rows.item(0).FNAMES);
-                    $$('#price').html(rs.rows.item(0).LNAMES);
+                    $$('#price').html(rs.rows.item(0).PRICE);
                     $$('#sku').html(rs.rows.item(0).PHONE);
                     $$('#cant').html(rs.rows.item(0).EMAIL);
                     //console.log($$(this).attr([id]));
@@ -502,8 +502,8 @@ function viewidMember(idMember) {
 
 function updateMember(order) {
     db.transaction(function (tx) {
-        tx.executeSql('UPDATE PURCHASEORDER SET FNAMES = ?, LNAMES = ?, PHONE = ?, EMAIL = ?, WHERE ID = ?', [
-            order.sku, order.name, order.price, order.id
+        tx.executeSql('UPDATE PURCHASEORDER SET name = ?, price = ?, sku = ?, cant = ?,  total = ?, WHERE id = ?', [
+             order.name, order.price, order.sku,  order.cant, order.total
         ]);
     }, error, function () {
         alert("The order has been updated successfully");

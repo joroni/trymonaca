@@ -814,16 +814,18 @@ function loadStore() {
     app.updatePayForm = function () {
         //eso va a generar un formulario dinamico para paypal
         //con los products y sus precios
+    
         var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
             items: []
         };
-
+        ccname = localStorage.getItem('idMember');
+        csmname = localStorage.getItem('idSalesMngr');
         localStorage.setItem("purchaseorder", JSON.stringify(cart));
         var grandtotal = localStorage.getItem("grndTotal");
         //var statics = '<form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_cart"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="USD" /><input type="hidden" name="business" value="' + business_paypal + '">',
         var statics = '<form><input type="hidden" name="cmd" value="_cart"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="PHP" /><input type="hidden" name="business" value="SUPER 8"><input type="hidden" name="grandtotal" id="grandtotal" value="' + grandtotal + '">',
             dinamic = '',
-            wrapper = $$('#submitForm')
+            wrapper = $$('#submitForm');
 
         wrapper.html('')
 
@@ -851,6 +853,14 @@ function loadStore() {
 
    /***************************** */
    
+
+   $$(".reset").on('click',function(){
+    localStorage.removeItem("cart");
+    localStorage.removeItem("idMember");
+     localStorage.removeItem("purchaseorder");
+    
+    alert("Cache is now cleared.");
+   });
 
  app.showOrders = function() {
     // alert("orders");

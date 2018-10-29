@@ -32,7 +32,7 @@ $$('#submit').click(function () {
     var input = $$('input');
 
     if (txtFname.val() === '' || txtLname.val() === '' || txtPhone.val() === '' || txtEmail.val() ===
-        '' /*|| input === ""*/ ) {
+        '' /*|| input === ""*/) {
         alert("All fields are Required...");
         return;
     }
@@ -67,9 +67,9 @@ $$('#submit').click(function () {
 
 
 $$('#customerList').on("click", ".btn-user-info", function () {
- //   var idMember = $$(this).data("id");
+    //   var idMember = $$(this).data("id");
     var idMember = $$('input.customerid').value();
- 
+
     selectMember(idMember);
     $$("label").addClass("active");
     //$$("#modal-Title").html("View Customer");
@@ -78,7 +78,7 @@ $$('#customerList').on("click", ".btn-user-info", function () {
 
 
 $$('#customerList').on("click", ".btn-editar", function () {
-   // var idMember = $$(this).data("id");
+    // var idMember = $$(this).data("id");
     var idMember = $$('input.customerid').value();
     selectMember(idMember);
     $$("label").addClass("active");
@@ -87,7 +87,7 @@ $$('#customerList').on("click", ".btn-editar", function () {
 });
 
 $$('#customerList').on("click", ".btn-eliminar", function () {
-  //  var idMember = $$(this).data("id");
+    //  var idMember = $$(this).data("id");
     var idMember = $$('input.customerid').value();
     removeMember(idMember);
     memberList();
@@ -148,9 +148,40 @@ $$('#btnStore').on('click', function () {
 function init() {
     db.transaction(function (tx) {
         tx.executeSql('create table if not exists CUSTOMERS(ID, FNAMES, LNAMES,PHONE, EMAIL)');
-        tx.executeSql('create table if not exists PURCHASEORDER(id,sku,cant,name,price,img,available,oldprice,smname,notes,email,timestamp,total)');
-    }, error, exito);
+      //  tx.executeSql('create table if not exists PURCHASEORDER(id,sku,cant,name,price,img,available,oldprice,smname,notes,email,timestamp,total)');
+      tx.executeSql('create table if not exists PURCHASEORDER(ID, CNAME, SMNAME,TOTAL, TIMESTAMP)');
+    },
+     error, exito);
 }
+
+
+
+/*
+db.transaction(function (tx) {
+    tx.executeSql('CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT,sku,name,cant,price)');
+});
+
+
+var userArray = [{ "sku": "0012", "name": "bob", "cant": "2", "price": "105" }, {  "sku": "2000", "name": "bob", "cant": "2", "price": "105" }];
+function saveOrderLocal() {
+    db.transaction(function (tx) {
+        for (var i = 0; i < userArray.length; i++) {
+            tx.executeSql("insert into user(sku,name,cant,price) values(?,?,?,?)", [userArray[i].sku, userArray[i].name,], successCallBack, errorCallBack);
+
+        }
+    });
+
+
+    function successCallBack() {
+        console.log("inserted corrrectly !!");
+    }
+    function errorCallBack(tx, error) {
+        if (query.indexOf('insert into') === -1)
+            alert("Error : " + error.message + " in " + query);
+        console.log(error.message + "in" + tx);
+    }
+
+}*/
 
 function memberList() {
     db.readTransaction(function (t) {
@@ -355,6 +386,28 @@ function saveMember(member) {
 
 
 
+function saveOrderLocal(order) {
+    var order = Object();
+    var i = 1;
+    order.smname = $$("#ssmname").val();
+    order.cname = $$("#ccname").val();
+    order.total = $$("#grandtotal").val();
+    order.timestamp = i++;
+    
+   
+    db.transaction(function (tx) {
+        tx.executeSql('INSERT INTO PURCHASEORDER(ID, CNAME, SMNAME,TOTAL, TIMESTAMP) VALUES(?, ?, ?,?,?)', [
+            order.id, order.cname, order.smname, order.total, order.timestamp
+        ]);
+    }, error, function () {
+        alert("Item Saved.");
+        // $$(".close, .pop-up").trigger();
+        $$(".popup-backdrop").removeClass("backdrop-in");
+
+    });
+}
+
+
 function selectMember(idMember) {
     // localStorage.setItem("customer-name",idMember);
     db.readTransaction(function (t) {
@@ -377,7 +430,7 @@ function selectMember(idMember) {
                         '<div class="item-content">' +
                         '<div class="item-media"><i class="material-icons icon-f7">person</i></div>' +
                         '<div class="item-inner">' +
-                        '<input type="hidden" class="customerid" value="'+ rs.rows.item(0).ID + '" />'+
+                        '<input type="hidden" class="customerid" value="' + rs.rows.item(0).ID + '" />' +
                         '<div class="item-title">' + rs.rows.item(0).FNAMES + ' ' + rs.rows.item(0).LNAMES + '</div>' +
                         '<div class="item-after"></div>' +
                         '</div>' +
@@ -440,8 +493,8 @@ function memberProfile(idMember) {
                         '<div class="item-content">'
                         '<div class="item-media"><i class="material-icons icon-f7">person</i></div>'
                         '<div class="item-inner">'
-                        '<input type="hidden" class="customerid" value="'+ id + '" />'+
-                        '<div class="item-title">' + fname + ' ' + lname + '</div>'
+                        '<input type="hidden" class="customerid" value="' + id + '" />' +
+                            '<div class="item-title">' + fname + ' ' + lname + '</div>'
                         '<div class="item-after"></div>'
                         '</div>'
                         '</div>'
@@ -554,16 +607,16 @@ function savePO(member) {
 }
 
 
-
-function saveOrderLocal(order){
-    var str  = localStorage.getItem("purchaseorder");
+/*
+function saveOrderLocals(order) {
+    var str = localStorage.getItem("purchaseorder");
     db.transaction(function (tx) {
-    tx.executeSql('INSERT INTO PURCHASEORDER (id,sku,cant,name,price,img,available,oldprice,smname,notes,email,timestamp,total) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',[94,JSON.parse(str)]);
-}, error, function () {
-    alert("Item Saved.");
-    $$(".close").trigger();
-});
-}
+        tx.executeSql('INSERT INTO PURCHASEORDER (id,sku,cant,name,price,img,available,oldprice,smname,notes,email,timestamp,total) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)', [94, JSON.parse(str)]);
+    }, error, function () {
+        alert("Item Saved.");
+        $$(".close").trigger();
+    });
+}*/
 
 ////////////////////////////////////////////////////////////////////
 ////////////////////////Funciones de logueo////////////////////
@@ -576,3 +629,4 @@ var exito = function () {
     console.info("Table created...");
 };
 /*************************************** WEBSQL */
+

@@ -44,10 +44,28 @@
           <div class="navbar">
             <div class="navbar-inner">
               <div class="title">Right Panel</div>
+              
             </div>
           </div>
           <div class="page-content">
-            <div class="block">Right panel content goes here</div>
+            <div class="block">
+              <div class="list links-list">
+                <ul>
+                  <li>
+                    <a href="#" class="login-screen-open" data-login-screen="#my-login-screen">Login</a>
+                  </li>
+                  <li>
+                    <a href="#">Orders</a>
+                  </li>
+                  <li>
+                    <a href="#">Settings</a>
+                  </li>
+                  <li>
+                    <a class="reset" href="#">Reset (for development only)</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -69,17 +87,17 @@
               <i class="icon material-icons md-only">person</i>
               <span class="tabbar-label">Customers</span>
             </a>
-            <a href="/category/" id="btnStore"  class="tab-link">
+           <!-- <a href="/category/" id="btnStore"  class="tab-link">
               <i class="icon f7-icons ios-only">shopping_basket</i>
               <i class="icon f7-icons ios-only icon-ios-fill">shopping_basket_fill</i>
               <i class="icon material-icons md-only">shopping_basket</i>
               <span class="tabbar-label">Store</span>
-            </a>
+            </a>-->
             <a href="/store/" class="tab-link">
                 <i class="icon f7-icons ios-only">shopping_cart</i>
                 <i class="icon f7-icons ios-only icon-ios-fill">shopping_cart_fill</i>
                 <i class="icon material-icons md-only">shopping_cart</i>
-                <span class="tabbar-label">StoreB</span>            
+                <span class="tabbar-label">Store</span>            
               </a>
             <a href="#" id="btnCart" class="tab-link  popup-open" data-popup="#my-cart-screen">
               <i class="icon f7-icons ios-only">shopping_cart</i>
@@ -94,7 +112,7 @@
         <!-- Top Navbar -->
         <div class="navbar">
           <div class="navbar-inner">
-            <div class="left">
+            <div class="left hidden">
               <a href="#" class="link icon-only panel-open" data-panel="left">
                 <i class="icon f7-icons ios-only">menu</i>
                 <i class="icon material-icons md-only">menu</i>
@@ -154,7 +172,7 @@
               </li>
             </ul>
           </div>
-          <div class="block-title">Modals</div>
+         <!-- <div class="block-title">Modals</div>
           <div class="block block-strong">
             <div class="row">
                 <div class="col-50">
@@ -164,8 +182,8 @@
                 <a href="#" class="button button-raised button-fill login-screen-open" data-login-screen="#my-login-screen">Login Screen</a>
               </div>
             </div>
-          </div>
-          <div class="block-title">Panels</div>
+          </div>-->
+         <!-- <div class="block-title">Panels</div>
           <div class="block block-strong">
             <div class="row">
               <div class="col-50">
@@ -175,7 +193,7 @@
                 <a href="#" class="button button-raised button-fill panel-open" data-panel="right">Right Panel</a>
               </div>
             </div>
-          </div>
+          </div>-->
           <div class="block-title searchbar-hide-on-search">Page Loaders & Router</div>
           <div class="list links-list searchbar-hide-on-search">
             <ul>
@@ -447,6 +465,10 @@
                   <div id="submitForm"></div>
                   </div>
                   <div class="block">
+                    <a href="#"  class=" button form-to-data button button-raised button-fill popup-close">Save</a>
+                </div>
+                  
+                  <div class="block">
                       <a href="#" class="saveOrderLocal submitOrder button form-to-data button button-raised button-fill popup-close">Submit</a>
                   </div>
                   <br>
@@ -502,7 +524,6 @@
   <!-- Your custom app scripts -->
   <script src="js/app.js"></script>
   <script src="js/customers.js"></script>
-  <script src="js/orders.js"></script>
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src='js/lodash.min.js'></script>
   <script src='js/spin.min.js'></script>
