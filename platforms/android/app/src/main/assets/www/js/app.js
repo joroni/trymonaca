@@ -605,17 +605,21 @@ function loadStore() {
                                 producto.stock,
                                 producto.oldprice,
 
-                                producto.notes,
+                               
 
                                 producto.cname = localStorage.getItem("idMember"),
+                                producto.smname = localStorage.getItem("idSalesMngr"),
                                 producto.check = "notsync",
                                 producto.select,
+                                producto.notes,
                                 producto.email,
-                                producto.smname = localStorage.getItem("idSalesMngr"),
+                               
                                 producto.timestamp,
+                                producto.total = localStorage.getItem("grndTotal"),
                                 producto.ponumber,
-                                producto.birthdate,      
-                                producto.total = localStorage.getItem("grndTotal")
+                                producto.birthdate   
+                               
+                                
                             )
 
                             l.stop();
@@ -670,6 +674,7 @@ function loadStore() {
                 timestamp: timestamp,
                 total: localStorage.getItem("grndTotal"),
                 ponumber: ponumber,
+                birthdate:birthdate
             }
             cart.items.push(prod)
 
@@ -677,7 +682,7 @@ function loadStore() {
         localStorage.setItem('cart', JSON.stringify(cart));
         app.init();
         app.getProducts();
-        app.updatePayForm();
+       // app.updatePayForm();
 
     }
 
@@ -697,6 +702,7 @@ function loadStore() {
             $$('.cart').css('left', '-400%')
         } else {
             $$(".submitBtn").removeClass("hidden");
+            $$(".submitBtn").show();
             var items = '';
             _.forEach(cart.items, function (n, key) {
                 var oldpricing = '';
@@ -749,7 +755,7 @@ function loadStore() {
             localStorage.setItem('cart', JSON.stringify(cart))
             app.init()
             app.getProducts()
-            app.updatePayForm()
+           // app.updatePayForm()
         } else {
             app.deleteProd(id, true)
         }
@@ -772,7 +778,7 @@ function loadStore() {
             localStorage.setItem('cart', JSON.stringify(cart))
             app.init()
             app.getProducts()
-            app.updatePayForm()
+           // app.updatePayForm()
         } else {
             app.deleteProd(id, true)
         }
@@ -793,7 +799,7 @@ function loadStore() {
         localStorage.setItem('cart', JSON.stringify(cart));
         app.init();
         app.getProducts();
-        app.updatePayForm();
+     //   app.updatePayForm();
     }
 
     app.deleteProd = function (id, remove) {
@@ -820,12 +826,32 @@ function loadStore() {
         var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
             items: []
         };
-        ccname = localStorage.getItem('idMember');
+        ccname = localStorage.getItem('cnameMember');
+        ccnumber = localStorage.getItem('idMember');
         csmname = localStorage.getItem('idSalesMngr');
         localStorage.setItem("purchaseorder", JSON.stringify(cart));
         var grandtotal = localStorage.getItem("grndTotal");
+        var ponumber = '';
+        var cnameMember = "John Doe";
+        var poNum = $$(".ponumbr");
+        alert(poNum.val());
+        if (poNum.val() === undefined|| poNum.val() === '') { 
+            setTimeout(function(){  ponumber = new Date().getTime();
+                poNum.val(ponumber); }, 3000);
+           
+        } else { //Lo actualiza
+            ponumber = parseInt(poNum.val());
+            poNum.val(ponumber);
+            
+        }
+
         //var statics = '<form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_cart"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="USD" /><input type="hidden" name="business" value="' + business_paypal + '">',
-        var statics = '<form><input type="hidden" name="cmd" value="_cart"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="PHP" /><input type="hidden" name="business" value="SUPER 8"><input type="hidden" name="grandtotal" id="grandtotal" value="' + grandtotal + '">',
+        var statics = '<form>'+
+                        '<input type="text" name="cmd" value="_cart">'+
+                        '<input type="text" name="ponumbr" class="ponumbr" value="'+ponumber+'">'+
+                        '<input type="text" name="customer_name" value="'+cnameMember+'">'+
+                        '<input type="text" name="customer_number" value="'+ccnumber+'">'+
+                        '<input type="text" name="upload" value="1"><input type="text" name="currency_code" value="PHP" /><input type="text" name="business" value="SUPER 8"><input type="text" name="grandtotal" id="grandtotal" value="' + grandtotal + '">',
             dinamic = '',
             wrapper = $$('#submitForm');
 
@@ -834,16 +860,16 @@ function loadStore() {
         if (undefined != cart && null != cart && cart != '') {
             var i = 1;
             _.forEach(cart.items, function (prod, key) {
-                dinamic += '<input type="hidden" id="itemName' + i + '" name="item_name_' + i + '" value="' + prod.name + '">'
-                dinamic += '<input type="hidden" id="itemPrice' + i + '" name="amount_' + i + '" value="' + prod.price + '">'
-                dinamic += '<input type="hidden" id="itemSKU' + i + '" name="item_sku_' + i + '" value="' + prod.sku + '">'
-                dinamic += '<input type="hidden" id="itemID' + i + '" name="item_number_' + i + '" value="' + prod.id + '" />'
-                dinamic += '<input type="hidden" id="itemCant' + i + '" name="quantity_' + i + '" value="' + prod.cant + '" />'
-                dinamic += '<input type="hidden" id="itemTotal' + i + '" class="grndTotal" name="total_' + i + '" value="' + grandtotal + '" />' // added by jrn
+                dinamic += '<input type="text" id="itemName' + i + '" name="item_name_' + i + '" value="' + prod.name + '">'
+                dinamic += '<input type="text" id="itemPrice' + i + '" name="amount_' + i + '" value="' + prod.price + '">'
+                dinamic += '<input type="text" id="itemSKU' + i + '" name="item_sku_' + i + '" value="' + prod.sku + '">'
+                dinamic += '<input type="text" id="itemID' + i + '" name="item_number_' + i + '" value="' + prod.id + '" />'
+                dinamic += '<input type="text" id="itemCant' + i + '" name="quantity_' + i + '" value="' + prod.cant + '" />'
+                dinamic += '<input type="text" id="itemTotal' + i + '" class="grndTotal" name="total_' + i + '" value="' + grandtotal + '" />' // added by jrn
                 i++;
             })
 
-            statics += dinamic + '<button type="submit" class="pay btn submitBtn btn-success">Submit<i class="ion-chevron-right"></i></button></form>'
+            statics += dinamic + '<a href="#" type="submit" class="button form-to-data button t button-raised button-fill submitBtn btn-success">SUBMIT ORDER<i class="ion-chevron-right"></i></a></form>'
 
             wrapper.html(statics);
 
@@ -880,7 +906,7 @@ function loadStore() {
 
  app.showOrders = function() {
     // alert("orders");
-    var myObj, i, item = "";
+   /* var myObj, i, item = "";
     var po = JSON.parse(localStorage.getItem("purchaseorder"));
     //  var po = localStorage.getItem("purchaseorder");
     console.log(po);
@@ -898,10 +924,10 @@ function loadStore() {
         /* for (j in myObj.menuitems[i].models) {
              items += myObj.menuitems[i].models[j] + "<li class='hidden'>";
          }*/
-    }
+   /* }
 
     $$("#mainOrders").html(item);
-
+*/
 
 }
 
@@ -995,11 +1021,15 @@ $$(document).on('page:init', '.page[data-name="store"]', function (e) {
 
 }
 
+
+
+
+
 /***************************** */
   //  $$(document).ready(function () {
         app.init();
 
-        app.updatePayForm();
+       // app.updatePayForm();
         app.createProducts();
         app.getProducts();
 

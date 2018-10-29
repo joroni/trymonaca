@@ -342,7 +342,7 @@ a.cart-icon {
   margin-top: -27px;
 }
 .cart #submitForm {
-  float: right;
+  float: none;
 }
 
 .modal-content
