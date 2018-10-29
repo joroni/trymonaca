@@ -1,6 +1,6 @@
 routes = [
   {
-    path: '/',
+    path: '/home/',
     url: './index.html',
   },
   {

@@ -693,8 +693,10 @@ function loadStore() {
 
         if (undefined == cart || null == cart || cart == '' || cart.items.length == 0) {
             wrapper.html('<div>Your cart is empty</div>');
+            $$(".submitBtn").hide();
             $$('.cart').css('left', '-400%')
         } else {
+            $$(".submitBtn").removeClass("hidden");
             var items = '';
             _.forEach(cart.items, function (n, key) {
                 var oldpricing = '';
@@ -841,7 +843,7 @@ function loadStore() {
                 i++;
             })
 
-            statics += dinamic + '<button type="submit" class="pay btn btn-success">Submit<i class="ion-chevron-right"></i></button></form>'
+            statics += dinamic + '<button type="submit" class="pay btn submitBtn btn-success">Submit<i class="ion-chevron-right"></i></button></form>'
 
             wrapper.html(statics);
 
