@@ -223,13 +223,9 @@ var mainView = app.views.create('.view-main', {
     url: '/'
 });
 
-/*
-// Init/Create views
-var homeView = app.views.create('#view-home', {
-  url: '/'
-});
 
-*/
+
+
 var settingsView = app.views.create('#view-settings', {
     url: '/settings/'
 });
@@ -253,6 +249,93 @@ $$('#my-login-screen .login-button').on('click', function () {
     app.dialog.alert('Username: ' + username + '<br>Password: ' + password);
 });
 
+$$(document).on('page:init', '.page[data-name="product"]', function (e) {
+    $$(".test").on('click', function (id) {
+        alert("minus");
+    });
+    $$(".stepper-button-plus").on('click', function (id) {
+        id = $$(this).attr("data['id']");
+    //function checkHasUer(){
+        console.log("clicked");
+       
+        
+    if (!localStorage.getItem("idMember")) {
+
+        alert("Please select a customer.");
+     
+        app.router.navigate('/catalogb/');
+     
+        return false;
+    } else {
+        console.log("continue shopping");
+
+
+
+
+        //console.log("add to cart");
+        var l = Ladda.create(document.querySelector('.prod-' + id));
+
+        l.start();
+        var products = JSON.parse(localStorage.getItem('products')),
+            producto = _.find(products, {
+                'id': id
+            }),
+            cant = 1;
+        $$('body').css('opacity', '0.5');
+        if (cant <= producto.stock) {
+            if (undefined != producto) {
+                if (cant > 0) {
+                    setTimeout(function () {
+                        var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
+                            items: []
+                        };
+                        app.searchProd(cart,
+                            producto.id,
+                            producto.sku,
+                            parseInt(cant),
+                            producto.name,
+                            producto.price,
+                            producto.img,
+                            producto.stock,
+                            producto.oldprice,
+
+                           
+
+                            producto.cname = localStorage.getItem("idMember"),
+                            producto.smname = localStorage.getItem("idSalesMngr"),
+                            producto.check = "notsync",
+                            producto.select,
+                            producto.notes,
+                            producto.email,
+                           
+                            producto.timestamp,
+                            producto.total = localStorage.getItem("grndTotal"),
+                            producto.ponumber,
+                            producto.birthdate   
+                           
+                            
+                        )
+
+                        l.stop();
+                        console.log(parseInt(cant))
+                        $$('body').css('opacity', '1');
+                    }, 100)
+
+                } else {
+                    alert('Only larger quantities are allowed to zero');
+                }
+            } else {
+                alert('Oops! Something we wrong, try again later')
+            }
+        } else {
+            alert('You can not add more of this product');
+        }
+
+    }
+})
+
+    alert("about");
+  })
 /*app.getSKU = function(ThisSKU){
     sessionStorage.setItem("skuItem", ThisSKU);
 }
@@ -267,12 +350,7 @@ $$('a.category').on('click', function () {
     // Alert username and password
     app.dialog.alert(selectedCat);
 });
-/*
-$$(document).on('pageInit', '.page[data-page="catalogb"]', function (e) {
-  // Following code will be executed for page with data-page attribute equal to "about"
- alert('Customers page');
-})
-*/
+
 
 
 $$(document).on('page:init', '.page[data-name="store"]', function (e) {
@@ -296,9 +374,6 @@ $$(document).on('page:init', '.page[data-name="catalogb"]', function (e) {
 $$('.task1').on('click', function () {
     app.alert('Task 1 Clicked !!');
  });
-
-
-
 
 
 
@@ -560,7 +635,11 @@ function loadStore() {
         localStorage.setItem('products', JSON.stringify(products))
     }
 
-   
+    $$(document).on('page:init', '.page[data-name="catalogb"]', function (e) {
+        
+     
+    })
+    
     app.addtoCart = function (id) {
         //function checkHasUer(){
            
