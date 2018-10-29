@@ -8,24 +8,38 @@
             <span class="ios-only">Back</span>
           </a>
         </div>
-        <div id="ccompleteName" class="title"></div>
-        <!--<div class="title">{{productb.title}} {{productb.fname}}</div>-->
+      <!--  <div id="ccompleteName" class="title"></div>-->
+        <div class="title">{{productb.title}} {{productb.fname}}</div>
       </div>
     </div>
-
+   
     <div class="page-content">
-      <div class="block-title">{{productb.phone}}</div>
+        <div class="block-title">{{productb.id}}</div>
+      <div class="block-title">{{productb.phone}} | {{ts}}</div>
       <div class="block block-strong">
          <p>{{productb.description}}</p>
          <p>{{productb.add_street}}</p>
          <p>{{productb.add_unit}}, {{productb.add_area}}</p>
          <p>{{productb.add_city}},  {{productb.add_zip}}</p>
       </div>
+      <div class="block">
+        <button class="col button button-active button-big button-fill">CREATE ORDER</button>
+      </div>
+      <div class="block">
+        <p class="segmented segmented-raised">
+         
+          <button class="button ">EDIT</button>
+          <button class="button ">DELETE</button>
+          </p>
+      </div>
     </div>
   </div>
 </template>
 <script>
-  
+    var ts = productb.timestamp.toDateString();
+   
+    
+
   return {
     data: function () {
       var productbId = this.$route.params.id;

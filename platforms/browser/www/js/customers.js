@@ -183,6 +183,8 @@ function saveOrderLocal() {
 
 }*/
 
+
+
 function memberList() {
     db.readTransaction(function (t) {
         t.executeSql('SELECT rowid, ID, FNAMES, LNAMES, PHONE, EMAIL FROM CUSTOMERS', [], function (t, rs) {
