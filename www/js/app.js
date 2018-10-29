@@ -230,6 +230,9 @@ var homeView = app.views.create('#view-home', {
 });
 
 */
+
+
+
 var settingsView = app.views.create('#view-settings', {
     url: '/settings/'
 });
@@ -507,7 +510,7 @@ function loadStore() {
                 content += '<div class="col-4 col-sm-4 no-gutter">'
                 content += '<div class="cards productsonsale" id="prod_click' + products[i].id + '">'
                 content += '<div class="view">'
-                content += '<a href="/product/' + products[i].id + '" data-sku="' + products[i].sku + '" class="item-link item-content">'
+                content += '<a href="/productdetails/' + products[i].id + '" data-sku="' + products[i].sku + '" class="item-link item-content">'
               // content += '<a href="/product/' + products[i].id + '" onclick=getSKU("' + products[i].sku + '") data-sku="' + products[i].sku + '">'
                 content += '<img src="' + products[i].img + '"class="card-img-top"  alt="' + products[i].name + '">'
               
@@ -881,6 +884,69 @@ function loadStore() {
 
    /***************************** */
    
+
+function selectProduct(idProduct) {
+    // localStorage.setItem("customer-name",idMember);
+    db.readTransaction(function (t) {
+        t.executeSql('SELECT ID, FNAMES, LNAMES , PHONE, EMAIL FROM CUSTOMERS WHERE ID = ?', [idProduct],
+            function (t, rs) {
+                if (rs.rows.length > 0) {
+                    var lisHtml = '';
+                    var member = new Object();
+                    member.id = rs.rows.item(0).ID;
+                    member.fname = rs.rows.item(0).FNAMES;
+                    member.lname = rs.rows.item(0).LNAMES;
+                    member.phone = rs.rows.item(0).PHONE;
+                    member.email = rs.rows.item(0).EMAIL;
+                    /* $$('#txt-id').val(rs.rows.item(0).ID);
+                     $$('#fname').val(rs.rows.item(0).FNAMES);
+                     $$('#lname').val(rs.rows.item(0).LNAMES);
+                     $$('#phone').val(rs.rows.item(0).PHONE);
+                     $$('#email').val(rs.rows.item(0).EMAIL);*/
+                    $$('#customerInfo').html('<li>' +
+                        '<div class="item-content">' +
+                        '<div class="item-media"><i class="material-icons icon-f7">person</i></div>' +
+                        '<div class="item-inner">' +
+                        '<input type="hidden" class="customerid" value="' + rs.rows.item(0).ID + '" />' +
+                        '<div class="item-title">' + rs.rows.item(0).FNAMES + ' ' + rs.rows.item(0).LNAMES + '</div>' +
+                        '<div class="item-after"></div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</li>' +
+                        '<li>' +
+                        '<div class="item-content">' +
+                        '<div class="item-media"><i class="material-icons icon-f7">phone</i></div>' +
+                        '<div class="item-inner">' +
+                        '<div class="item-title"> ' + rs.rows.item(0).PHONE + '</div>' +
+                        '<div class="item-after"></div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</li>' +
+                        '<li>' +
+                        '<div class="item-content">' +
+                        '<div class="item-media"><i class="material-icons icon-f7">mail</i></div>' +
+                        '<div class="item-inner">' +
+                        '<div class="item-title">' + rs.rows.item(0).EMAIL + '</div>' +
+                        '<div class="item-after"></div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</li>' +
+                        '<li>' +
+                        '<div class="item-content">' +
+                        '<div class="item-media"><i class="material-icons icon-f7">mail</i></div>' +
+                        '<div class="item-inner">' +
+                        '<div class="item-title">' + rs.rows.item(0).ID + '<input id="memberID" type="hidden" value="' + rs.rows.item(0).ID + '"/></div>' +
+                        '<div class="item-after"></div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</li>')
+
+
+                }
+            }, error);
+    });
+}
+/*************************************8 */
 
    $$(".reset").on('click',function(){
        

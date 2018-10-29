@@ -33,6 +33,10 @@ routes = [
     componentUrl: './pages/product.html',
   },
   {
+    path: '/productdetails/',
+    componentUrl: './pages/productdetails.html',
+  },
+  {
     path: '/productb/:id/',
     componentUrl: './pages/productb.html',
   },
