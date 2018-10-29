@@ -44,8 +44,29 @@
                 <hr>
                 <form class="d-flex justify-content-left" id="thisAddCart">
                   <!-- Default input -->
-                 </form>
+                </form>
+
+
+
                 <div class="block" style="text-align:center;">
+
+                  <div class="input-group qtty-center">
+                    <span class="input-group-btn">
+                      <button type="button" class="btn manage-qtty  btn-number waves-effect waves-light  grey-border"
+                        onclick="app.updateItem(' + products[i].id + ',' + products[i].stock + ')" data-type="minus">
+                        <img src="icons/noun_Remove_1807498-rounded-green.svg">
+                      </button>
+                    </span>
+                    <input type="number" id="prod_{{id}} " readonly name="quant[' products[i]{{id}} ']" class="form-control input-number quantity manage-qtty"
+                      value="0" min="0" max="100">
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-number waves-effect  submit ladda-button waves-light grey-border prod-' + products[i].id + '"
+                        data-type="plus" data-style="slide-right" onclick="app.addtoCart(' + products[i].id + ');">'
+                        <img src="icons/noun_Plus_1807498-rounded-green.svg">'
+                      </button>
+                    </span>
+                  </div>
+                  <!--
                   <div class="stepper stepper-small-md stepper-small stepper-init" style="padding:0; float:none; margin:0 auto;">
                     <div class="stepper-button-minus"></div>
                     <div class="stepper-input-wrap">
@@ -55,20 +76,20 @@
                     <a href="#" class="test">Test</a>
                   </div>
                 </div>
+              </div>-->
+                  <!--Content-->
+
+                </div>
+                <!--Grid column-->
+
               </div>
-              <!--Content-->
+              <!--Grid row-->
+
+              <hr>
+
+
 
             </div>
-            <!--Grid column-->
-
-          </div>
-          <!--Grid row-->
-
-          <hr>
-
-
-
-        </div>
       </main>
 
 
