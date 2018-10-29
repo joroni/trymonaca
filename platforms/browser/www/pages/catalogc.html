@@ -1,14 +1,38 @@
 <template>
-    <div class="page" id="catalogb" data-name="catalogb">
+    <div class="page" id="catalogc" data-name="catalogc">
+        <div class="navbar">
+          <div class="navbar-inner sliding">
+            <div class="title">Customers</div>
+            <div class="subnavbar">
+              <form data-search-container=".virtual-list" data-search-item="li" data-search-in=".item-title" class="searchbar searchbar-init">
+                <div class="searchbar-inner">
+                  <div class="searchbar-input-wrap">
+                    <input type="search" placeholder="Search"/>
+                    <i class="searchbar-icon"></i>
+                    <span class="input-clear-button"></span>
+                  </div>
+                  <span class="searchbar-disable-button">Cancel</span>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="searchbar-backdrop"></div>
+        <div class="page-content">
+          <div class="list simple-list searchbar-not-found">
+            <ul>
+              <li>Nothing found</li>
+            </ul>
+          </div>
+          <div class="list virtual-list media-list searchbar-found"></div>
+        </div>
+      </div>
+    </template>
+
+    <!-- <div class="page" id="catalogb" data-name="catalogb">
         <div class="navbar">
             <div class="navbar-inner sliding">
-                <div class="left">
-                    <a href="#" class="link back">
-                        <i class="icon icon-back"></i>
-                        <span class="ios-only">Back</span>
-                    </a>
-                </div>
-                <div class="title">Customer</div>
+                <div class="title">Customers</div>
             </div>
         </div>
         <div class="fab fab-right-bottom">
@@ -18,13 +42,8 @@
         </div>
         <div class="page-content">
             <div class="list links-list">
-                <ul id="customerList">
-
-                    <div class="no-items centered">
-                        No items.
-                    </div>
-                </ul>
-                <!--<ul id="li-integrantes">
+                <ul id="customerList"></ul>
+               <ul id="li-integrantes">
                     {{#each productbs}}
 					<li>
 						<a href="/productb/{{id}}/">{{title}} {{fname}}</a>
@@ -34,9 +53,47 @@
             </div>
 
         </div>
-
+       
     </div>
-</template>
+<script>
+// Dummy items array
+var items = [];
+for (var i = 1; i <= 10000; i++) {
+  items.push({
+    title: 'Item ' + i,
+    subtitle: 'Subtitle ' + i
+  });
+}
+
+var virtualList = app.virtualList.create({
+  // List Element
+  el: '.virtual-list',
+  // Pass array with items
+  items: items,
+  // Custom search function for searchbar
+  searchAll: function (query, items) {
+    var found = [];
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+    }
+    return found; //return array with mathced indexes
+  },
+  // List item Template7 template
+  itemTemplate:
+    '<li>' +
+      '<a href="#" class="item-link item-content">' +
+        '<div class="item-inner">' +
+          '<div class="item-title-row">' +
+            '<div class="item-title">{{title}}</div>' +
+          '</div>' +
+          '<div class="item-subtitle">{{subtitle}}</div>' +
+        '</div>' +
+      '</a>' +
+    '</li>',
+  // Item height
+  height: app.theme === 'ios' ? 63 : 73,
+});
+</script>
 <!--<script>
     var db = openDatabase('super8', '1.0', 'Customers and Order processing', 100 * 1024);
 
