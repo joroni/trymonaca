@@ -571,20 +571,20 @@ function loadStore() {
         localStorage.setItem('products', JSON.stringify(products))
     }
     $$(document).on('page:init', '.page[data-name="catalogb"]', function (e) {
-        //alert("Catalogb");
+        console.alert("Catalogb");
     })
     app.addtoCart = function (id) {
         //function checkHasUer(){
         if (!localStorage.getItem("idMember")) {
             alert("Please select a customer.");
-            app.router.navigate('/customerinfo/');
+            app.router.navigate('/catalogb/');
             return false;
         } else {
             console.log("continue shopping");
             //console.log("add to cart");
             // var l = Ladda.create(document.querySelector('.prod-' + id));
             // var l = Ladda.create($$('.prod-' + id));
-            Ladda.bind('.prod-' + id, {
+             var l= Ladda.bind('.prod-' + id, {
                 timeout: 2000
             });
             l.start();
@@ -699,7 +699,8 @@ function loadStore() {
             _.forEach(cart.items, function (n, key) {
                 var oldpricing = '';
                 if (n.oldprice != 0 || n.oldprice != '') {
-                    var oldpricing = currency_icon + '' + n.oldprice.toFixed(2)
+                   // var oldpricing = currency_icon + '' + n.oldprice.toFixed(2)
+                   var oldpricing = currency_icon + '' + n.oldprice;
                 } else {
                     var oldpricing = '';
                 }
