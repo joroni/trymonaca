@@ -219,7 +219,6 @@ var app = new Framework7({
 var mainView = app.views.create('.view-main', {
     url: '/'
 });
-<<<<<<< HEAD
 
 /*
 // Init/Create views
@@ -231,8 +230,6 @@ var homeView = app.views.create('#view-home', {
 
 
 
-=======
->>>>>>> bdebce57d2a54924d2b7d44e32cca8520d1c8671
 var settingsView = app.views.create('#view-settings', {
     url: '/settings/'
 });
@@ -539,13 +536,8 @@ function loadStore() {
                 content += '<div class="col-4 col-sm-4 no-gutter">'
                 content += '<div class="cards productsonsale" id="prod_click' + products[i].id + '">'
                 content += '<div class="view">'
-<<<<<<< HEAD
                 content += '<a href="/productdetails/' + products[i].id + '" data-sku="' + products[i].sku + '" class="item-link item-content">'
               // content += '<a href="/product/' + products[i].id + '" onclick=getSKU("' + products[i].sku + '") data-sku="' + products[i].sku + '">'
-=======
-                content += '<a href="/product/' + products[i].id + '" data-sku="' + products[i].sku + '" class="item-link item-content">'
-                // content += '<a href="/product/' + products[i].id + '" onclick=getSKU("' + products[i].sku + '") data-sku="' + products[i].sku + '">'
->>>>>>> bdebce57d2a54924d2b7d44e32cca8520d1c8671
                 content += '<img src="' + products[i].img + '"class="card-img-top"  alt="' + products[i].name + '">'
                 // content += '<a href="#" class="getsku" data-sku="' + products[i].sku + '">'
                 // content += '<div class="mask rgba-white-slight"></div>'
@@ -860,7 +852,6 @@ function loadStore() {
             wrapper.html(statics);
         }
     }
-<<<<<<< HEAD
 
    /***************************** */
    
@@ -944,44 +935,6 @@ function selectProduct(idProduct) {
     } else {
 
         return false;
-=======
-    /***************************** */
-    $$(".reset").on('click', function () {
-        var retVal = confirm("This will clear cart data? Do you want to continue ?");
-        if (retVal == true) {
-            localStorage.removeItem("cart");
-            localStorage.removeItem("idMember");
-            localStorage.removeItem("purchaseorder");
-            mainView.router.refreshPage();
-            alert("Cache is now cleared.");
-            return true;
-        } else {
-            return false;
-        }
-    });
-    app.showOrders = function () {
-        // alert("orders");
-        /* var myObj, i, item = "";
-         var po = JSON.parse(localStorage.getItem("purchaseorder"));
-         //  var po = localStorage.getItem("purchaseorder");
-         console.log(po);
-         myObj = po;
-         for (i in myObj.items) {
-             item += '<a href="product-page.html" onclick=app.getSKU("' + myObj.items[i].sku + '") data-sku="' +  myObj.items[i].sku + '" class="list-group-item list-group-item-action flex-column align-items-start">'
-             item += '<div class="d-flex w-100 justify-content-between">'
-             item += '<h5 class="mb-2 h5">' + myObj.items[i].notes + '</h5>'
-             item += '<small class="order-status">Not Synced</small>'
-             item += '</div>'
-             item += '<p class="mb-2">' + myObj.items[i].cname + '</p>'
-             item += '</a>';
-             //  items += '<li class="nav-item"><a class="nav-link waves-effect" href="' + myObj.menuitems[i].url + '">' + myObj.menuitems[i].notes + '</li>';
-             /* for (j in myObj.menuitems[i].models) {
-                  items += myObj.menuitems[i].models[j] + "<li class='hidden'>";
-              }*/
-        /* }
-         $$("#mainOrders").html(item);
-     */
->>>>>>> bdebce57d2a54924d2b7d44e32cca8520d1c8671
     }
     /************************************* */
     $$(document).on('page:init', '.page[data-name="store"]', function (e) {
@@ -1072,5 +1025,6 @@ function selectProduct(idProduct) {
     localStorage.setItem("myCurrency", currency_icon);
     /******************* */
     //   })
+})
 }
 /**************************************** CART */
