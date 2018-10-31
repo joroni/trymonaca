@@ -3,7 +3,7 @@
 var db = openDatabase('super8', '1.0', 'Customers and Order processing', 100 * 1024);
 
 //$$(document).on('pageInit', '.page[data-page="home"]', function (e) {
-
+    $$(document).on('DOMContentLoaded', function(){
 //  alert('Customers page');
 
 //$$(document).ready(function () {
@@ -140,7 +140,7 @@ $$('#btnStore').on('click', function () {
     loadStore();
 });
 
-//});
+});
 
 ////////////////////////////////////////////////////////////////////
 ///////////////////////funciones para el CRUd///////////////////////
