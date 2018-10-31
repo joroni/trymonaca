@@ -253,7 +253,9 @@ $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
     
 })
 $$(document).on('page:init', '.page[data-name="product"]', function (e) {
-  
+  $$(".stepper-button-plus").on('click', function(){
+      alert("hi");
+  })
     $$(".test").on('click', function (id) {
         alert("minus");
     });
@@ -545,6 +547,7 @@ function loadStore() {
             oldpricing = ''
     
 //var vv =  0;
+var cart_array = [];
         for (var i = 0; i < products.length; i++) {
 
             if (products[i].stock > 0 ) {
@@ -556,24 +559,24 @@ function loadStore() {
                
               var cart = JSON.parse(localStorage.getItem('cart'));
             
-           
+          
               if (undefined != cart.items && cart.items != null && cart.items != '' && cart.items.length > 0) {
                 _.forEach(cart.items, function (n, key) {
                     if(n.id == products[i].id){
-                        cant =  n.id
+                        cart_array[products[i].id] =  n.cant;
                     }else{
                         cant = 0
                     }
                    
                 });
             }
-        console.log(cant);
+        console.log(cart_array);
                 content2 = '';
                 content2 += '<div id="myStepper_'+ products[i].id+'" data-id="'+ products[i].id + '" class="stepper stepper-small-md stepper-small stepper-init" style="padding:0; float:right; margin:0 auto;">'
                 content2 += '<div class="stepper-button-minus" onclick="app.updateItem(' + products[i].id + ',' + products[i].stock + ')"  data-type="minus"></div>'
                 /*content2 += '<input type="number" id="prod_' + products[i].id + '" readonly name="quant[' + products[i].id + ']" class="form-control input-number quantity manage-qtty"  value="'+ carts.items[vv].cant + '" min="0" max="100">'*/
-                content2 += '<input type="number" id="prod_' + products[i].id + '" readonly name="quant[' + products[i].id + ']" class="form-control input-number quantity manage-qtty"  value="0" min="0" max="100">'
-                content2 += ' <div class="stepper-button-plus" prod-' + products[i].id + '"  data-type="plus" data-style="slide-right" onclick="app.addtoCart(' + products[i].id + ');" ></div>'
+                content2 += '<input type="number" id="prod_' + products[i].id + '" data-id='+ products[i].id +'  readonly name="quant[' + products[i].id + ']" class="form-control input-number quantity manage-qtty"  value="'+cart_array[products[i].id]+'" min="0" max="100">'
+                content2 += ' <div class="stepper-button-plus" prod-' + products[i].id + '"   data-type="plus" data-style="slide-right" onclick="app.addtoCart(' + products[i].id + ');" ></div>'
                 content2 += '</div>'
 
                 
@@ -623,6 +626,7 @@ function loadStore() {
                 timeout: 2000
             });
          //   l.start();
+         var cart_array = [];
             var products = JSON.parse(localStorage.getItem('products')),
                 producto = _.find(products, {
                     'id': id
@@ -657,7 +661,29 @@ function loadStore() {
                                 producto.birthdate
                             )
                           //  l.stop();
-                            console.log(parseInt(cant))
+
+                          /******************* */
+
+                          var cart = JSON.parse(localStorage.getItem('cart'));
+            
+            
+                          if (undefined != cart.items && cart.items != null && cart.items != '' && cart.items.length > 0) {
+                            _.forEach(cart.items, function (n, key) {
+                                if(n.id == producto.id){
+                                    cart_array[producto.id] =  n.cant;
+                                   
+                                }else{
+                                    cant = 0
+                                }  
+                               
+                            });
+                           
+                        }
+                        console.log(cart_array[producto.id]);
+                        $$("#prod_"+producto.id).val('');
+                        $$("#prod_"+producto.id).val(cart_array[producto.id]);
+                          /********************* */
+                           // console.log(parseInt(cant))
                             $$('body').css('opacity', '1');
                         }, 100)
                     } else {
