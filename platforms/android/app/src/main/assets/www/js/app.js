@@ -246,13 +246,21 @@ $$('#my-login-screen .login-button').on('click', function () {
 $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
   //  app.createProducts();
     console.log("catalog");
+
+
+    loadStore();
+
+    
 })
 $$(document).on('page:init', '.page[data-name="product"]', function (e) {
   
     $$(".test").on('click', function (id) {
         alert("minus");
     });
-    $$(".stepper-button-plus").on('click', function (id) {
+  // var id = $$(this).attr("data['id']");
+ //  $$('.mystepper'+id).clone().appendTo('#myStepper_'+id);
+ //  $$('#myStepper_'+id).clone().appendTo()
+   /* $$(".stepper-button-plus").on('click', function (id) {
         id = $$(this).attr("data['id']");
         //function checkHasUer(){
         var oldpricing = currency_icon + '' + n.oldprice
@@ -319,7 +327,7 @@ $$(document).on('page:init', '.page[data-name="product"]', function (e) {
                 alert('You can not add more of this product');
             }
         }
-    })
+    })*/
     //alert("about");
 
     /*app.getSKU = function(ThisSKU){
@@ -400,7 +408,7 @@ function loadStore() {
                     oldprice: '',
                     price: 299.00,
                     desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
-                    stock: '4',
+                    stock: '5',
                     cname: '',
                     check: '',
                     select: '',
@@ -423,7 +431,7 @@ function loadStore() {
                     oldprice: 630.00,
                     price: 503.00,
                     desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
-                    stock: '2',
+                    stock: '5',
                     cname: '',
                     check: '',
                     select: '',
@@ -536,30 +544,49 @@ function loadStore() {
             content2 = '',
             oldpricing = ''
     
-
+var vv =  0;
         for (var i = 0; i < products.length; i++) {
+
             if (products[i].stock > 0 ) {
             if (products[i].oldprice != 0 || products[i].oldprice != '') {
                     oldpricing = currency_icon + '' + products[i].oldprice.toFixed(2)
                 } else {
                     oldpricing = '';
                 }
+               
+              var cart = JSON.parse(localStorage.getItem('cart'));
+            
+           
+              if (undefined != cart.items && cart.items != null && cart.items != '' && cart.items.length > 0) {
+                _.forEach(cart.items, function (n, key) {
+                    if(n.id == products[i].id){
+                        cant =  n.id
+                    }else{
+                        cant = 0
+                    }
+                   
+                });
+            }
+        console.log(cant);
                 content2 = '';
-                content2 += '<span></span><div data-id="'+ products[i].id + '" class="stepper stepper-small-md stepper-small stepper-init" style="padding:0; float:right; margin:0 auto;">'
+                content2 += '<div id="myStepper_'+ products[i].id+'" data-id="'+ products[i].id + '" class="stepper stepper-small-md stepper-small stepper-init" style="padding:0; float:right; margin:0 auto;">'
                 content2 += '<div class="stepper-button-minus" onclick="app.updateItem(' + products[i].id + ',' + products[i].stock + ')"  data-type="minus"></div>'
+                /*content2 += '<input type="number" id="prod_' + products[i].id + '" readonly name="quant[' + products[i].id + ']" class="form-control input-number quantity manage-qtty"  value="'+ carts.items[vv].cant + '" min="0" max="100">'*/
                 content2 += '<input type="number" id="prod_' + products[i].id + '" readonly name="quant[' + products[i].id + ']" class="form-control input-number quantity manage-qtty"  value="0" min="0" max="100">'
                 content2 += ' <div class="stepper-button-plus" prod-' + products[i].id + '"  data-type="plus" data-style="slide-right" onclick="app.addtoCart(' + products[i].id + ');" ></div>'
                 content2 += '</div>'
 
                 
-
+               
                
                 
               
-                $$('#stepper_prod_'+products[i].id+'').html('');
-                $$('#stepper_prod_'+products[i].id+'').html(content2);          
+             //   $$('#stepper_prod_'+products[i].id+'').html('');
+               // $$('#stepper_prod_'+products[i].id+'').html(content2);  
+                $$('.mystepper'+products[i].id+'').html('');
+                $$('.mystepper'+products[i].id+'').html(content2);    
             }
-     
+     vv++;
         }
     
         for (var i = 0; i < products.length; i++) {
@@ -629,7 +656,7 @@ function loadStore() {
                                 producto.ponumber,
                                 producto.birthdate
                             )
-                            l.stop();
+                          //  l.stop();
                             console.log(parseInt(cant))
                             $$('body').css('opacity', '1');
                         }, 100)

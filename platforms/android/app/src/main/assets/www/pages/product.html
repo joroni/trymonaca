@@ -45,18 +45,9 @@
                   <form class="d-flex justify-content-left" id="thisAddCart">
                     <!-- Default input -->
                    </form>
-                  <div class="block" id="stepper_{{product.desc}}" style="text-align:center;">
-                    <div class="stepper stepper-small-md stepper-small stepper-init" style="padding:0; float:none; margin:0 auto;">
-                      <div class="stepper-button-minus"></div>
-                      <div class="stepper-input-wrap">
-                        <input type="text" readonly>
-                      </div>
-                      <!--<div class="stepper-button-plus"  data-price="{{product.price}}" data-stock="{{product.stock}}"   data-name="{{product.title}}" data-image="{{product.img}}" data-id="{{product.id}}" onclick="app.addtoCart('{{product.id}}');"></div>-->
-                      <div class="stepper-button-plus"  data-price="{{product.price}}" data-stock="{{product.stock}}"   data-name="{{product.title}}" data-image="{{product.img}}"  data-id="{{product.id}}" ></div>
-                      
-  
-                    </div>
-                  </div>
+                   <div data-id="{{product.id}}" class="mystepper{{product.id}}">
+                   </div>
+                 
                 </div>
                 <!--Content-->
   
