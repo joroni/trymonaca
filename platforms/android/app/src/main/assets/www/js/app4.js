@@ -244,7 +244,7 @@ $$('#my-login-screen .login-button').on('click', function () {
     app.dialog.alert('Username: ' + username + '<br>Password: ' + password);
 });
 $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
-  //  app.createProducts();
+    app.createProducts();
     console.log("catalog");
 })
 $$(document).on('page:init', '.page[data-name="product"]', function (e) {
@@ -527,45 +527,92 @@ function loadStore() {
                     total: ''
                 }
             ],
-            
             wrapper = $$('.productosWrapper'),
       //      wrapper2 = $$('#stepper_prod_'+ products[i].id),
-            stepper2 = $$('.stepper'),
             wrapper2 = $$('.mystepper'),
             content = '',
             content2 = '',
             oldpricing = ''
-    
+      /*  for (var i = 0; i < products.length; i++) {
+            if (products[i].stock > 0) {
+                if (products[i].oldprice != 0 || products[i].oldprice != '') {
+                    oldpricing = currency_icon + '' + products[i].oldprice.toFixed(2)
+                } else {
+                    oldpricing = '';
+                }
+                content += '<div class="col-4 col-sm-4 no-gutter">'
+                content += '<div class="cards productsonsale" id="prod_click' + products[i].id + '">'
+                content += '<div class="view">'
+                content += '<a href="/product/' + products[i].id + '" data-sku="' + products[i].sku + '" class="item-link item-content">'
+                // content += '<a href="/product/' + products[i].id + '" onclick=getSKU("' + products[i].sku + '") data-sku="' + products[i].sku + '">'
+                content += '<img src="' + products[i].img + '"class="card-img-top"  alt="' + products[i].name + '">'
+                // content += '<a href="#" class="getsku" data-sku="' + products[i].sku + '">'
+                // content += '<div class="mask rgba-white-slight"></div>'
+                content += '</a>'
+                content += '</div>'
+                content += '<div class="card-body text-center parent">'
+                content += '<a href="#" class="grey-text truncate">'
+                content += '<h5 class="category">' + products[i].cat + '</h5>'
+                content += '</a>'
+                content += '<div class="truncate">'
+                content += '<h5>'
+                content += '<a href="" class="dark-grey-text"> ' + products[i].name + '</a>'
+                content += '</h5>'
+                content += '<p class="badge statebadge badge-pill ' + products[i].statecolor + '">' + products[i].state + '</p>'
+                content += '</div>'
+                content += '<h4 class=" blue-text">'
+                content += '<del>' + oldpricing + ' </del>'
+                content += '<span>' + currency_icon + '' + products[i].price.toFixed(2) + ' </span>'
+                content += '</h4>'
+                content += '<h3 class="hidden">We have: <span class="stock">' + products[i].stock + '</span></h3>'
+                content += '<div class="input-group qtty-center">'
+                content += '<span class="input-group-btn">'
+                content += '<button type="button" class="btn manage-qtty  btn-number waves-effect waves-light  grey-border" onclick="app.updateItem(' + products[i].id + ',' + products[i].stock + ')"  data-type="minus">'
+                content += '<img src="icons/noun_Remove_1807498-rounded-green.svg">'
+                content += '</button>'
+                content += '</span>'
+                content += '<input type="number" id="prod_' + products[i].id + '" readonly name="quant[' + products[i].id + ']" class="form-control input-number quantity manage-qtty"  value="0" min="0" max="100">'
+                content += '<span class="input-group-btn">'
+                content += '<button type="button" class="btn btn-number waves-effect  submit ladda-button waves-light grey-border prod-' + products[i].id + '"  data-type="plus" data-style="slide-right" onclick="app.addtoCart(' + products[i].id + ');">'
+                content += '<img src="icons/noun_Plus_1807498-rounded-green.svg">'
+                content += '</button>'
+                content += '</span>'
+                content += '</div>'
+                content += '</div></div>'
+                content += '</div>'
+                content += '</div>'
+                content += '</div>'
+            }
+        }
+        wrapper.html(content);
+
+*/
 
         for (var i = 0; i < products.length; i++) {
-            if (products[i].stock > 0 ) {
+            if (products[i].stock > 0) {
                 /*if (products[i].oldprice != 0 || products[i].oldprice != '') {
                     oldpricing = currency_icon + '' + products[i].oldprice.toFixed(2)
                 } else {
                     oldpricing = '';
                 }*/
-                content2 = '';
-                content2 += '<div data-id="'+ products[i].id + '" class="stepper stepper-small-md stepper-small stepper-init" style="padding:0; float:right; margin:0 auto;">'
+        
+                content2 += '<div class="stepper stepper-small-md stepper-small stepper-init" style="padding:0; float:right; margin:0 auto;">'
                 content2 += '<div class="stepper-button-minus" onclick="app.updateItem(' + products[i].id + ',' + products[i].stock + ')"  data-type="minus"></div>'
+              
                 content2 += '<input type="number" id="prod_' + products[i].id + '" readonly name="quant[' + products[i].id + ']" class="form-control input-number quantity manage-qtty"  value="0" min="0" max="100">'
                 content2 += ' <div class="stepper-button-plus" prod-' + products[i].id + '"  data-type="plus" data-style="slide-right" onclick="app.addtoCart(' + products[i].id + ');" ></div>'
+                
                 content2 += '</div>'
 
-                
+
 
                
                 
               
-                $$('#stepper_prod_'+products[i].id+'').html('');
-                $$('#stepper_prod_'+products[i].id+'').html(content2);          
+                $$('#stepper_prod_'+  products[i].id).html(content2);
             }
-     
         }
-    
-        for (var i = 0; i < products.length; i++) {
-           
-        }
-    //$$('#stepper_prod_'+  products[i].id).html(content2);
+    //$$('#stepper_prod_'+ i++).html(content2);
       // wrapper2.html(content2);
         localStorage.setItem('products', JSON.stringify(products))
     }

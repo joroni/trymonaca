@@ -215,6 +215,12 @@ var app = new Framework7({
     // App routes
     routes: routes,
 });
+
+
+var business_paypal = '', // aquí va tu correo electrónico de paypal
+currency_icon = '₱';
+
+
 // Init/Create main view
 var mainView = app.views.create('.view-main', {
     url: '/'
@@ -237,17 +243,23 @@ $$('#my-login-screen .login-button').on('click', function () {
     // Alert username and password
     app.dialog.alert('Username: ' + username + '<br>Password: ' + password);
 });
+$$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
+  //  app.createProducts();
+    console.log("catalog");
+})
 $$(document).on('page:init', '.page[data-name="product"]', function (e) {
+  
     $$(".test").on('click', function (id) {
         alert("minus");
     });
     $$(".stepper-button-plus").on('click', function (id) {
         id = $$(this).attr("data['id']");
         //function checkHasUer(){
-        console.log("clicked");
+        var oldpricing = currency_icon + '' + n.oldprice
+        console.log("clicked" + id);
         if (!localStorage.getItem("idMember")) {
             alert("Please select a customer.");
-            app.router.navigate('/store/');
+            app.router.navigate('/catalogb/');
             return false;
         } else {
             console.log("continue shopping");
@@ -256,7 +268,7 @@ $$(document).on('page:init', '.page[data-name="product"]', function (e) {
             Ladda.bind('.prod-' + id, {
                 timeout: 2000
             });
-            l.start();
+            //  l.start();
             var products = JSON.parse(localStorage.getItem('products')),
                 producto = _.find(products, {
                     'id': id
@@ -309,39 +321,42 @@ $$(document).on('page:init', '.page[data-name="product"]', function (e) {
         }
     })
     //alert("about");
-})
-/*app.getSKU = function(ThisSKU){
-    sessionStorage.setItem("skuItem", ThisSKU);
-}
-*/
-//var ThisSKU = $$(this).attr("data-sku");
-$$('a.getsku').on('click', function () {
-    sessionStorage.setItem("skuItem", ThisSKU);
-    app.dialog.alert(selectedCat);
-});
-$$('a.category').on('click', function () {
-    var selectedCat = $$(this).html();
-    // Alert username and password
-    app.dialog.alert(selectedCat);
-});
-$$(document).on('page:init', '.page[data-name="store"]', function (e) {
-    console.log('Store');
+
+    /*app.getSKU = function(ThisSKU){
+        sessionStorage.setItem("skuItem", ThisSKU);
+    }
+    */
+    //var ThisSKU = $$(this).attr("data-sku");
+    $$('a.getsku').on('click', function () {
+        sessionStorage.setItem("skuItem", ThisSKU);
+        app.dialog.alert(selectedCat);
+    });
+    $$('a.category').on('click', function () {
+        var selectedCat = $$(this).html();
+        // Alert username and password
+        app.dialog.alert(selectedCat);
+    });
+    
+    $$(document).on('page:init', '.page[data-name="store"]', function (e) {
+        console.log('Store');
+        loadStore();
+        // Do something here when page with data-name="about" attribute loaded and initialized
+    })
+    $$(document).on('page:init', '.page[data-name="catalogb"]', function (e) {
+        console.log('Catalogb');
+        loadStore();
+        memberList();
+        // Do something here when page with data-name="about" attribute loaded and initialized
+    })
+    $$('.task1').on('click', function () {
+        app.alert('Task 1 Clicked !!');
+    });
     loadStore();
-    // Do something here when page with data-name="about" attribute loaded and initialized
 })
-$$(document).on('page:init', '.page[data-name="catalogb"]', function (e) {
-    console.log('Catalogb');
-    // loadStore();
-    memberList();
-    // Do something here when page with data-name="about" attribute loaded and initialized
-})
-$$('.task1').on('click', function () {
-    app.alert('Task 1 Clicked !!');
-});
 /**************************************** CART */
 function loadStore() {
     var business_paypal = '', // aquí va tu correo electrónico de paypal
-        currency_icon = '₱';
+        currency_icon = '₱',
     mockIdSalesMngr = '1111111111111';
     localStorage.setItem("myCurrency", currency_icon);
     localStorage.setItem("idSalesMngr", mockIdSalesMngr);
@@ -385,7 +400,7 @@ function loadStore() {
                     oldprice: '',
                     price: 299.00,
                     desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
-                    stock: 4,
+                    stock: '4',
                     cname: '',
                     check: '',
                     select: '',
@@ -408,7 +423,7 @@ function loadStore() {
                     oldprice: 630.00,
                     price: 503.00,
                     desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
-                    stock: 2,
+                    stock: '2',
                     cname: '',
                     check: '',
                     select: '',
@@ -431,7 +446,7 @@ function loadStore() {
                     oldprice: '',
                     price: 99.00,
                     desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
-                    stock: 1,
+                    stock: '1',
                     cname: '',
                     check: '',
                     select: '',
@@ -477,7 +492,7 @@ function loadStore() {
                     oldprice: '',
                     price: 440.00,
                     desc: 'Hot drink with slightly sweet and strong taste from aged quality ginger',
-                    stock: 20,
+                    stock: '20',
                     cname: '',
                     check: '',
                     select: '',
@@ -500,7 +515,7 @@ function loadStore() {
                     oldprice: '',
                     price: 80.00,
                     desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
-                    stock: 8,
+                    stock: '8',
                     cname: '',
                     check: '',
                     select: '',
@@ -512,67 +527,60 @@ function loadStore() {
                     total: ''
                 }
             ],
+            
             wrapper = $$('.productosWrapper'),
+      //      wrapper2 = $$('#stepper_prod_'+ products[i].id),
+            stepper2 = $$('.stepper'),
+            wrapper2 = $$('.mystepper'),
             content = '',
+            content2 = '',
             oldpricing = ''
+    
+
         for (var i = 0; i < products.length; i++) {
-            if (products[i].stock > 0) {
-                if (products[i].oldprice != 0 || products[i].oldprice != '') {
+            if (products[i].stock > 0 ) {
+                /*if (products[i].oldprice != 0 || products[i].oldprice != '') {
                     oldpricing = currency_icon + '' + products[i].oldprice.toFixed(2)
                 } else {
                     oldpricing = '';
-                }
-                content += '<div class="col-4 col-sm-4 no-gutter">'
-                content += '<div class="cards productsonsale" id="prod_click' + products[i].id + '">'
-                content += '<div class="view">'
-                content += '<a href="/product/' + products[i].id + '" data-sku="' + products[i].sku + '" class="item-link item-content">'
-                // content += '<a href="/product/' + products[i].id + '" onclick=getSKU("' + products[i].sku + '") data-sku="' + products[i].sku + '">'
-                content += '<img src="' + products[i].img + '"class="card-img-top"  alt="' + products[i].name + '">'
-                // content += '<a href="#" class="getsku" data-sku="' + products[i].sku + '">'
-                // content += '<div class="mask rgba-white-slight"></div>'
-                content += '</a>'
-                content += '</div>'
-                content += '<div class="card-body text-center parent">'
-                content += '<a href="#" class="grey-text truncate">'
-                content += '<h5 class="category">' + products[i].cat + '</h5>'
-                content += '</a>'
-                content += '<div class="truncate">'
-                content += '<h5>'
-                content += '<a href="" class="dark-grey-text"> ' + products[i].name + '</a>'
-                content += '</h5>'
-                content += '<p class="badge statebadge badge-pill ' + products[i].statecolor + '">' + products[i].state + '</p>'
-                content += '</div>'
-                content += '<h4 class=" blue-text">'
-                content += '<del>' + oldpricing + ' </del>'
-                content += '<span>' + currency_icon + '' + products[i].price.toFixed(2) + ' </span>'
-                content += '</h4>'
-                content += '<h3 class="hidden">We have: <span class="stock">' + products[i].stock + '</span></h3>'
-                content += '<div class="input-group qtty-center">'
-                content += '<span class="input-group-btn">'
-                content += '<button type="button" class="btn manage-qtty  btn-number waves-effect waves-light  grey-border" onclick="app.updateItem(' + products[i].id + ',' + products[i].stock + ')"  data-type="minus">'
-                content += '<img src="icons/noun_Remove_1807498-rounded-green.svg">'
-                content += '</button>'
-                content += '</span>'
-                content += '<input type="number" id="prod_' + products[i].id + '" readonly name="quant[' + products[i].id + ']" class="form-control input-number quantity manage-qtty"  value="0" min="0" max="100">'
-                content += '<span class="input-group-btn">'
-                content += '<button type="button" class="btn btn-number waves-effect  submit ladda-button waves-light grey-border prod-' + products[i].id + '"  data-type="plus" data-style="slide-right" onclick="app.addtoCart(' + products[i].id + ');">'
-                content += '<img src="icons/noun_Plus_1807498-rounded-green.svg">'
-                content += '</button>'
-                content += '</span>'
-                content += '</div>'
-                content += '</div></div>'
-                content += '</div>'
-                content += '</div>'
-                content += '</div>'
+                }*/
+                content2 = '';
+                content2 += '<div data-id="'+ products[i].id + '" class="stepper stepper-small-md stepper-small stepper-init" style="padding:0; float:right; margin:0 auto;">'
+                content2 += '<div class="stepper-button-minus" onclick="app.updateItem(' + products[i].id + ',' + products[i].stock + ')"  data-type="minus"></div>'
+                content2 += '<input type="number" id="prod_' + products[i].id + '" readonly name="quant[' + products[i].id + ']" class="form-control input-number quantity manage-qtty"  value="0" min="0" max="100">'
+                content2 += ' <div class="stepper-button-plus" prod-' + products[i].id + '"  data-type="plus" data-style="slide-right" onclick="app.addtoCart(' + products[i].id + ');" ></div>'
+                content2 += '</div>'
+
+                
+
+               
+                
+              
+                $$('#stepper_prod_'+products[i].id+'').html('');
+                $$('#stepper_prod_'+products[i].id+'').html(content2);          
             }
+     
         }
-        wrapper.html(content);
-        //wrapper2.html(content2);
+    
+        for (var i = 0; i < products.length; i++) {
+           
+        }
+    //$$('#stepper_prod_'+  products[i].id).html(content2);
+      // wrapper2.html(content2);
         localStorage.setItem('products', JSON.stringify(products))
     }
     $$(document).on('page:init', '.page[data-name="catalogb"]', function (e) {
         //alert("Catalogb");
     })
+    $$(document).on('page:init', '.page[data-name="category"]', function (e) {
+        $$('a.category').on('click', function () {
+            var selectedCat = $$(this).html();
+            console.log(selectedCat);
+        });
+    })
+
+
+
     app.addtoCart = function (id) {
         //function checkHasUer(){
         if (!localStorage.getItem("idMember")) {
@@ -587,7 +595,7 @@ function loadStore() {
             Ladda.bind('.prod-' + id, {
                 timeout: 2000
             });
-            l.start();
+         //   l.start();
             var products = JSON.parse(localStorage.getItem('products')),
                 producto = _.find(products, {
                     'id': id
@@ -699,7 +707,8 @@ function loadStore() {
             _.forEach(cart.items, function (n, key) {
                 var oldpricing = '';
                 if (n.oldprice != 0 || n.oldprice != '') {
-                    var oldpricing = currency_icon + '' + n.oldprice.toFixed(2)
+                    //  var oldpricing = currency_icon + '' + n.oldprice.toFixed(2)
+                    var oldpricing = currency_icon + '' + n.oldprice;
                 } else {
                     var oldpricing = '';
                 }
@@ -879,14 +888,7 @@ function loadStore() {
      */
     }
     /************************************* */
-    $$(document).on('page:init', '.page[data-name="store"]', function (e) {
-        //  alert("sku");
-        /*app.getSKU = function(ThisSKU){
-           // ThisSKU = $$(this).attr("data-sku");
-          //  sessionStorage.setItem("skuItem", ThisSKU);
-          //  var activeSKU = sessionStorage.getItem("ThisSKU");
-        }*/
-    })
+
     app.productsPage = function () {
         var activeSKU = sessionStorage.getItem("skuItem");
         console.log(activeSKU);

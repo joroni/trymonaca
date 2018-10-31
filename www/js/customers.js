@@ -14,7 +14,7 @@ init();
 
 memberList();
 //selectMemberList();
-mockData();
+//mockData();
 selectCustomertoShop();
 console.info("Carga Complete...");
 
@@ -149,39 +149,12 @@ function init() {
     db.transaction(function (tx) {
         tx.executeSql('create table if not exists CUSTOMERS(ID, FNAMES, LNAMES,PHONE, EMAIL)');
       //  tx.executeSql('create table if not exists PURCHASEORDER(id,sku,cant,name,price,img,available,oldprice,smname,notes,email,timestamp,total)');
-      tx.executeSql('create table if not exists PURCHASEORDER(ID, CNAME, SMNAME,TOTAL, TIMESTAMP)');
+    //  tx.executeSql('create table if not exists PURCHASEORDER(ID, CNAME, SMNAME,TOTAL, TIMESTAMP)');
     },
      error, exito);
 }
 
 
-
-/*
-db.transaction(function (tx) {
-    tx.executeSql('CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT,sku,name,cant,price)');
-});
-
-
-var userArray = [{ "sku": "0012", "name": "bob", "cant": "2", "price": "105" }, {  "sku": "2000", "name": "bob", "cant": "2", "price": "105" }];
-function saveOrderLocal() {
-    db.transaction(function (tx) {
-        for (var i = 0; i < userArray.length; i++) {
-            tx.executeSql("insert into user(sku,name,cant,price) values(?,?,?,?)", [userArray[i].sku, userArray[i].name,], successCallBack, errorCallBack);
-
-        }
-    });
-
-
-    function successCallBack() {
-        console.log("inserted corrrectly !!");
-    }
-    function errorCallBack(tx, error) {
-        if (query.indexOf('insert into') === -1)
-            alert("Error : " + error.message + " in " + query);
-        console.log(error.message + "in" + tx);
-    }
-
-}*/
 
 
 
@@ -245,7 +218,7 @@ function memberList() {
 }
 
 
-
+/** 
 function selectMemberList() {
     db.readTransaction(function (t) {
         t.executeSql('SELECT rowid, ID, FNAMES, LNAMES, PHONE, EMAIL FROM CUSTOMERS', [], function (t, rs) {
@@ -274,7 +247,7 @@ function selectMemberList() {
                      $$('.icon-btn').on('click', function () {
                          $$('.showData').toggle();
                      });
-                 });*/
+                 });*
 
 
                 $$('[data-toggle="class"]').click(function () {
@@ -304,7 +277,7 @@ function selectMemberList() {
         }, error);
     });
 }
-
+**/
 
 
 
@@ -337,7 +310,7 @@ function selectCustomertoShop() {
 
 
 
-                $$('[data-toggle="class"]').click(function () {
+              /*  $$('[data-toggle="class"]').click(function () {
                     var $target = $$($$(this).data('target'));
                     var classes = $$(this).data('classes');
 
@@ -345,7 +318,7 @@ function selectCustomertoShop() {
                     return false;
                 });
 
-
+*/
 
 
                 $$("#btnNew").click(function () {
@@ -364,14 +337,14 @@ function selectCustomertoShop() {
         }, error);
     });
 }
-
+/*
 function mockData() {
     var str = '{ID: 4,FNAMES: "John", LNAMES: "Dough",PHONE: "0995475142",EMAIL: "johnd@mail.com"}';
     console.log(str);
     db.transaction(function (tx) {
         tx.executeSql('INSERT INTO CUSTOMERS (ID, FNAMES, LNAMES, PHONE, EMAIL) VALUES(?, ?, ?,?,?)', [str]);
     });
-}
+}*/
 
 function saveMember(member) {
     db.transaction(function (tx) {
@@ -387,7 +360,7 @@ function saveMember(member) {
 }
 
 
-
+/*
 function saveOrderLocal(order) {
     var order = Object();
     var i = 1;
@@ -409,7 +382,7 @@ function saveOrderLocal(order) {
     });
 }
 
-
+*/
 function selectMember(idMember) {
     // localStorage.setItem("customer-name",idMember);
     db.readTransaction(function (t) {
@@ -596,7 +569,7 @@ function removeMember(idMember) {
           alert("The member has been rem successfully");
       });*/
 }
-
+/*
 function savePO(member) {
     db.transaction(function (tx) {
         tx.executeSql('INSERT INTO CUSTOMERS(ID, FNAMES, LNAMES, PHONE, EMAIL) VALUES(?, ?, ?,?,?)', [
@@ -607,6 +580,7 @@ function savePO(member) {
         $$(".close").trigger();
     });
 }
+*/
 
 
 /*
