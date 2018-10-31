@@ -544,7 +544,7 @@ function loadStore() {
             content2 = '',
             oldpricing = ''
     
-var vv =  0;
+//var vv =  0;
         for (var i = 0; i < products.length; i++) {
 
             if (products[i].stock > 0 ) {
@@ -586,7 +586,7 @@ var vv =  0;
                 $$('.mystepper'+products[i].id+'').html('');
                 $$('.mystepper'+products[i].id+'').html(content2);    
             }
-     vv++;
+   // vv++;
         }
     
         for (var i = 0; i < products.length; i++) {
