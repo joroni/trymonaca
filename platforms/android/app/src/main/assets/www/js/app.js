@@ -539,11 +539,11 @@ function loadStore() {
 
         for (var i = 0; i < products.length; i++) {
             if (products[i].stock > 0 ) {
-                /*if (products[i].oldprice != 0 || products[i].oldprice != '') {
+            if (products[i].oldprice != 0 || products[i].oldprice != '') {
                     oldpricing = currency_icon + '' + products[i].oldprice.toFixed(2)
                 } else {
                     oldpricing = '';
-                }*/
+                }
                 content2 = '';
                 content2 += '<span></span><div data-id="'+ products[i].id + '" class="stepper stepper-small-md stepper-small stepper-init" style="padding:0; float:right; margin:0 auto;">'
                 content2 += '<div class="stepper-button-minus" onclick="app.updateItem(' + products[i].id + ',' + products[i].stock + ')"  data-type="minus"></div>'
