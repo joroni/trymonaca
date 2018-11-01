@@ -94,6 +94,17 @@ $$('#customerList').on("click", ".btn-eliminar", function () {
     //selectMemberList();
 });
 
+$$(document).on('page:init', '.page[data-name="catalogb"]', function (e) {
+    memberList();
+    app.preloader.show();
+    setTimeout(function () {
+        app.preloader.hide();
+        memberList();
+        
+    }, 3000);
+    console.log("Catalogb ");
+});
+
 
 $$(document).on('page:init', '.page[data-name="customerinfo"]', function (e) {
     console.log('Customer Info');
