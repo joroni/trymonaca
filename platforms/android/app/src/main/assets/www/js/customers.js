@@ -133,7 +133,7 @@ $$(document).on('page:init', '.page[data-name="customerinfo"]', function (e) {
 
             return false;
         } else {
-            app.router.navigate('/store/');
+            app.router.navigate('/catalog/');
             console.log("continue shopping");
         }
     })

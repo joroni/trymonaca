@@ -1,6 +1,5 @@
 // Dom7
 var $$ = Dom7;
-
 // Framework7 App main instance
 var app = new Framework7({
     root: '#app', // App root element
@@ -205,7 +204,6 @@ var app = new Framework7({
                     total: ''
                 }
             ]
-
         };
     },
     // App root methods
@@ -217,23 +215,19 @@ var app = new Framework7({
     // App routes
     routes: routes,
 });
-
 // Init/Create main view
 var mainView = app.views.create('.view-main', {
     url: '/'
 });
-
 /*
 // Init/Create views
 var homeView = app.views.create('#view-home', {
   url: '/'
 });
-
 */
 var settingsView = app.views.create('#view-settings', {
     url: '/settings/'
 });
-
 var customersView = app.views.create('#view-catalog', {
     url: '/catalog/'
 });
@@ -241,14 +235,11 @@ var customersView = app.views.create('#view-catalog', {
 $$('#my-login-screen .login-button').on('click', function () {
     var username = $$('#my-login-screen [name="username"]').val();
     var password = $$('#my-login-screen [name="password"]').val();
-
     // Close login screen
     app.loginScreen.close('#my-login-screen');
-
     // Alert username and password
     app.dialog.alert('Username: ' + username + '<br>Password: ' + password);
 });
-
 /*app.getSKU = function(ThisSKU){
     sessionStorage.setItem("skuItem", ThisSKU);
 }
@@ -263,14 +254,10 @@ $$('a.category').on('click', function () {
     // Alert username and password
     app.dialog.alert(selectedCat);
 });
-
-
   $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
     //  app.createProducts();
-      
      loadStore();// Show preloader before Ajax request
      app.preloader.show();
-     
      // Perform Ajax request
     /* app.request.get('someurl.html', function (data) {
        // Hide preloader when Ajax request completed
@@ -280,24 +267,14 @@ $$('a.category').on('click', function () {
         setTimeout(function () {
             app.preloader.hide();
             loadStore();
-            
         }, 3000);
         console.log("Catalog");
   })
-
   $$(document).on('page:init', '.page[data-page="category"]', function (e) {
     loadStore();
     console.log('Category');
   });
-
-
-
-
-
-
-
 /**************************************** CART */
-
  loadStore =function() {
     var	business_paypal = '', // aquí va tu correo electrónico de paypal
 	currency_icon = '₱';
@@ -305,27 +282,21 @@ $$('a.category').on('click', function () {
 	localStorage.setItem("myCurrency", currency_icon);
 	localStorage.setItem("idSalesMngr", mockIdSalesMngr);
     'use strict';
-
     //no coflict con underscores
-
     app.init = function () {
         console.log("initializing...");
         //totalItems totalAmount
         var total = 0,
             items = 0
-
         var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
             items: []
         };
-
         if (undefined != cart.items && cart.items != null && cart.items != '' && cart.items.length > 0) {
             _.forEach(cart.items, function (n, key) {
                 items = (items + n.cant)
                 total = total + (n.cant * n.price)
             });
-
         }
-
         var total_Items = $$('#totalItems');
         total_Items.text(items);
         //alert(items);
@@ -335,13 +306,9 @@ $$('a.category').on('click', function () {
             $$(total_Items).show();
         }
         $$('.totalAmount').text(currency_icon + ' ' + total + ' USD');
-
     }
-
-
     app.createProducts = function () {
         console.log("create products");
-
         var products = [{
                     id: 1,
                     sku: 'A0000001',
@@ -481,7 +448,6 @@ $$('a.category').on('click', function () {
                     total: ''
                 }
             ],
-           
            // wrapper = $$('.productosWrapper'),
       //      wrapper2 = $$('#stepper_prod_'+ products[i].id),
             wrapper2 = $$('.mystepper1');
@@ -489,15 +455,12 @@ $$('a.category').on('click', function () {
             content = '';
             oldpricing = '';
         for (var i = 0; i < products.length; i++) {
-
             if (products[i].stock > 0) {
-
                 if (products[i].oldprice != 0 || products[i].oldprice != '') {
                     oldpricing = currency_icon + '' + products[i].oldprice.toFixed(2)
                 } else {
                     oldpricing = '';
                 }
-
                 //console.log(cant);
                 content = '';
                 content += '<div id="myStepper_'+ products[i].id+'" data-id="'+ products[i].id + '" class="stepper stepper-small-md stepper-small stepper-init" style="padding:0; float:right; margin:0 auto;">'
@@ -506,41 +469,27 @@ $$('a.category').on('click', function () {
                 content += '<input type="number" id="prod_' + products[i].id + '" readonly name="quant[' + products[i].id + ']" class="form-control input-number quantity manage-qtty"  value="0" min="0" max="100">'
                 content += ' <div class="stepper-button-plus" prod-' + products[i].id + '"  data-type="plus" data-style="slide-right" onclick="app.addtoCart(' + products[i].id + ');" ></div>'
                 content += '</div>'
-
-
             }
-
         }
-
         $$('#stepper_prod_1').html('');
         $$('#stepper_prod_1').html(content);    
-    
-
        // wrapper.html(content);
-
       //  wrapper.html('<div>help</div>');
        // wrapper2.html('<div>help</div>');
         localStorage.setItem('products', JSON.stringify(products))
     }
-
     app.addtoCart = function (id) {
         //function checkHasUer(){
-
         if (!localStorage.getItem("idMember")) {
             alert("Please select a customer.");
-           
-            app.router.navigate('/customerinfo/');
+            app.router.navigate('/catalogb/');
             return false;
         } else {
             console.log("continue shopping");
-
-            app.router.navigate('/category/');
-
-
+            //
             //console.log("add to cart");
            // var l = Ladda.create(document.querySelector('.prod-' + id));
            var l = Ladda.append($$('.prod-' + id));
-
             l.start();
             var products = JSON.parse(localStorage.getItem('products')),
                 producto = _.find(products, {
@@ -564,9 +513,7 @@ $$('a.category').on('click', function () {
                                 producto.img,
                                 producto.stock,
                                 producto.oldprice,
-
                                 producto.notes,
-
                                 producto.cname = localStorage.getItem("idMember"),
                                 producto.check = "notsync",
                                 producto.select,
@@ -576,12 +523,10 @@ $$('a.category').on('click', function () {
                                 producto.ponumber,
                                 producto.total = localStorage.getItem("grndTotal")
                             )
-
                             l.stop();
                             console.log(parseInt(cant))
                             $$('body').css('opacity', '1');
                         }, 100)
-
                     } else {
                         alert('Only larger quantities are allowed to zero');
                     }
@@ -591,10 +536,8 @@ $$('a.category').on('click', function () {
             } else {
                 alert('You can not add more of this product');
             }
-
         }
     }
-
     app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
         //si le pasamos un valor negativo a la cantidad, se descuenta del carrito
         var curProd = _.find(cart.items, {
@@ -631,15 +574,12 @@ $$('a.category').on('click', function () {
                 ponumber: ponumber,
             }
             cart.items.push(prod)
-
         }
         localStorage.setItem('cart', JSON.stringify(cart));
         app.init();
         app.getProducts();
         app.updatePayForm();
-
     }
-
     app.getProducts = function () {
         console.log("get products");
         var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
@@ -649,7 +589,6 @@ $$('a.category').on('click', function () {
             wrapper = $$('.cart'),
             total = 0
         wrapper.html('')
-
         if (undefined == cart || null == cart || cart == '' || cart.items.length == 0) {
             wrapper.html('<div>Your cart is empty</div>');
             $$('.cart').css('left', '-400%')
@@ -662,8 +601,6 @@ $$('a.category').on('click', function () {
                 } else {
                     var oldpricing = '';
                 }
-
-
                 total = total + (n.cant * n.price);
                 items += '<tr>'
                 //items += '<td><img src="'+n.img+'" /></td>'
@@ -674,7 +611,6 @@ $$('a.category').on('click', function () {
                 items += '</tr>';
                 $$('#prod_' + n.id).val(n.cant);
             });
-
             //agregar el total al carrito
             items += '<tr class="total-row"><td colspan="2" > </td><td id="total" class="total right" colspan="3">' + currency_icon + '' + total.toFixed(2) + ' </td></tr>'
             items += '<tr><td colspan="5" class="total"></td></tr>'
@@ -684,8 +620,6 @@ $$('a.category').on('click', function () {
             $$('.cart').css('left', '0')
         }
     }
-
-
     app.updateItem = function (id, available) {
         //resta uno a la cantidad del carrito de compras
         var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
@@ -706,7 +640,6 @@ $$('a.category').on('click', function () {
             app.deleteProd(id, true)
         }
     }
-
     app.delete = function (id) {
         var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
             items: []
@@ -721,10 +654,8 @@ $$('a.category').on('click', function () {
         app.getProducts();
         app.updatePayForm();
     }
-
     app.deleteProd = function (id, remove) {
         if (undefined != id && id > 0) {
-
             if (remove == true) {
                 app.delete(id)
             } else {
@@ -733,26 +664,21 @@ $$('a.category').on('click', function () {
                     app.delete(id)
                 }
             }
-
         }
     }
-
     app.updatePayForm = function () {
         //eso va a generar un formulario dinamico para paypal
         //con los products y sus precios
         var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
             items: []
         };
-
         localStorage.setItem("purchaseorder", JSON.stringify(cart));
         var grandtotal = localStorage.getItem("grndTotal");
         //var statics = '<form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_cart"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="USD" /><input type="hidden" name="business" value="' + business_paypal + '">',
         var statics = '<form  method="post"><input type="hidden" name="cmd" value="_cart"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="PHP" /><input type="hidden" name="business" value="SUPER 8"><input type="hidden" name="grandtotal" id="grandtotal" value="' + grandtotal + '">',
             dinamic = '',
             wrapper = $$('#submitForm')
-
         wrapper.html('')
-
         if (undefined != cart && null != cart && cart != '') {
             var i = 1;
             _.forEach(cart.items, function (prod, key) {
@@ -764,18 +690,11 @@ $$('a.category').on('click', function () {
                 dinamic += '<input type="hidden" id="grndTotal" name="total_' + i + '" value="' + grandtotal + '" />' // added by jrn
                 i++;
             })
-
             statics += dinamic + '<button type="submit" class="pay btn btn-success">Submit<i class="ion-chevron-right"></i></button></form>'
-
             wrapper.html(statics)
         }
-
-
     }
-
    /***************************** */
-   
-
  app.showOrders = function() {
     // alert("orders");
     var myObj, i, item = "";
@@ -784,7 +703,6 @@ $$('a.category').on('click', function () {
     console.log(po);
     myObj = po;
     for (i in myObj.items) {
-
         item += '<a href="product-page.html" onclick=getSKU("' + myObj.items[i].sku + '") data-sku="' +  myObj.items[i].sku + '" class="list-group-item list-group-item-action flex-column align-items-start">'
         item += '<div class="d-flex w-100 justify-content-between">'
         item += '<h5 class="mb-2 h5">' + myObj.items[i].notes + '</h5>'
@@ -797,13 +715,8 @@ $$('a.category').on('click', function () {
              items += myObj.menuitems[i].models[j] + "<li class='hidden'>";
          }*/
     }
-
     $$("#mainOrders").html(item);
-
-
 }
-
-
  app.showMenu = function() {
     // alert("orders");
     var myObj, i, j, items = "";
@@ -838,28 +751,20 @@ $$('a.category').on('click', function () {
              items += myObj.menuitems[i].models[j] + "<li class='hidden'>";
          }*/
     }
-
     $$("#mainMenu").html(items);
-
-
 }
 /************************************* */
-
  app.getSKU = function(ThisSKU){
     sessionStorage.setItem("skuItem", ThisSKU);
 }
-
  app.productsPage = function() {
-
     var activeSKU = sessionStorage.getItem("skuItem");
     console.log(activeSKU);
     //var ThisSKU = $$(this).attr("data-sku");
     //var activeSKU = sessionStorage.getItem("ThisSKU");
-
     var skusList = localStorage.getItem("products");
     skus = JSON.parse(skusList);
     console.log(skus);
-
     var SearchTag = function (sku) {
         var i = null;
         for (i = 0; skus.length > i; i += 1) {
@@ -867,10 +772,8 @@ $$('a.category').on('click', function () {
                 return skus[i];
             }
         }
-
         return null;
     };
-
     var product = SearchTag(activeSKU);
     oldpricing = '';
     if (product) {
@@ -880,7 +783,6 @@ $$('a.category').on('click', function () {
         } else {
             oldpricing = '';
         }
-
         var cat = product.cat;
         var desc = product.desc;
         var id = product.id;
@@ -892,9 +794,7 @@ $$('a.category').on('click', function () {
         var state = product.state;
         var statecolor = product.statecolor;
         var stock = product.stock;
-
         // var currency = localStorage.getItem("myCurrency");
-
         // console.log(cat+"|"+desc+"|"+id+"|"+img+"|"+name+"|"+price+"|"+size);
         $$("#thisName").html(name);
         $$("#prodImg").html('<img src="' + img + '" class="img-fluid prod-page-image" alt="' + name + '">');
@@ -911,33 +811,24 @@ $$('a.category').on('click', function () {
          '<button class="btn btn-primary btn-md my-0 btn-number waves-effect  submit ladda-button waves-light" type="button"  onclick="app.addtoCart(' +id + ');">Add to cart'+
            '<i class="fa fa-shopping-cart ml-1"></i>'+
         '</button>');*/
-
         $$("#footerBtns").html('<div class="row"><div class="btn-group" role="group" aria-label="Basic">' +
             '<button type="button" class="btn btn-success manage-qtty btn-number h-40 waves-effect waves-light" onclick="app.updateItem(' + id + ',' + stock + ')" data-type="minus"><i class="material-icons">remove</i></button>' +
             '<input type="number"id="prod_' + id + '" readonly="" name="quant[' + id + ']" class="form-control input-number quantity manage-qtty h-40" value="0" min="0" max="100" style="height:40px; width:80px;">' +
             '<button type="button" class="btn btn-success btn-number waves-effect h-40 submit ladda-button waves-light prod-' + id + '" data-type="plus" data-style="slide-right" onclick="app.addtoCart(' + id + ');"><i class="material-icons">add</i></button>' +
             //'<button type="button" class="btn btn-number waves-effect  submit ladda-button waves-light grey-borders btn-success prod-'+id+'" data-type="plus" data-style="slide-right" onclick="app.addtoCart('+id+');">Add to Cart</button>');
             '<a class="btn btn-info waves-effect waves-light h-40 pl-4 pr-4" href="#" role="button" data-toggle="modal" data-target="#modalCart">View Cart</a></div></div>');
-
     }
-
 }
-
 /***************************** */
   //  $$(document).ready(function () {
         app.init();
-
         app.updatePayForm();
         app.createProducts();
         app.getProducts();
-
         $$(".btn-checkout").click(function () {
             app.updatePayForm();
         })
-
-
         /******************* */
-
          // showQuantity();
     app.showMenu();
     //addCustomer();
@@ -945,11 +836,7 @@ $$('a.category').on('click', function () {
     app.showOrders();
     currency_icon = '₱';
     localStorage.setItem("myCurrency", currency_icon);
-
-
         /******************* */
-
  //   })
-
 }
 /**************************************** CART */
