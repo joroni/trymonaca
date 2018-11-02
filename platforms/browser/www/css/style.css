@@ -561,3 +561,8 @@ tbody.cart td, table.table th {
   padding: 3px 6px;
   vertical-align: middle;
 }
+
+
+.stepper.stepper-small.stepper-init {
+  background: #FFF;
+}

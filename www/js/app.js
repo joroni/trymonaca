@@ -257,7 +257,7 @@ $$('a.category').on('click', function () {
   $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
     //  app.createProducts();
      loadStore();// Show preloader before Ajax request
-     app.preloader.show();
+   //  app.preloader.show();
      // Perform Ajax request
     /* app.request.get('someurl.html', function (data) {
        // Hide preloader when Ajax request completed
@@ -267,9 +267,12 @@ $$('a.category').on('click', function () {
         setTimeout(function () {
             app.preloader.hide();
             loadStore();
-        }, 3000);
+        }, 1500);
         console.log("Catalog");
-  })
+       
+       
+  });
+
   $$(document).on('page:init', '.page[data-page="category"]', function (e) {
     loadStore();
     console.log('Category');
@@ -471,14 +474,21 @@ $$('a.category').on('click', function () {
                 content += '</div>'
             }
         }
-        $$('#stepper_prod_1').html('');
-        $$('#stepper_prod_1').html(content);    
+       // $$('#stepper_prod_1').html('');
+      //  $$('#stepper_prod_1').html(content);    
        // wrapper.html(content);
       //  wrapper.html('<div>help</div>');
        // wrapper2.html('<div>help</div>');
         localStorage.setItem('products', JSON.stringify(products))
     }
-    app.addtoCart = function (id) {
+    function callFunction(func) {
+        var newValue = func();
+        console.log(newValue);
+    }
+    
+
+    
+     app.addtoCart = function(id) {
         //function checkHasUer(){
         if (!localStorage.getItem("idMember")) {
             alert("Please select a customer.");
@@ -489,8 +499,8 @@ $$('a.category').on('click', function () {
             //
             //console.log("add to cart");
            // var l = Ladda.create(document.querySelector('.prod-' + id));
-           var l = Ladda.append($$('.prod-' + id));
-            l.start();
+           var l = $$('.prod-' + id);
+           // l.start();
             var products = JSON.parse(localStorage.getItem('products')),
                 producto = _.find(products, {
                     'id': id
@@ -523,7 +533,7 @@ $$('a.category').on('click', function () {
                                 producto.ponumber,
                                 producto.total = localStorage.getItem("grndTotal")
                             )
-                            l.stop();
+                           // l.stop();
                             console.log(parseInt(cant))
                             $$('body').css('opacity', '1');
                         }, 100)
@@ -821,6 +831,8 @@ $$('a.category').on('click', function () {
 }
 /***************************** */
   //  $$(document).ready(function () {
+    $$(document).on('DOMContentLoaded', function(){
+      
         app.init();
         app.updatePayForm();
         app.createProducts();
@@ -838,5 +850,7 @@ $$('a.category').on('click', function () {
     localStorage.setItem("myCurrency", currency_icon);
         /******************* */
  //   })
-}
+  // Your content here
+});
+ }
 /**************************************** CART */
