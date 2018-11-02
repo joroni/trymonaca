@@ -45,7 +45,7 @@
         <div class="page">
           <div class="navbar">
             <div class="navbar-inner">
-              <div class="title">Right Panel</div>
+              <div class="title"> <img src="img/logo.svg" height="40"></div>
 
             </div>
           </div>
@@ -63,7 +63,7 @@
                     <a href="#">Settings</a>
                   </li>
                   <li>
-                    <a class="reset" href="#">Reset (for development only)</a>
+                    <a class="reset" href="#" onclick="app.resetCart()">Reset (for development only)</a>
                   </li>
                 </ul>
               </div>
@@ -104,16 +104,16 @@
           <a href="#" id="btnCart" class="tab-link  popup-open" data-popup="#my-cart-screen">
             <i class="icon f7-icons ios-only">shopping_cart</i>
             <i class="icon f7-icons ios-only icon-ios-fill">shopping_cart_fill</i>
-            <i class="icon material-icons md-only">shopping_cart<span id="totalItems" class="badge color-red">5</span></i>
+            <i class="icon material-icons md-only">shopping_cart<span id="totalItems" class="badge color-red"></span></i>
             <span class="tabbar-label">Cart</span>
           </a>
         </div>
       </div>
 
 
-      <div class="page" data-name="homes">
+      <div class="page home" data-name="homes">
         <!-- Top Navbar -->
-        <div class="navbar">
+        <div class="navbar trans noshadow">
           <div class="navbar-inner">
             <div class="left hidden">
               <a href="#" class="link icon-only panel-open" data-panel="left">
@@ -422,7 +422,7 @@
                 </table>
               </div>
               <div class="block">
-                <div id="submitForm"></div>
+                <div class="submitForm"></div>
               </div>
               <div class="block submitBtn">
                 <!--<a href="#" class=" button form-to-data button btn-checkout button-raised button-fill popup-close">CHECKOUT</a>-->

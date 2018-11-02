@@ -566,3 +566,27 @@ tbody.cart td, table.table th {
 .stepper.stepper-small.stepper-init {
   background: #FFF;
 }
+
+
+.md .home .block-strong:before {
+  content: '';
+  position: absolute;
+  background-color: rgba(0,0,0,0);
+  display: block;
+  z-index: 15;
+  top: 0;
+  right: auto;
+  bottom: auto;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  -webkit-transform-origin: 50% 0%;
+  transform-origin: 50% 0%;
+}
+
+.md .home .block-strong:after {
+  content: '';
+  position: absolute;
+  background-color: rgba(0,0,0,0);
+ 
+}
