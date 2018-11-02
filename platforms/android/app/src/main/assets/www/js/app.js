@@ -892,6 +892,24 @@ app.loadStore = function () {
     app.getSKU = function (ThisSKU) {
         sessionStorage.setItem("skuItem", ThisSKU);
     }
+    // Get the container element
+var btnContainer = $$(".toolbar-inner");
+
+// Get all buttons with class="btn" inside the container
+var btns = $$(".tab-link");
+
+btns.on("click", function(){
+    btns.removeClass("tab-link-active");
+$$(this).addClass("tab-link-active");
+})
+// Loop through the buttons and add the active class to the current/clicked button
+/*for (var i = 0; i < btns.length; i++) {
+  btns.on("click", function() {
+    var current = $$(".tab-link-active");
+    current[0].className = current[0].toggleClass("tab-link-active");
+    this.addClass("tab-link-active")
+  });
+}*/
     app.productsPage = function () {
         var activeSKU = sessionStorage.getItem("skuItem");
         console.log(activeSKU);

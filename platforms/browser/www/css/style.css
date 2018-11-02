@@ -562,6 +562,11 @@ tbody.cart td, table.table th {
   vertical-align: middle;
 }
 
+.md .home .block-strong {
+  margin-top: 0;
+  padding-top: 0;
+}
+
 
 .stepper.stepper-small.stepper-init {
   background: #FFF;
@@ -588,5 +593,12 @@ tbody.cart td, table.table th {
   content: '';
   position: absolute;
   background-color: rgba(0,0,0,0);
- 
+}
+
+
+a.tab-link{
+background: #2196f3;
+}
+.md .tabbar a.tab-link.active-state, .md .tabbar a.tab-link.tab-link-active, .md .tabbar-labels a.tab-link.active-state, .md .tabbar-labels a.tab-link.tab-link-active{
+    border-top: 2px solid #fff;
 }
