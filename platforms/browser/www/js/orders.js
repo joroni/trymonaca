@@ -167,7 +167,7 @@ function memberList() {
 
                 }
 
-                localStorage.setItem("listHTML", lisHtml);
+                //localStorage.setItem("listHTML", lisHtml);
 
                 // var permdata = localStorage.getItem("listHTML");
                 // console.log(permdata);
@@ -228,7 +228,7 @@ function selectMemberList() {
 
                 }
 
-                localStorage.setItem("listHTML", lisHtml);
+                //localStorage.setItem("listHTML", lisHtml);
 
                 // var permdata = localStorage.getItem("listHTML");
                 // console.log(permdata);
