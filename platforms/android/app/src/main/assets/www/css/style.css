@@ -595,10 +595,17 @@ tbody.cart td, table.table th {
   background-color: rgba(0,0,0,0);
 }
 
-
+.md .home .card a{
+  color: #fff;
+}
 a.tab-link{
 background: #2196f3;
 }
 .md .tabbar a.tab-link.active-state, .md .tabbar a.tab-link.tab-link-active, .md .tabbar-labels a.tab-link.active-state, .md .tabbar-labels a.tab-link.tab-link-active{
     border-top: 2px solid #fff;
+}
+
+
+.small-logo{
+  display: inline-block !important;
 }

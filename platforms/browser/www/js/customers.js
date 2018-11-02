@@ -102,7 +102,12 @@ $$(document).on('page:init', '.page[data-name="catalogb"]', function (e) {
         memberList();
         
     }, 3000);
-    console.log("Catalogb ");
+    console.log("Catalogb");
+
+   
+    btns.removeClass("tab-link-active");
+    $$("#btnCustomers").addClass("tab-link-active");
+
 });
 
 

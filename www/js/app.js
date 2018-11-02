@@ -900,7 +900,7 @@ var btns = $$(".tab-link");
 
 btns.on("click", function(){
     btns.removeClass("tab-link-active");
-$$(this).addClass("tab-link-active");
+    $$(this).addClass("tab-link-active");
 })
 // Loop through the buttons and add the active class to the current/clicked button
 /*for (var i = 0; i < btns.length; i++) {
