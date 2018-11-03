@@ -314,11 +314,13 @@ $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
                                 producto.stock,
                                 producto.oldprice,
                                 producto.notes,
-                                producto.cname = localStorage.getItem("idMember"),
+                                producto.cname,
+                               // producto.cname = localStorage.getItem("idMember"),
                                 producto.check = "notsync",
                                 producto.select,
                                 producto.email,
-                                producto.smname = localStorage.getItem("idSalesMngr"),
+                                // producto.smname = localStorage.getItem("idSalesMngr"),
+                                producto.smname,
                                 producto.timestamp,
                                 producto.ponumber,
                                 producto.total = localStorage.getItem("grndTotal")
@@ -356,24 +358,37 @@ $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
             $$('#prod_' + curProd.id).val(curProd.cant);
         } else {
             //sino existe lo agregamos al carrito
+            var timeandponumber = new Date().getTime();
+            localStorage.setItem("timeandponumber", timeandponumber);
+            var timeandpo = localStorage.getItem("timeandponumber");
             var prod = {
-                id: id,
-                sku: sku,
+               
+               
                 cant: cant,
-                name: name,
-                price: price,
-                img: img,
-                available: available,
-                oldprice: oldprice,
-                cname: cname,
-                smname: smname,
-                check: check,
-                select: select,
-                notes: notes,
+                check:check,
+                cname:cname = localStorage.getItem("idMember"),
                 email: email,
-                timestamp: timestamp,
-                total: localStorage.getItem("grndTotal"),
-                ponumber: ponumber,
+                id: id,
+                img: img,
+                name: name,
+                notes: notes,
+                oldprice: oldprice,
+                
+                ponumber: timeandpo,
+                price: price,
+                select: select,
+                sku: sku,
+                smname: smname = localStorage.getItem("idSalesMngr"),
+                timestamp:timeandpo,
+                total: localStorage.getItem("grndTotal")
+               
+               
+              
+               
+              
+              
+              
+    
             }
             cart.items.push(prod)
         }
@@ -637,11 +652,13 @@ app.loadStore = function () {
                                 producto.stock,
                                 producto.oldprice,
                                 producto.notes,
-                                producto.cname = localStorage.getItem("idMember"),
+                               // producto.cname = localStorage.getItem("idMember"),
+                               producto.cname,
                                 producto.check = "notsync",
                                 producto.select,
                                 producto.email,
-                                producto.smname = localStorage.getItem("idSalesMngr"),
+                               // producto.smname = localStorage.getItem("idSalesMngr"),
+                                producto.smname,
                                 producto.timestamp,
                                 producto.ponumber,
                                 producto.total = localStorage.getItem("grndTotal")
@@ -828,6 +845,10 @@ app.loadStore = function () {
             mainView.router.refreshPage();
             alert("Cache is now cleared.");
             return true;
+            view.router.navigate(view.router.currentRoute.url, {
+                ignoreCache  : true,
+                reloadCurrent : true
+            });
         } else {
             return false;
         }

@@ -138,7 +138,7 @@ $$(document).on('DOMContentLoaded', function () {
 
                 return false;
             } else {
-                // app.router.navigate('/store/');
+             app.router.navigate('/catalog/');
                 console.log("continue shopping");
             }
         })
@@ -206,7 +206,7 @@ function memberList() {
             if (rs.rows.length > 0) {
                 var lisHtml = "";
                 myJson = [];
-                /*for (var i = 0; i < rs.rows.length; i++) {
+               for (var i = 0; i < rs.rows.length; i++) {
                     var member = rs.rows.item(i);
                     var id = member.ID;
                     var fullname = member.FNAMES + ' ' + member.LNAMES;
@@ -214,40 +214,7 @@ function memberList() {
                     lisHtml += '<li><a href="/customerinfo/" onclick="selectMember(' + id + ')">' + fullname + '</a></li>';
                    // myJson.push({ member: member,  fullname: fullname, FNAMES: member.FNAMES, LNAMES:member.LNAMES, ID: member.ID,});
                  //  myJson.push({member});
-                 myJson.push({ member: member,  fullname: fullname, FNAMES: member.FNAMES, LNAMES:member.LNAMES, ID: member.ID,});
-                }*/
-                for (var i = 0; i < rs.rows.length; i++) {
-                 /*   item = rs.rows.item(i).item;
-                    FNAMES = rs.rows.item(i).FNAMES;
-                    LNAMES = rs.rows.item(i).LNAMES;
-                    PHONE = rs.rows.item(i).PHONE;
-                    EMAIL = rs.rows.item(i).EMAIL;
-                    ID = rs.rows.item(i).ID;
-                    rowid = rs.rows.item(i).rowid;
-                    showAll(item, rowid, ID, FNAMES, LNAMES, PHONE, EMAIL);*/
-
-                    item = rs.rows.item(i).item;
-                    title = rs.rows.item(i).FNAMES;
-                    fname = rs.rows.item(i).LNAMES;
-                    phone = rs.rows.item(i).PHONE;
-                    description = rs.rows.item(i).EMAIL;
-                    cid = rs.rows.item(i).ID;
-                    id = rs.rows.item(i).rowid;
-                    showAll(item, id, cid, title, fname, phone, description);
-
-                    //  lisHtml += '<li><a href="/customerinfo/" onclick="selectMember(' + id + ')">' + fullname + '</a></li>';
-                    // myJson.push({ member: member,  fullname: fullname, FNAMES: member.FNAMES, LNAMES:member.LNAMES, ID: member.ID,});
-                    //  myJson.push({member});
-                    myJson.push({
-                        item: item,
-                        id: id,
-                        cid: cid,
-                        title: title,
-                        fname: fname,
-                        phone: phone,
-                        description: description
-                    });
-
+               //  myJson.push({ member: member,  fullname: fullname, FNAMES: member.FNAMES, LNAMES:member.LNAMES, ID: member.ID,});
                 }
 
 
@@ -257,13 +224,13 @@ function memberList() {
                 }
                 //mybase.init.getAll();
 
-                //localStorage.setItem("listHTML", lisHtml);
+                localStorage.setItem("listHTML", lisHtml);
 
                 // var permdata = localStorage.getItem("listHTML");
                 // console.log(permdata);
-                console.log(JSON.stringify(myJson));
-                localStorage.setItem("customers", JSON.stringify(myJson));
-                // $$('#customerList').html(lisHtml);
+              //  console.log(JSON.stringify(myJson));
+                //localStorage.setItem("customers", JSON.stringify(myJson));
+                $$('#customerList').html(lisHtml);
 
 
                 /* $$(function () {
