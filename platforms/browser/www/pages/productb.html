@@ -9,18 +9,18 @@
           </a>
         </div>
       <!--  <div id="ccompleteName" class="title"></div>-->
-        <div class="title">{{productb.title}} {{productb.fname}}</div>
+        <div class="title">{{title}} {{fname}}</div>
       </div>
     </div>
 
     <div class="page-content">
-      <div class="block-title">{{productb.phone}}</div>
-      <div class="block block-strong">
+      <div class="block-title">{{phone}}</div>
+    <!--  <div class="block block-strong">
          <p>{{productb.description}}</p>
          <p>{{productb.add_street}}</p>
          <p>{{productb.add_unit}}, {{productb.add_area}}</p>
          <p>{{productb.add_city}},  {{productb.add_zip}}</p>
-      </div>
+      </div>-->
       <div class="block">
         <button class="col button button-big button-fill button-active">CREATE ORDER</button>
       </div>
@@ -38,7 +38,7 @@
   
   return {
     data: function () {
-      var productbId = this.$route.params.id;
+      var productbId = this.$route.params.cid;
       var currentProductb;
       this.$root.productbs.forEach(function (productb) {
         if (productb.id === productbId) {

@@ -1,6 +1,7 @@
 // Dom7
 var $$ = Dom7;
 // Framework7 App main instance
+var customers = localStorage.getItem("customers");
 var app = new Framework7({
     root: '#app', // App root element
     id: 'io.framework7.testapp', // App bundle ID
@@ -12,8 +13,10 @@ var app = new Framework7({
                 firstName: 'John',
                 lastName: 'Doe',
             },
+           // productbs: JSON.parse(customers),
+            productbs: [{"id":1,"cid":1540562584936,"title":"John","fname":"Doe","phone":"12345646","description":"john.doe@email.com"},{"id":2,"cid":1540818411406,"title":"Melissa","fname":"De Leon","phone":"093482940","description":"2014-04-30"},{"id":3,"cid":1540825840882,"title":"Joanne","fname":"Amparo","phone":"123456789","description":"2014-04-08"},{"id":4,"cid":1540918462991,"title":"JKJk","fname":"weieoidfp","phone":"12459","description":"2014-04-30"}],
             // productbs: [customers],
-            productbs: [{
+            /*productbss: [{
                     id: '1',
                     title: 'John',
                     fname: 'Dough',
@@ -64,7 +67,7 @@ var app = new Framework7({
                     add_landmark: 'Near EastWest',
                     timestamp: '150495687975'
                 }
-            ],
+            ],*/
             products: [{
                     id: '1',
                     sku: 'A0000001',

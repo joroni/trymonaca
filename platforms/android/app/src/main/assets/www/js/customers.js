@@ -3,158 +3,158 @@
 var db = openDatabase('super8', '1.0', 'Customers and Order processing', 100 * 1024);
 
 //$$(document).on('pageInit', '.page[data-page="home"]', function (e) {
-    $$(document).on('DOMContentLoaded', function(){
-//  alert('Customers page');
+$$(document).on('DOMContentLoaded', function () {
+    //  alert('Customers page');
 
-//$$(document).ready(function () {
+    //$$(document).ready(function () {
 
-console.info("Initialize...");
+    console.info("Initialize...");
 
-init();
-
-memberList();
-//selectMemberList();
-mockData();
-selectCustomertoShop();
-console.info("Carga Complete...");
-
-////////////////////////////////////////////////////////////////////
-////////////////////////////Funciones jquery///////////////////////
-////////////////////////////////////////////////////////////////////
-$$('#submit').click(function () {
-    var txtId = $$('#txt-id');
-    var txtFname = $$('#fname');
-    var txtLname = $$('#lname');
-    var txtPhone = $$('#phone');
-    var txtEmail = $$('#email');
-    var txtEmail = $$('#birthdate');
-
-    var input = $$('input');
-
-    if (txtFname.val() === '' || txtLname.val() === '' || txtPhone.val() === '' || txtEmail.val() ===
-        '' /*|| input === ""*/) {
-        alert("All fields are Required...");
-        return;
-    }
-
-    var member = Object();
-
-    member.fname = txtFname.val();
-    member.lname = txtLname.val();
-    member.phone = txtPhone.val();
-    member.email = txtEmail.val();
-
-
-
-    if (txtId.val() === '') { //Lo guarda
-        member.id = new Date().getTime();
-        saveMember(member);
-    } else { //Lo actualiza
-        member.id = parseInt(txtId.val());
-        updateMember(member);
-    }
+    init();
 
     memberList();
     //selectMemberList();
     mockData();
-    txtFname.val(null);
-    txtLname.val(null);
-    txtPhone.val(null);
-    txtEmail.val(null);
-    txtId.val(null);
-});
+    selectCustomertoShop();
+    console.info("Carga Complete...");
+
+    ////////////////////////////////////////////////////////////////////
+    ////////////////////////////Funciones jquery///////////////////////
+    ////////////////////////////////////////////////////////////////////
+    $$('#submit').click(function () {
+        var txtId = $$('#txt-id');
+        var txtFname = $$('#fname');
+        var txtLname = $$('#lname');
+        var txtPhone = $$('#phone');
+        var txtEmail = $$('#email');
+        var txtEmail = $$('#birthdate');
+
+        var input = $$('input');
+
+        if (txtFname.val() === '' || txtLname.val() === '' || txtPhone.val() === '' || txtEmail.val() ===
+            '' /*|| input === ""*/ ) {
+            alert("All fields are Required...");
+            return;
+        }
+
+        var member = Object();
+
+        member.fname = txtFname.val();
+        member.lname = txtLname.val();
+        member.phone = txtPhone.val();
+        member.email = txtEmail.val();
 
 
 
-$$('#customerList').on("click", ".btn-user-info", function () {
-    //   var idMember = $$(this).data("id");
-    var idMember = $$('input.customerid').value();
+        if (txtId.val() === '') { //Lo guarda
+            member.id = new Date().getTime();
+            saveMember(member);
+        } else { //Lo actualiza
+            member.id = parseInt(txtId.val());
+            updateMember(member);
+        }
 
-    selectMember(idMember);
-    $$("label").addClass("active");
-    //$$("#modal-Title").html("View Customer");
-
-});
-
-
-$$('#customerList').on("click", ".btn-editar", function () {
-    // var idMember = $$(this).data("id");
-    var idMember = $$('input.customerid').value();
-    selectMember(idMember);
-    $$("label").addClass("active");
-    $$("#modal-Title").html("Edit Customer");
-
-});
-
-$$('#customerList').on("click", ".btn-eliminar", function () {
-    //  var idMember = $$(this).data("id");
-    var idMember = $$('input.customerid').value();
-    removeMember(idMember);
-    memberList();
-    //selectMemberList();
-});
-
-$$(document).on('page:init', '.page[data-name="catalogb"]', function (e) {
-    memberList();
-    app.preloader.show();
-    setTimeout(function () {
-        app.preloader.hide();
         memberList();
-        
-    }, 3000);
-    console.log("Catalogb");
-
-   
-    btns.removeClass("tab-link-active");
-    $$("#btnCustomers").addClass("tab-link-active");
-
-});
-
-
-$$(document).on('page:init', '.page[data-name="customerinfo"]', function (e) {
-    console.log('Customer Info');
-    $$('.page-content').on('click', function () {
-        memberList();
-    })
+        //selectMemberList();
+        mockData();
+        txtFname.val(null);
+        txtLname.val(null);
+        txtPhone.val(null);
+        txtEmail.val(null);
+        txtId.val(null);
+    });
 
 
-    $$(".btn-eliminar").on("click", function () {
-        var idMember = $$(this).data("id");
+
+    $$('#customerList').on("click", ".btn-user-info", function () {
+        //   var idMember = $$(this).data("id");
+        var idMember = $$('input.customerid').value();
+
+        selectMember(idMember);
+        $$("label").addClass("active");
+        //$$("#modal-Title").html("View Customer");
+
+    });
+
+
+    $$('#customerList').on("click", ".btn-editar", function () {
+        // var idMember = $$(this).data("id");
+        var idMember = $$('input.customerid').value();
+        selectMember(idMember);
+        $$("label").addClass("active");
+        $$("#modal-Title").html("Edit Customer");
+
+    });
+
+    $$('#customerList').on("click", ".btn-eliminar", function () {
+        //  var idMember = $$(this).data("id");
+        var idMember = $$('input.customerid').value();
         removeMember(idMember);
         memberList();
         //selectMemberList();
     });
 
-    $$(".btnMemberID").on("click", function () {
-        var mid = $$("input#memberID").val();
-        console.log(mid);
-        localStorage.setItem("idMember", mid);
+    $$(document).on('page:init', '.page[data-name="catalogb"]', function (e) {
+        memberList();
+        app.preloader.show();
+        setTimeout(function () {
+            app.preloader.hide();
+            memberList();
 
-        if (!localStorage.getItem("idMember")) {
+        }, 3000);
+        console.log("Catalogb");
 
-            alert("Please select a customer.");
 
-            app.router.navigate('/catalogb/');
+        btns.removeClass("tab-link-active");
+        $$("#btnCustomers").addClass("tab-link-active");
 
-            return false;
-        } else {
-           // app.router.navigate('/store/');
-            console.log("continue shopping");
-        }
+    });
+
+
+    $$(document).on('page:init', '.page[data-name="customerinfo"]', function (e) {
+        console.log('Customer Info');
+        $$('.page-content').on('click', function () {
+            memberList();
+        })
+
+
+        $$(".btn-eliminar").on("click", function () {
+            var idMember = $$(this).data("id");
+            removeMember(idMember);
+            memberList();
+            //selectMemberList();
+        });
+
+        $$(".btnMemberID").on("click", function () {
+            var mid = $$("input#memberID").val();
+            console.log(mid);
+            localStorage.setItem("idMember", mid);
+
+            if (!localStorage.getItem("idMember")) {
+
+                alert("Please select a customer.");
+
+                app.router.navigate('/catalogb/');
+
+                return false;
+            } else {
+                // app.router.navigate('/store/');
+                console.log("continue shopping");
+            }
+        })
+
     })
 
-})
+
+    $$('#btnCustomers').on('click', function () {
+        memberList();
+        //selectMemberList();
+    });
 
 
-$$('#btnCustomers').on('click', function () {
-    memberList();
-    //selectMemberList();
-});
-
-
-$$('#btnStore').on('click', function () {
-    app.loadStore();
-});
+    $$('#btnStore').on('click', function () {
+        app.loadStore();
+    });
 
 });
 
@@ -163,11 +163,11 @@ $$('#btnStore').on('click', function () {
 ////////////////////////////////////////////////////////////////////
 function init() {
     db.transaction(function (tx) {
-        tx.executeSql('create table if not exists CUSTOMERS(ID, FNAMES, LNAMES,PHONE, EMAIL)');
-      //  tx.executeSql('create table if not exists PURCHASEORDER(id,sku,cant,name,price,img,available,oldprice,smname,notes,email,timestamp,total)');
-      tx.executeSql('create table if not exists PURCHASEORDER(ID, CNAME, SMNAME,TOTAL, TIMESTAMP)');
-    },
-     error, exito);
+            tx.executeSql('create table if not exists CUSTOMERS(ID, FNAMES, LNAMES,PHONE, EMAIL)');
+            //  tx.executeSql('create table if not exists PURCHASEORDER(id,sku,cant,name,price,img,available,oldprice,smname,notes,email,timestamp,total)');
+            tx.executeSql('create table if not exists PURCHASEORDER(ID, CNAME, SMNAME,TOTAL, TIMESTAMP)');
+        },
+        error, exito);
 }
 
 
@@ -200,29 +200,70 @@ function saveOrderLocal() {
 }*/
 
 
-
 function memberList() {
     db.readTransaction(function (t) {
         t.executeSql('SELECT rowid, ID, FNAMES, LNAMES, PHONE, EMAIL FROM CUSTOMERS', [], function (t, rs) {
             if (rs.rows.length > 0) {
                 var lisHtml = "";
-
-                for (var i = 0; i < rs.rows.length; i++) {
+                myJson = [];
+                /*for (var i = 0; i < rs.rows.length; i++) {
                     var member = rs.rows.item(i);
                     var id = member.ID;
                     var fullname = member.FNAMES + ' ' + member.LNAMES;
 
                     lisHtml += '<li><a href="/customerinfo/" onclick="selectMember(' + id + ')">' + fullname + '</a></li>';
-                    // $$('#ccompleteName').html(fullname);
+                   // myJson.push({ member: member,  fullname: fullname, FNAMES: member.FNAMES, LNAMES:member.LNAMES, ID: member.ID,});
+                 //  myJson.push({member});
+                 myJson.push({ member: member,  fullname: fullname, FNAMES: member.FNAMES, LNAMES:member.LNAMES, ID: member.ID,});
+                }*/
+                for (var i = 0; i < rs.rows.length; i++) {
+                 /*   item = rs.rows.item(i).item;
+                    FNAMES = rs.rows.item(i).FNAMES;
+                    LNAMES = rs.rows.item(i).LNAMES;
+                    PHONE = rs.rows.item(i).PHONE;
+                    EMAIL = rs.rows.item(i).EMAIL;
+                    ID = rs.rows.item(i).ID;
+                    rowid = rs.rows.item(i).rowid;
+                    showAll(item, rowid, ID, FNAMES, LNAMES, PHONE, EMAIL);*/
+
+                    item = rs.rows.item(i).item;
+                    title = rs.rows.item(i).FNAMES;
+                    fname = rs.rows.item(i).LNAMES;
+                    phone = rs.rows.item(i).PHONE;
+                    description = rs.rows.item(i).EMAIL;
+                    cid = rs.rows.item(i).ID;
+                    id = rs.rows.item(i).rowid;
+                    showAll(item, id, cid, title, fname, phone, description);
+
+                    //  lisHtml += '<li><a href="/customerinfo/" onclick="selectMember(' + id + ')">' + fullname + '</a></li>';
+                    // myJson.push({ member: member,  fullname: fullname, FNAMES: member.FNAMES, LNAMES:member.LNAMES, ID: member.ID,});
+                    //  myJson.push({member});
+                    myJson.push({
+                        item: item,
+                        id: id,
+                        cid: cid,
+                        title: title,
+                        fname: fname,
+                        phone: phone,
+                        description: description
+                    });
 
                 }
+
+
+
+                function showAll(item, id, cid, title, fname, phone, description) {
+                    $$('#customerList').append('<li>' + title + ' ' + fname + ' ' + id + '</li>');
+                }
+                //mybase.init.getAll();
 
                 //localStorage.setItem("listHTML", lisHtml);
 
                 // var permdata = localStorage.getItem("listHTML");
                 // console.log(permdata);
-
-                $$('#customerList').html(lisHtml);
+                console.log(JSON.stringify(myJson));
+                localStorage.setItem("customers", JSON.stringify(myJson));
+                // $$('#customerList').html(lisHtml);
 
 
                 /* $$(function () {
@@ -411,8 +452,8 @@ function saveOrderLocal(order) {
     order.cname = $$("#ccname").val();
     order.total = $$("#grandtotal").val();
     order.timestamp = i++;
-    
-   
+
+
     db.transaction(function (tx) {
         tx.executeSql('INSERT INTO PURCHASEORDER(ID, CNAME, SMNAME,TOTAL, TIMESTAMP) VALUES(?, ?, ?,?,?)', [
             order.id, order.cname, order.smname, order.total, order.timestamp
@@ -647,4 +688,3 @@ var exito = function () {
     console.info("Table created...");
 };
 /*************************************** WEBSQL */
-
