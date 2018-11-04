@@ -63,7 +63,7 @@
                     <a href="#">Settings</a>
                   </li>
                   <li>
-                    <a class="reset" href="#" onclick="app.resetCart()">Reset (for development only)</a>
+                    <a class="reset panel-close" href="#" onclick="app.resetCart()">Reset (for development only)</a>
                   </li>
                 </ul>
               </div>
@@ -95,12 +95,12 @@
               <i class="icon material-icons md-only">shopping_basket</i>
               <span class="tabbar-label">Store</span>
             </a>
-       <a href="/orders/" class="tab-link">
-            <i class="icon f7-icons ios-only">shopping_basket</i>
-            <i class="icon f7-icons ios-only icon-ios-fill">shopping_basket_fill</i>
-            <i class="icon material-icons md-only">shopping_basket</i>
-            <span class="tabbar-label">ORDERS</span>
-          </a>
+            <a href="/catalogc/" class="tab-link">
+              <i class="icon f7-icons ios-only">playlist_add_check</i>
+              <i class="icon f7-icons ios-only icon-ios-fill">playlist_add_check_fill</i>
+              <i class="icon material-icons md-only">playlist_add_check</i>
+              <span class="tabbar-label">Orders</span>
+            </a>
           <a href="#" id="btnCart" class="tab-link  popup-open" data-popup="#my-cart-screen">
             <i class="icon f7-icons ios-only">shopping_cart</i>
             <i class="icon f7-icons ios-only icon-ios-fill">shopping_cart_fill</i>
@@ -229,6 +229,202 @@
       </div>
     </div>-->
     <!-- Popup -->
+    <div class="popup" id="my-order-popup">
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="css/cart.css">
+      <link href="css/mdb.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="css/store.css">
+      <div class="view">
+        <div class="page">
+          <div class="navbar no-border">
+            <div class="navbar-inner">
+              <div class="title"></div>
+              <div class="right">
+                <a href="#" class="link popup-close">Close</a>
+              </div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="block-title"></div>
+
+            <form id="frmCadastro">
+              <section>
+                <h2>CRUD Form localStorage</h2>
+              <fieldset>
+                <legend>Data form:</legend>
+                <ul>
+                  <li>
+                    <label for="txtCode">
+                      <span>Code:</span>
+                      <input type="text" id="txtCode"/>
+                    </label>
+                  </li>
+                  <li>
+                    <label for="txtName">
+                      <span>Name:</span>
+                      <input type="text" id="txtName"/>
+                    </label>
+                  </li>
+                  <li>
+                    <label for="txtCid">
+                      <span>Cid:</span>
+                       <input type="text" id="txtCid"/>
+                    </label>
+                  </li>
+                  <li>
+                    <label for="txtDate">
+                      <span>Date:</span>
+                      <input type="text" id="txtDate"/>
+                    </label>
+                  </li>
+                  <li>
+                    <label for="txtItems">
+                      <span>Items:</span>
+                       <input type="textarea" id="txtItems"/>
+                    </label>
+                  </li>
+                  <li>
+                    <input type="submit" value="Save" id="btnSalvar"/>
+                  </li>
+                </ul>
+              </fieldset>
+            </section>
+          </form>
+            <!--<div class="list no-hairlines-md">
+              <ul>
+                <li>
+                  <input type="hidden" id="txt-id" name="fname" />
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">First Name</div>
+                      <div class="item-input-wrap">
+                        <input type="text" id="fname" name="fname" />
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Last Name</div>
+                      <div class="item-input-wrap">
+                        <input type="text" id="lname" name="lname" />
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Phone</div>
+                      <div class="item-input-wrap">
+                        <input type="number" id="phone" name="phone" />
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Birth date</div>
+                      <div class="item-input-wrap">
+                        <input type="date" id="birthdate" name="birthdate" placeholder="Birth day" value="2014-04-30" />
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Email</div>
+                      <div class="item-input-wrap">
+                        <input type="email" id="email" name="email" />
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Street Name</div>
+                      <div class="item-input-wrap">
+                        <input type="text" id="add_street" name="add_street" />
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Unit, Building, Floor No.</div>
+                      <div class="item-input-wrap">
+                        <input type="text" id="add_unit" name="add_unit" />
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">City</div>
+                      <div class="item-input-wrap">
+                        <select id="add_city" name="add_city">
+                          <option>Manila</option>
+                          <option>Quezon City</option>
+                          <option>Makati</option>
+                          <option>Pasig</option>
+                          <option>Mandaluyong</option>
+                          <option>Pasay</option>
+                          <option>Taguig</option>
+                          <option>Las Piñas</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Area</div>
+                      <div class="item-input-wrap">
+                        <input type="text" id="add_area" name="add_area" />
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Zip Code</div>
+                      <div class="item-input-wrap">
+                        <input type="text" id="add_zip" name="add_zip" />
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Landmark</div>
+                      <div class="item-input-wrap">
+                        <input type="text" id="add_landmark" name="add_landmark" />
+                        <input type="hidden" id="timestamp" name="timestamp" />
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>-->
+            <div class="block">
+              <a href="#" id="submit" class="button form-to-data button button-raised button-fill popup-close">Submit</a>
+            </div>
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--/****************************/-->
     <div class="popup" id="my-popup">
       <link href="css/bootstrap.min.css" rel="stylesheet">
       <link rel="stylesheet" href="css/cart.css">
@@ -379,8 +575,7 @@
         </div>
       </div>
     </div>
-
-    <!-- Customer Select Screen -->
+ <!-- Customer Select Screen -->
     <div class="popup" id="my-customer-popup">
       <div class="view">
         <div class="page" id="catalogb" data-name="catalogb">
@@ -493,6 +688,8 @@
      <script src="js/customers.js"></script>
     </div>
 
+   
+
     
     
    
@@ -500,6 +697,7 @@
 </body>
 
   <script src="js/jquery-3.3.1.min.js"></script>
+  <!--<script src="js/checkout.js"></script>-->
    <script src='js/lodash.min.js'></script>
     <script src='js/spin.min.js'></script>
     <script src='js/ladda.jquery.js'></script>-

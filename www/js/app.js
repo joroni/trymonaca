@@ -1,6 +1,7 @@
 // Dom7
 var $$ = Dom7;
 // Framework7 App main instance
+var orderItems = localStorage.getItem("txtClients");
 var customers = localStorage.getItem("customers");
 var app = new Framework7({
     root: '#app', // App root element
@@ -13,10 +14,13 @@ var app = new Framework7({
                 firstName: 'John',
                 lastName: 'Doe',
             },
-           // productbs: JSON.parse(customers),
-            productbs: [{"id":1,"cid":1540562584936,"title":"John","fname":"Doe","phone":"12345646","description":"john.doe@email.com"},{"id":2,"cid":1540818411406,"title":"Melissa","fname":"De Leon","phone":"093482940","description":"2014-04-30"},{"id":3,"cid":1540825840882,"title":"Joanne","fname":"Amparo","phone":"123456789","description":"2014-04-08"},{"id":4,"cid":1540918462991,"title":"JKJk","fname":"weieoidfp","phone":"12459","description":"2014-04-30"}],
+            // productbs: JSON.parse(customers),
+            // productbs: [{"id":1,"cid":1540562584936,"title":"John","fname":"Doe","phone":"12345646","description":"john.doe@email.com"},{"id":2,"cid":1540818411406,"title":"Melissa","fname":"De Leon","phone":"093482940","description":"2014-04-30"},{"id":3,"cid":1540825840882,"title":"Joanne","fname":"Amparo","phone":"123456789","description":"2014-04-08"},{"id":4,"cid":1540918462991,"title":"JKJk","fname":"weieoidfp","phone":"12459","description":"2014-04-30"}],
+            productcs: JSON.parse(orderItems),
+            //productbs:["{\"Code\":\"1\",\"Name\":\"User\",\"Cid\":\"12345\",\"Date\":\"10-28-18\",\"Items\":\"Test\"}"],
+            //productbs: ["{\"id\":\"1\",\"cid\":\"3495894823022\",\"title\":\"Test User1\",\"Date\":\"10-20.18\",\"Items\":\"<table>   <tbody><tr>     <th>Name</th>   </tr>     </tbody><tbody id=\\\"countries\\\"><tr><td>France</td><td><button onclick=\\\"app.Edit(0)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(0)\\\">Delete</button></td></tr><tr><td>Germany</td><td><button onclick=\\\"app.Edit(1)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(1)\\\">Delete</button></td></tr><tr><td>England</td><td><button onclick=\\\"app.Edit(2)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(2)\\\">Delete</button></td></tr><tr><td>Spain</td><td><button onclick=\\\"app.Edit(3)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(3)\\\">Delete</button></td></tr><tr><td>Belgium</td><td><button onclick=\\\"app.Edit(4)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(4)\\\">Delete</button></td></tr><tr><td>Italy</td><td><button onclick=\\\"app.Edit(5)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(5)\\\">Delete</button></td></tr><tr><td>Portugal</td><td><button onclick=\\\"app.Edit(6)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(6)\\\">Delete</button></td></tr><tr><td>Irland</td><td><button onclick=\\\"app.Edit(7)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(7)\\\">Delete</button></td></tr><tr><td>Luxembourg</td><td><button onclick=\\\"app.Edit(8)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(8)\\\">Delete</button></td></tr></tbody> </table>\"}"],
             // productbs: [customers],
-            /*productbss: [{
+            /*items: [{
                     id: '1',
                     title: 'John',
                     fname: 'Dough',
@@ -218,6 +222,9 @@ var app = new Framework7({
     // App routes
     routes: routes,
 });
+
+
+var orderItems = JSON.parse(localStorage.getItem("txtClients"));
 // Init/Create main view
 var mainView = app.views.create('.view-main', {
     url: '/'
@@ -257,155 +264,288 @@ $$('a.category').on('click', function () {
     app.dialog.alert(selectedCat);
 });
 
+/****************************************** */
 
-$$(document).on('page:init', '.page[data-name="homes"]', function (e) {
-    app.loadStore();
-   
-});
-$$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
-    //  app.createProducts();
-    app.loadStore(); // Show preloader before Ajax request
-    //  app.preloader.show();
-    // Perform Ajax request
-    /* app.request.get('someurl.html', function (data) {
-       // Hide preloader when Ajax request completed
-       app.preloader.hide();
-     });*/
-    app.preloader.show();
-    setTimeout(function () {
-        app.preloader.hide();
-        app.loadStore();
-    }, 1500);
-    console.log("Catalog");
-    app.addToMyCart = function (id) {
-        // alert("test");
-        //function checkHasUer(){
-        if (!localStorage.getItem("idMember")) {
-            alert("Please select a customer.");
-            app.router.navigate('/catalogb/');
-            return false;
+$$(document).on('page:init', '.page[data-name="catalogc"]', function (e) {
+    //alert("catalogc");
+    //$$(function () {
+    var operation = "A"; //"A"=Adição; "E"=Edição
+    var index_selected = -1; //Índice do item selecionado na lista
+    var txtClients = localStorage.getItem("txtClients"); // Recupera os dados armazenados
+    txtClients = JSON.parse(txtClients); // Converte string para objeto
+
+
+
+
+    if (txtClients == null) { // Caso não haja conteúdo, iniciamos um vetor vazio
+        txtClients = [];
+    }
+
+    $$("#frmCadastro").on("submit", function () {
+        if (operation == "A") {
+            return Adicionar(txtClients);
         } else {
-            console.log("continue shopping");
-            //
-            //console.log("add to cart");
-            // var l = Ladda.create(document.querySelector('.prod-' + id));
-            var l = $$('.prod-' + id);
-            // l.start();
-            var products = JSON.parse(localStorage.getItem('products')),
-                producto = _.find(products, {
-                    'id': id
-                }),
-                cant = 1;
-            $$('body').css('opacity', '0.5');
-            if (cant <= producto.stock) {
-                if (undefined != producto) {
-                    if (cant > 0) {
-                        setTimeout(function () {
-                            var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
-                                items: []
-                            };
-                            app.searchProd(cart,
-                                producto.id,
-                                producto.sku,
-                                parseInt(cant),
-                                producto.name,
-                                producto.price,
-                                producto.img,
-                                producto.stock,
-                                producto.oldprice,
-                                producto.notes,
-                                producto.cname,
-                               // producto.cname = localStorage.getItem("idMember"),
-                                producto.check = "notsync",
-                                producto.select,
-                                producto.email,
-                                // producto.smname = localStorage.getItem("idSalesMngr"),
-                                producto.smname,
-                                producto.timestamp,
-                                producto.ponumber,
-                                producto.total = localStorage.getItem("grndTotal")
-                            )
-                            // l.stop();
-                            console.log(parseInt(cant))
-                            $$('body').css('opacity', '1');
-                        }, 100)
+            return EditItem(txtClients, index_selected);
+        }
+    });
+
+    List(txtClients);
+    console.log('list orders');
+    $$("#tblList").on("click", ".btnEdit", function () {
+        operation = "E";
+        index_selected = parseInt($$(this).attr("alt"));
+        var cli = JSON.parse(txtClients[index_selected]);
+        $$("#txtCode").val(cli.code);
+        $$("#txtName").val(cli.name);
+        $$("#txtCid").val(cli.cid);
+        $$("#txtDate").val(cli.date);
+        $$("#txtItems").val(cli.items);
+        $$("#txtCode").attr("readonly", "readonly");
+        $$("#txtName").focus();
+    });
+
+    $$("#tblList").on("click", ".btnDeleteItem", function () {
+        index_selected = parseInt($$(this).attr("alt"));
+        DeleteItem(txtClients, index_selected);
+        (txtClients);
+    });
+});
+
+function Adicionar(txtClients) {
+
+    var client = JSON.stringify({
+        code: $$("#txtCode").val(),
+        name: $$("#txtName").val(),
+        cid: $$("#txtCid").val(),
+        date: $$("#txtDate").val(),
+        items: $$("#txtItems").val()
+    });
+    txtClients.push(client);
+    console.log("txtClients - " + txtClients);
+    localStorage.setItem("txtClients", JSON.stringify(txtClients));
+    alert("Item Added Successfully.");
+    return true;
+}
+
+function EditItem(txtClients, index_selected) {
+    txtClients[index_selected] = JSON.stringify({
+        code: $$("#txtCode").val(),
+        name: $$("#txtName").val(),
+        cid: $$("#txtCid").val(),
+        date: $$("#txtDate").val(),
+        items: $$("#txtItems").val()
+    }); //Altera o item selecionado na tabela
+    localStorage.setItem("txtClients", JSON.stringify(txtClients));
+    alert("Updated Successfully.")
+    operation = "A"; //Volta ao padrão
+    return true;
+}
+
+function DeleteItem(txtClients, index_selected) {
+    txtClients.splice(index_selected, 1);
+    localStorage.setItem("txtClients", JSON.stringify(txtClients));
+    alert("Registro excluído.");
+
+}
+
+function List(txtClients) {
+    $$("#tblList").html("");
+    for (var i in txtClients) {
+        var cli = JSON.parse(txtClients[i]);
+        $$("#tblList").append('<li>' +
+            '<a href="#" class="item-link item-content">' +
+           // '<div class="item-media"><i class="icon icon-f7"></i></div>' +
+            '<div class="item-inner">' +
+            '<div class="item-title">' + cli.code +'</div>' +
+            '<div class="item-after"><span class="badge">' + cli.date +'</span></div>' +
+            '</div>' +
+            '</a>' +
+            '</li>'
+        )
+}
+}
+
+    /*
+    function List(txtClients) {
+        $$("#tblList").html("");
+        $$("#tblList").html(
+            "<thead>" +
+            "   <tr>" +
+            "   <th></th>" +
+            "   <th>Code</th>" +
+          //  "   <th>Name</th>" +
+      //      "   <th>Cid</th>" +
+            "   <th>Date</th>" +
+       //     "   <th>Items</th>" +
+            "   </tr>" +
+            "</thead>" +
+            "<tbody>" +
+            "</tbody>"
+        );
+        for (var i in txtClients) {
+            var cli = JSON.parse(txtClients[i]);
+            $$("#tblList tbody").append("<tr>");
+            $$("#tblList tbody").append("<td><img src='img/edit.png' alt='" + i + "'class='btnEdit' width='32'/><img src='img/delete.png' width='32' alt='" + i + "' class='btnDeleteItem'/></td>");
+            $$("#tblList tbody").append("<td>" + cli.code + "</td>");
+         //   $$("#tblList tbody").append("<td>" + cli.name + "</td>");
+           // $$("#tblList tbody").append("<td>" + cli.cid + "</td>");
+            $$("#tblList tbody").append("<td>" + cli.date + "</td>");
+            //$$("#tblList tbody").append("<td>" + cli.items + "</td>");
+            $$("#tblList tbody").append("</tr>");
+        }
+    }*/
+
+
+    //});
+
+
+    $$(document).on('page:init', '.page[data-name="homes"]', function (e) {
+        app.loadStore();
+
+    });
+    $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
+        //  app.createProducts();
+        app.loadStore(); // Show preloader before Ajax request
+        //  app.preloader.show();
+        // Perform Ajax request
+        /* app.request.get('someurl.html', function (data) {
+           // Hide preloader when Ajax request completed
+           app.preloader.hide();
+         });*/
+        app.preloader.show();
+        setTimeout(function () {
+            app.preloader.hide();
+            app.loadStore();
+        }, 1500);
+        console.log("Catalog");
+        app.addToMyCart = function (id) {
+            // alert("test");
+            //function checkHasUer(){
+            if (!localStorage.getItem("idMember")) {
+                alert("Please select a customer.");
+                app.router.navigate('/catalogb/');
+                return false;
+            } else {
+                console.log("continue shopping");
+                //
+                //console.log("add to cart");
+                // var l = Ladda.create(document.querySelector('.prod-' + id));
+                var l = $$('.prod-' + id);
+                // l.start();
+                var products = JSON.parse(localStorage.getItem('products')),
+                    producto = _.find(products, {
+                        'id': id
+                    }),
+                    cant = 1;
+                $$('body').css('opacity', '0.5');
+                if (cant <= producto.stock) {
+                    if (undefined != producto) {
+                        if (cant > 0) {
+                            setTimeout(function () {
+                                var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
+                                    items: []
+                                };
+                                app.searchProd(cart,
+                                    producto.id,
+                                    producto.sku,
+                                    parseInt(cant),
+                                    producto.name,
+                                    producto.price,
+                                    producto.img,
+                                    producto.stock,
+                                    producto.oldprice,
+                                    producto.notes,
+                                    producto.cname,
+                                    // producto.cname = localStorage.getItem("idMember"),
+                                    producto.check = "notsync",
+                                    producto.select,
+                                    producto.email,
+                                    // producto.smname = localStorage.getItem("idSalesMngr"),
+                                    producto.smname,
+                                    producto.timestamp,
+                                    producto.ponumber,
+                                    producto.total = localStorage.getItem("grndTotal")
+                                )
+                                // l.stop();
+                                console.log(parseInt(cant))
+                                $$('body').css('opacity', '1');
+                            }, 100)
+                        } else {
+                            alert('Only larger quantities are allowed to zero');
+                        }
                     } else {
-                        alert('Only larger quantities are allowed to zero');
+                        alert('Oops! Something we wrong, try again later')
                     }
                 } else {
-                    alert('Oops! Something we wrong, try again later')
+                    alert('You can not add more of this product');
                 }
-            } else {
-                alert('You can not add more of this product');
             }
         }
-    }
 
 
-    app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
-        //si le pasamos un valor negativo a la cantidad, se descuenta del carrito
-        var curProd = _.find(cart.items, {
-            'id': id
-        })
-        console.log("search products");
-        if (undefined != curProd && curProd != null) {
-            //ya existe el producto, aÃ±adimos uno mÃ¡s a su cantidad
-            if (curProd.cant < available) {
-                curProd.cant = parseInt(curProd.cant + cant)
+        app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
+            //si le pasamos un valor negativo a la cantidad, se descuenta del carrito
+            var curProd = _.find(cart.items, {
+                'id': id
+            })
+            console.log("search products");
+            if (undefined != curProd && curProd != null) {
+                //ya existe el producto, aÃ±adimos uno mÃ¡s a su cantidad
+                if (curProd.cant < available) {
+                    curProd.cant = parseInt(curProd.cant + cant)
+                } else {
+                    alert('This product is currently out of stock')
+                }
+                $$('#prod_' + curProd.id).val(curProd.cant);
             } else {
-                alert('This product is currently out of stock')
-            }
-            $$('#prod_' + curProd.id).val(curProd.cant);
-        } else {
-            //sino existe lo agregamos al carrito
-            var timeandponumber = new Date().getTime();
-            localStorage.setItem("timeandponumber", timeandponumber);
-            var timeandpo = localStorage.getItem("timeandponumber");
-            var prod = {
-               
-               
-                cant: cant,
-                check:check,
-                cname:cname = localStorage.getItem("idMember"),
-                email: email,
-                id: id,
-                img: img,
-                name: name,
-                notes: notes,
-                oldprice: oldprice,
-                
-                ponumber: timeandpo,
-                price: price,
-                select: select,
-                sku: sku,
-                smname: smname = localStorage.getItem("idSalesMngr"),
-                timestamp:timeandpo,
-                total: localStorage.getItem("grndTotal")
-               
-               
-              
-               
-              
-              
-              
-    
-            }
-            cart.items.push(prod)
-        }
-        localStorage.setItem('cart', JSON.stringify(cart));
-        app.init();
-        app.getProducts();
-        app.updatePayForm();
-    }
-});
+                //sino existe lo agregamos al carrito
+                var timeandponumber = new Date().getTime();
+                localStorage.setItem("timeandponumber", timeandponumber);
+                var timeandpo = localStorage.getItem("timeandponumber");
+                var prod = {
 
-$$(document).on('page:init', '.page[data-page="category"]', function (e) {
-    app.loadStore();
-    console.log('Category');
-});
-/**************************************** CART */
-app.loadStore = function () {
-}
+
+                    cant: cant,
+                    check: check,
+                    cname: cname = localStorage.getItem("idMember"),
+                    email: email,
+                    id: id,
+                    img: img,
+                    name: name,
+                    notes: notes,
+                    oldprice: oldprice,
+
+                    ponumber: timeandpo,
+                    price: price,
+                    select: select,
+                    sku: sku,
+                    smname: smname = localStorage.getItem("idSalesMngr"),
+                    timestamp: timeandpo,
+                    total: localStorage.getItem("grndTotal")
+
+
+
+
+
+
+
+
+                }
+                cart.items.push(prod)
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            app.init();
+            app.getProducts();
+            app.updatePayForm();
+        }
+    });
+
+    $$(document).on('page:init', '.page[data-page="category"]', function (e) {
+        app.loadStore();
+        console.log('Category');
+    });
+    /**************************************** CART */
+    app.loadStore = function () {}
     var business_paypal = '', // aquí va tu correo electrónico de paypal
         currency_icon = '₱';
     mockIdSalesMngr = '1111111111111';
@@ -652,12 +792,12 @@ app.loadStore = function () {
                                 producto.stock,
                                 producto.oldprice,
                                 producto.notes,
-                               // producto.cname = localStorage.getItem("idMember"),
-                               producto.cname,
+                                // producto.cname = localStorage.getItem("idMember"),
+                                producto.cname,
                                 producto.check = "notsync",
                                 producto.select,
                                 producto.email,
-                               // producto.smname = localStorage.getItem("idSalesMngr"),
+                                // producto.smname = localStorage.getItem("idSalesMngr"),
                                 producto.smname,
                                 producto.timestamp,
                                 producto.ponumber,
@@ -836,23 +976,30 @@ app.loadStore = function () {
     }
     /***************************** */
 
-    app.resetCart = function () {
-        var retVal = confirm("This will clear cart data? Do you want to continue ?");
-        if (retVal == true) {
-            localStorage.removeItem("cart");
-            localStorage.removeItem("idMember");
-            localStorage.removeItem("purchaseorder");
-            mainView.router.refreshPage();
-            alert("Cache is now cleared.");
-            return true;
-            view.router.navigate(view.router.currentRoute.url, {
-                ignoreCache  : true,
-                reloadCurrent : true
-            });
-        } else {
-            return false;
-        }
+app.resetCart = function () {
+    var retVal = confirm("This will clear cart data? Do you want to continue ?");
+    if (retVal == true) {
+        localStorage.removeItem("cart");
+        localStorage.removeItem("idMember");
+        localStorage.removeItem("grndTotal");
+        localStorage.removeItem("listHTML");
+        localStorage.removeItem("timeandponumber");
+        $$(".cart, .mycart, #totalItems").html("");
+        
+      //  localStorage.removeItem("purchaseorder");
+        mainView.router.refreshPage();
+        alert("Cache is now cleared.");
+        mainView.router.navigate(mainView.router.currentRoute.url, {
+            ignoreCache: true,
+            reloadCurrent: true
+        });
+        app.router.navigate('/');
+        return true;
+      
+    } else {
+        return false;
     }
+}
 
     app.showOrders = function () {
         // alert("orders");
@@ -917,23 +1064,23 @@ app.loadStore = function () {
         sessionStorage.setItem("skuItem", ThisSKU);
     }
     // Get the container element
-var btnContainer = $$(".toolbar-inner");
+    var btnContainer = $$(".toolbar-inner");
 
-// Get all buttons with class="btn" inside the container
-var btns = $$(".tab-link");
+    // Get all buttons with class="btn" inside the container
+    var btns = $$(".tab-link");
 
-btns.on("click", function(){
-    btns.removeClass("tab-link-active");
-    $$(this).addClass("tab-link-active");
-})
-// Loop through the buttons and add the active class to the current/clicked button
-/*for (var i = 0; i < btns.length; i++) {
-  btns.on("click", function() {
-    var current = $$(".tab-link-active");
-    current[0].className = current[0].toggleClass("tab-link-active");
-    this.addClass("tab-link-active")
-  });
-}*/
+    btns.on("click", function () {
+        btns.removeClass("tab-link-active");
+        $$(this).addClass("tab-link-active");
+    })
+    // Loop through the buttons and add the active class to the current/clicked button
+    /*for (var i = 0; i < btns.length; i++) {
+      btns.on("click", function() {
+        var current = $$(".tab-link-active");
+        current[0].className = current[0].toggleClass("tab-link-active");
+        this.addClass("tab-link-active")
+      });
+    }*/
     app.productsPage = function () {
         var activeSKU = sessionStorage.getItem("skuItem");
         console.log(activeSKU);
@@ -1019,5 +1166,5 @@ btns.on("click", function(){
         //   })
         // Your content here
     });
-//}
-/**************************************** CART */
+    //}
+    /**************************************** CART */

@@ -1,0 +1,87 @@
+<template>
+    <div class="page" data-name="catalogc" id="catalogc">
+        <div class="navbar">
+            <div class="navbar-inner sliding">
+                <div class="title">Orders</div>
+            </div>
+        </div>
+        <div class="fab fab-right-bottom">
+                <a href="#" class="fill popup-open" data-popup="#my-order-popup">
+                    <i class="icon f7-icons">add</i>
+                </a>
+            </div>
+        <div class="page-content">
+               <!-- <table id="tblList" class="hidden"> </table>-->
+
+               <div class="data-table data-table-init card">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th class="checkbox-cell">
+                            <label class="form-checkbox">
+                              <input type="checkbox"/><i></i>
+                            </label>
+                          </th>
+                          <th class="label-cell">Desert (100g serving)</th>
+                          <th class="numeric-cell">Calories</th>
+                          ...
+                          <th class="numeric-cell">Protein (g)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="checkbox-cell">
+                            <label class="form-checkbox">
+                              <input type="checkbox"/><i></i>
+                            </label>
+                          </td>
+                          <td class="label-cell">Frozen yogurt</td>
+                          <td class="numeric-cell">159</td>
+                          ...
+                          <td class="numeric-cell">4.0</td>
+                        </tr>
+                        ...
+                      </tbody>
+                    </table>
+                  </div>
+                  
+<div class="list hidden list-block">
+                
+                <ul>
+                    {{#each productbs}}
+
+                <li>
+                       
+                            <a href="/productbs/{{code}}/" class="item-link item-content">
+                               
+                                <div class="item-inner">
+                                    <div class="item-title">
+                                        <div class="item-header"><small>CUSTOMER #: </small>{{cid}}</div>
+                                        <small>PO #: </small>{{name}}
+                                    </div>
+                                    <div class="item-after"><span>{{check}}</span></div>
+                                </div>
+                              
+                     
+                        </a>
+                       
+
+
+
+
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+    return {
+        data: function () {
+            return {
+                productbs: this.$root.productbs,
+            };
+        }
+    }
+</script>
