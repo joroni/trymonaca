@@ -95,11 +95,11 @@
               <i class="icon material-icons md-only">shopping_basket</i>
               <span class="tabbar-label">Store</span>
             </a>
-       <a href="/orders/" class="tab-link">
-            <i class="icon f7-icons ios-only">shopping_basket</i>
-            <i class="icon f7-icons ios-only icon-ios-fill">shopping_basket_fill</i>
-            <i class="icon material-icons md-only">shopping_basket</i>
-            <span class="tabbar-label">ORDERS</span>
+       <a href="/catalogc/" class="tab-link">
+            <i class="icon f7-icons ios-only">playlist_add_check</i>
+            <i class="icon f7-icons ios-only icon-ios-fill">playlist_add_check_fill</i>
+            <i class="icon material-icons md-only">playlist_add_check</i>
+            <span class="tabbar-label">Orders</span>
           </a>
           <a href="#" id="btnCart" class="tab-link  popup-open" data-popup="#my-cart-screen">
             <i class="icon f7-icons ios-only">shopping_cart</i>
@@ -158,12 +158,14 @@
                 </div>
                 <div class="col-50 tablet-25">
                     <div class="card">
-                      <div class="card-content card-content-padding color-white no-border" valign="bottom" style="background-image:url(img/products/btn-3.jpg); background-size:contain; height:170px;">CUSTOMERS</div>
+                      <a href="/catalogc/">
+                      <div class="card-content card-content-padding color-white no-border" valign="bottom" style="background-image:url(img/products/btn-3.jpg); background-size:contain; height:170px;">ORDERS</div>
+                      </a>
                     </div>
                   </div>
                   <div class="col-50 tablet-25">
                     <div class="card">
-                      <div class="card-content card-content-padding color-white no-border" valign="bottom" style="background-image:url(img/products/btn-4.jpg); background-size:contain; height:170px;">CUSTOMERS</div>
+                      <div class="card-content card-content-padding color-white no-border" valign="bottom" style="background-image:url(img/products/btn-4.jpg); background-size:contain; height:170px;">CREATE</div>
                     </div>
                   </div>
 
@@ -403,18 +405,35 @@
       <!-- Cart Screen -->
       <div class="popup" id="my-cart-screen">
         <div class="view">
-          <div class="page">
+          <div class="page cartscreen page-current" data-name="cartscreen">
+        <!-- Top Navbar -->
             <div class="navbar no-border">
               <div class="navbar-inner">
                 <div class="title">Cart</div>
                 <div class="right">
-                  <a href="#" class="link popup-close">Close</a>
+                  <a href="#" class="link popup-close"><i class="material-icons">close</i></a>
                 </div>
               </div>
             </div>
             <div class="page-content">
               <div class="block-title"></div>
               <div class="block">
+                  <table class="table table-hover">
+                      <tbody class="mycart">
+                          <tr>
+                            <td>Now Serving</td>
+                            <td class="right"><h5 id="nowserving"></h5></td>
+                           
+                          </tr>
+                          <tr>
+                           
+                              <td>PO #</td>
+                              <td class="right"><h5 id="servingpo"></h5></td>
+                            </tr>
+                  </table>
+                  </div>
+                  <div class="block">
+                     
                 <table class="table table-hover">
                   <thead class="hidden">
                     <tr>
@@ -430,12 +449,13 @@
               <div class="block">
                 <div class="submitForm"></div>
               </div>
+              <div id="pocontainer"></div>
               <div class="block submitBtn">
                 <!--<a href="#" class=" button form-to-data button btn-checkout button-raised button-fill popup-close">CHECKOUT</a>-->
-                <a href="#" class=" button form-to-data button btn-checkout button-raised button-fill">CHECKOUT</a>
+                <a href="#" class="btnSavePO button btn-success form-to-data btn-checkouts button-raised button-fill">CHECKOUT</a>
               </div>
 
-              <div class="block submitBtn">
+              <div class="block submitBtn hidden">
                 <a href="#" class="saveOrderLocal submitOrder button form-to-data button button-raised button-fill popup-close">Submit</a>
               </div>
               <br>
@@ -491,6 +511,7 @@
    <!-- Your custom app scripts -->
     <script src="js/app.js"></script>
      <script src="js/customers.js"></script>
+    <!-- <script src="js/orders.js"></script> -->
     </div>
 
     

@@ -45,6 +45,10 @@ routes = [
     componentUrl: './pages/productb.html',
   },
   {
+    path: '/productc/:id/',
+    componentUrl: './pages/productc.html',
+  },
+  {
     path: '/form/',
     url: './pages/form.html',
   },
