@@ -615,68 +615,68 @@ app.loadStore = function () {
     }
 
 
-
-    app.addtoCart = function (id) {
-        //function checkHasUer(){
-        if (!localStorage.getItem("idMember")) {
-            alert("Please select a customer.");
-            app.router.navigate('/catalogb/');
-            return false;
-        } else {
-            console.log("continue shopping");
-            //
-            //console.log("add to cart");
-            // var l = Ladda.create(document.querySelector('.prod-' + id));
-            var l = $$('.prod-' + id);
-            // l.start();
-            var products = JSON.parse(localStorage.getItem('products')),
-                producto = _.find(products, {
-                    'id': id
-                }),
-                cant = 1;
-            $$('body').css('opacity', '0.5');
-            if (cant <= producto.stock) {
-                if (undefined != producto) {
-                    if (cant > 0) {
-                        setTimeout(function () {
-                            var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
-                                items: []
-                            };
-                            app.searchProd(cart,
-                                producto.id,
-                                producto.sku,
-                                parseInt(cant),
-                                producto.name,
-                                producto.price,
-                                producto.img,
-                                producto.stock,
-                                producto.oldprice,
-                                producto.notes,
-                               // producto.cname = localStorage.getItem("idMember"),
-                               producto.cname,
-                                producto.check = "notsync",
-                                producto.select,
-                                producto.email,
-                               // producto.smname = localStorage.getItem("idSalesMngr"),
-                                producto.smname,
-                                producto.timestamp,
-                                producto.ponumber,
-                                producto.total = localStorage.getItem("grndTotal")
-                            )
-                            // l.stop();
-                            console.log(parseInt(cant))
-                            $$('body').css('opacity', '1');
-                        }, 100)
-                    } else {
-                        alert('Only larger quantities are allowed to zero');
-                    }
+/*
+app.addtoCart = function (id) {
+    //function checkHasUer(){
+    if (!localStorage.getItem("idMember")) {
+        alert("Please select a customer.");
+        app.router.navigate('/catalogb/');
+        return false;
+    } else {
+        console.log("continue shopping");
+        //
+        //console.log("add to cart");
+        // var l = Ladda.create(document.querySelector('.prod-' + id));
+        var l = $$('.prod-' + id);
+        // l.start();
+        var products = JSON.parse(localStorage.getItem('products')),
+            producto = _.find(products, {
+                'id': id
+            }),
+            cant = 1;
+        $$('body').css('opacity', '0.5');
+        if (cant <= producto.stock) {
+            if (undefined != producto) {
+                if (cant > 0) {
+                    setTimeout(function () {
+                        var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
+                            items: []
+                        };
+                        app.searchProd(cart,
+                            producto.id,
+                            producto.sku,
+                            parseInt(cant),
+                            producto.name,
+                            producto.price,
+                            producto.img,
+                            producto.stock,
+                            producto.oldprice,
+                            producto.notes,
+                            // producto.cname = localStorage.getItem("idMember"),
+                            producto.cname,
+                            producto.check = "notsync",
+                            producto.select,
+                            producto.email,
+                            // producto.smname = localStorage.getItem("idSalesMngr"),
+                            producto.smname,
+                            producto.timestamp,
+                            producto.ponumber,
+                            producto.total = localStorage.getItem("grndTotal")
+                        )
+                        // l.stop();
+                        console.log(parseInt(cant))
+                        $$('body').css('opacity', '1');
+                    }, 100)
                 } else {
-                    alert('Oops! Something we wrong, try again later')
+                    alert('Only larger quantities are allowed to zero');
                 }
             } else {
-                alert('You can not add more of this product');
+                alert('Oops! Something we wrong, try again later')
             }
+        } else {
+            alert('You can not add more of this product');
         }
+    }
     }
     app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
         //si le pasamos un valor negativo a la cantidad, se descuenta del carrito
