@@ -337,6 +337,7 @@ function Adicionar(txtClients) {
     console.log("txtClients - " + txtClients);
     localStorage.setItem("txtClients", JSON.stringify(txtClients));
     alert("Item Added Successfully.");
+    app.resetCart();
     return true;
 }
 
@@ -875,6 +876,7 @@ app.searchProd = function (cart, id, sku, cant, name, price, img, available, old
 }
 app.getProducts = function () {
     console.log("get products");
+    $$('.submitBtn').hide();
     var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
             items: []
         },
@@ -886,7 +888,7 @@ app.getProducts = function () {
         wrapper2.html('');
     if (undefined == cart || null == cart || cart == '' || cart.items.length == 0) {
         wrapper.html('<div>Your cart is empty</div>');
-        $$('.submitBtn').hide();
+        $$('.submitBtn').show();
         $$('.cart').css('left', '-400%')
     } else {
         var items = '';
@@ -920,8 +922,8 @@ app.getProducts = function () {
         });
         //agregar el total al carrito
         items += '<tr class="total-row"><td colspan="2" > </td><td id="total" class="total right" colspan="3">' + currency_icon + '' + total.toFixed(2) + ' </td></tr>'
-        items += '<tr><td colspan="5" class="total"></td></tr>'
-        items += '<tr><td colspan="5"> <div class="submitForm"></div></td></tr>'
+      //  items += '<tr><td colspan="5" class="total"></td></tr>'
+      //  items += '<tr><td colspan="5"> <div class="submitForm"></div></td></tr>'
         wrapper.html(items);
         wrapper2.html(cartmemberinfo);
         localStorage.setItem("grndTotal", total.toFixed(2));
@@ -1010,6 +1012,24 @@ app.updatePayForm = function () {
 
 $$(".btn-checkout").on('click', function(){
     alert('checkout');
+    var myCname = localStorage.getItem("fnMember");
+    var myPoNumber = localStorage.getItem("timeandponumber");
+    var myItems = $$("#thisCart").html();
+    function Unix_timestamp(t)
+{
+var dt = new Date(t*1000);
+var hr = dt.getHours();
+var m = "0" + dt.getMinutes();
+var s = "0" + dt.getSeconds();
+return hr+ ':' + m.substr(-2) + ':' + s.substr(-2);  
+}
+
+var theTime = Unix_timestamp(myPoNumber);
+
+    $$(txtItems).val(myItems);
+    $$("#txtName").val(myCname);
+    $$("#txtCode").val(myPoNumber);
+    $$("#txtDate").val(theTime);
     app.router.navigate('/');
 })
 /***************************** */
