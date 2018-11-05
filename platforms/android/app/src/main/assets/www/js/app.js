@@ -1031,6 +1031,7 @@ var theTime = Unix_timestamp(myPoNumber);
     $$("#txtCode").val(myPoNumber);
     $$("#txtDate").val(theTime);
     app.router.navigate('/');
+    Adicionar(txtClients);
 })
 /***************************** */
 
