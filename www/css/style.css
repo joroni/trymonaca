@@ -550,10 +550,10 @@ tbody.cart td, table.table th {
   text-align: center !important;
 }
 
-.right .title{
-  text-align:right !important;
+.right .title {
+  text-align: right !important;
+  float: right;
 }
-
 
 #my-cart-screen .table {
   margin-bottom: 0;

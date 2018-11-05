@@ -131,7 +131,7 @@ $$(document).on('DOMContentLoaded', function () {
             console.log(mid);
             localStorage.setItem("idMember", mid);
             localStorage.setItem("fnMember", mfn);
-            var timeandponumber = new Date().getTime();
+            var timeandponumber = new Date().toGMTString();
             localStorage.setItem("timeandponumber", timeandponumber);
             var timeandpo = localStorage.getItem("timeandponumber");
 
