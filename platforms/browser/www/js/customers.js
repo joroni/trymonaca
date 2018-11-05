@@ -127,8 +127,13 @@ $$(document).on('DOMContentLoaded', function () {
 
         $$(".btnMemberID").on("click", function () {
             var mid = $$("input#memberID").val();
+            var mfn = $$("input#memberFN").val();
             console.log(mid);
             localStorage.setItem("idMember", mid);
+            localStorage.setItem("fnMember", mfn);
+            var timeandponumber = new Date().getTime();
+            localStorage.setItem("timeandponumber", timeandponumber);
+            var timeandpo = localStorage.getItem("timeandponumber");
 
             if (!localStorage.getItem("idMember")) {
 
@@ -165,7 +170,7 @@ function init() {
     db.transaction(function (tx) {
             tx.executeSql('create table if not exists CUSTOMERS(ID, FNAMES, LNAMES,PHONE, EMAIL)');
             //  tx.executeSql('create table if not exists PURCHASEORDER(id,sku,cant,name,price,img,available,oldprice,smname,notes,email,timestamp,total)');
-            tx.executeSql('create table if not exists PURCHASEORDER(ID, CNAME, SMNAME,TOTAL, TIMESTAMP)');
+        //  tx.executeSql('create table if not exists PURCHASEORDER(ID, CNAME, SMNAME,TOTAL, TIMESTAMP)');
         },
         error, exito);
 }
@@ -281,11 +286,16 @@ function selectMemberList() {
                     var id = member.ID;
                     var fullname = member.FNAMES + ' ' + member.LNAMES;
 
-                    lisHtml += '<li><a href="/catalog/" onclick="selectMember(' + id + ')">' + fullname + '</a></li>';
-                    // $$('#ccompleteName').html(fullname);
-
+                    lisHtml += '<li><a href="/catalog/" class="customerInfo" onclick="selectMember(' + id + ')">' + fullname + '</a><input type="hidden" id="ccname" value="'+member.FNAMES+'" /></li>';
+                   
                 }
+               $$(".customerInfo").on('click',function(){
 
+                var thisCustomer = $$('#ccname').val();
+                localStorage.setItem("customername", thisCustomer);
+
+               })
+                localStorage.setItem("timeandponumber", timeandponumber);
                 //localStorage.setItem("listHTML", lisHtml);
 
                 // var permdata = localStorage.getItem("listHTML");
@@ -457,7 +467,7 @@ function selectMember(idMember) {
                         '<div class="item-media"><i class="material-icons icon-f7">person</i></div>' +
                         '<div class="item-inner">' +
                         '<input type="hidden" class="customerid" value="' + rs.rows.item(0).ID + '" />' +
-                        '<div class="item-title">' + rs.rows.item(0).FNAMES + ' ' + rs.rows.item(0).LNAMES + '</div>' +
+                        '<div class="item-title">' + rs.rows.item(0).FNAMES + ' ' + rs.rows.item(0).LNAMES + '<input id="memberFN" type="hidden" value="' + rs.rows.item(0).FNAMES +' '+ rs.rows.item(0).LNAMES + '"/></div>' +
                         '<div class="item-after"></div>' +
                         '</div>' +
                         '</div>' +

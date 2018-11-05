@@ -446,7 +446,7 @@ h5.category{
   color: #333;
   font-size: 1em;
 }
-.cart .title {
+.cart .title, .cartmemberinfo .title {
     color: #25A187;
     padding-left: 0px;
     float: left;
@@ -550,6 +550,14 @@ tbody.cart td, table.table th {
   text-align: center !important;
 }
 
+.right .title{
+  text-align:right !important;
+}
+
+
+#my-cart-screen .table {
+  margin-bottom: 0;
+}
 
 .img-fluid {
   margin: 0 auto;
@@ -597,6 +605,7 @@ tbody.cart td, table.table th {
 
 .md .home .card a{
   color: #fff;
+  text-shadow: 1px 1px 5px #333;
 }
 a.tab-link{
 background: #2196f3;
@@ -608,4 +617,21 @@ background: #2196f3;
 
 .small-logo{
   display: inline-block !important;
+}
+
+
+
+.swipeout-actions-right {
+  right: 0%;
+  -webkit-transform: translateX(100%);
+  padding-top: 40px;
+  transform: translateX(100%);
+}
+
+
+
+.table {
+  width: 100%;
+   margin-bottom: 0;
+  background-color: transparent;
 }
