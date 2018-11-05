@@ -559,6 +559,15 @@ tbody.cart td, table.table th {
   margin-bottom: 0;
 }
 
+#frmCadastro ul {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+form#frmCadastro ul li {
+  list-style: none;
+}
+
 .img-fluid {
   margin: 0 auto;
 }

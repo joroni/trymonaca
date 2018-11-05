@@ -886,20 +886,21 @@ app.getProducts = function () {
         wrapper2.html('');
     if (undefined == cart || null == cart || cart == '' || cart.items.length == 0) {
         wrapper.html('<div>Your cart is empty</div>');
+        $$('.submitBtn').hide();
         $$('.cart').css('left', '-400%')
     } else {
         var items = '';
-
+        $$('.submitBtn').show();
         var cartmemberinfo = '';
         var activeCustomer = localStorage.getItem("fnMember");
         console.log(activeCustomer);
-        $$("#nowserving").html(activeCustomer);
+      //  $$("#nowserving").html(activeCustomer);
         var timepo = localStorage.getItem("timeandponumber");
-        $$("#servingpo").html(timepo);
+       // $$("#servingpo").html(timepo);
        // alert(timepo +' '+activeCustomer);
 
-        cartmemberinfo = '<tr><td class="left" colspan="2">Now Serving:</td><td colspan="2" class="right"><span class="title">'+activeCustomer +'</span></td></tr>'+
-        '<tr><td class="left" colspan="2">PO #:</td><td colspan="2" class="right"><span class="title">'+timepo +'</span></td></tr>'
+        cartmemberinfo = '<tr><td class="left" colspan="2">Now Serving:</td><td colspan="3" class="right"><span class="title">'+activeCustomer +'</span></td></tr>'+
+        '<tr><td class="left" colspan="2">PO #:</td><td colspan="3" class="right"><span class="title">'+timepo +'</span></td></tr>'
         _.forEach(cart.items, function (n, key) {
             var oldpricing = '';
             if (n.oldprice != 0 || n.oldprice != '') {
@@ -1009,6 +1010,7 @@ app.updatePayForm = function () {
 
 $$(".btn-checkout").on('click', function(){
     alert('checkout');
+    app.router.navigate('/');
 })
 /***************************** */
 
