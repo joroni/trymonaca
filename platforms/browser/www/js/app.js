@@ -265,6 +265,129 @@ $$('a.category').on('click', function () {
 });
 
 /****************************************** */
+$$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
+    //  app.createProducts();
+    app.loadStore(); // Show preloader before Ajax request
+    //  app.preloader.show();
+    // Perform Ajax request
+    /* app.request.get('someurl.html', function (data) {
+       // Hide preloader when Ajax request completed
+       app.preloader.hide();
+     });*/
+    app.preloader.show();
+    setTimeout(function () {
+        app.preloader.hide();
+        app.loadStore();
+    }, 800);
+    console.log("Catalog");
+    app.addToMyCart = function (id) {
+        // alert("test");
+        //function checkHasUer(){
+        if (!localStorage.getItem("idMember")) {
+            alert("Please select a customer.");
+            app.router.navigate('/catalogb/');
+            return false;
+        } else {
+            console.log("continue shopping");
+            //
+            //console.log("add to cart");
+            // var l = Ladda.create(document.querySelector('.prod-' + id));
+            var l = $$('.prod-' + id);
+            // l.start();
+            var products = JSON.parse(localStorage.getItem('products')),
+                producto = _.find(products, {
+                    'id': id
+                }),
+                cant = 1;
+            $$('body').css('opacity', '0.5');
+            if (cant <= producto.stock) {
+                if (undefined != producto) {
+                    if (cant > 0) {
+                        setTimeout(function () {
+                            var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
+                                items: []
+                            };
+                            app.searchProd(cart,
+                                producto.id,
+                                producto.sku,
+                                parseInt(cant),
+                                producto.name,
+                                producto.price,
+                                producto.img,
+                                producto.stock,
+                                producto.oldprice,
+                                producto.notes,
+                                producto.cname,
+                                // producto.cname = localStorage.getItem("idMember"),
+                                producto.check = "notsync",
+                                producto.select,
+                                producto.email,
+                                // producto.smname = localStorage.getItem("idSalesMngr"),
+                                producto.smname,
+                                producto.timestamp,
+                                producto.ponumber,
+                                producto.total = localStorage.getItem("grndTotal")
+                            )
+                            // l.stop();
+                            console.log(parseInt(cant))
+                            $$('body').css('opacity', '1');
+                        }, 100)
+                    } else {
+                        alert('Only larger quantities are allowed to zero');
+                    }
+                } else {
+                    alert('Oops! Something we wrong, try again later')
+                }
+            } else {
+                alert('You can not add more of this product');
+            }
+        }
+    }
+    app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
+        //si le pasamos un valor negativo a la cantidad, se descuenta del carrito
+        var curProd = _.find(cart.items, {
+            'id': id
+        })
+        console.log("search products");
+        if (undefined != curProd && curProd != null) {
+            //ya existe el producto, aÃ±adimos uno mÃ¡s a su cantidad
+            if (curProd.cant < available) {
+                curProd.cant = parseInt(curProd.cant + cant)
+            } else {
+                alert('This product is currently out of stock')
+            }
+            $$('#prod_' + curProd.id).val(curProd.cant);
+        } else {
+            //sino existe lo agregamos al carrito
+            var timeandponumber = new Date().getTime();
+            localStorage.setItem("timeandponumber", timeandponumber);
+            var timeandpo = localStorage.getItem("timeandponumber");
+            var prod = {
+                cant: cant,
+                check: check,
+                cname: cname = localStorage.getItem("idMember"),
+                email: email,
+                id: id,
+                img: img,
+                name: name,
+                notes: notes,
+                oldprice: oldprice,
+                ponumber: timeandpo,
+                price: price,
+                select: select,
+                sku: sku,
+                smname: smname = localStorage.getItem("idSalesMngr"),
+                timestamp: timeandpo,
+                total: localStorage.getItem("grndTotal")
+            }
+            cart.items.push(prod)
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        app.init();
+        app.getProducts();
+        app.updatePayForm();
+    }
+});
 
 $$(document).on('page:init', '.page[data-name="catalogc"]', function (e) {
     //alert("catalogc");
@@ -769,7 +892,7 @@ function callFunction(func) {
 }
 
 
-
+/*
 app.addtoCart = function (id) {
     //function checkHasUer(){
     if (!localStorage.getItem("idMember")) {
@@ -831,8 +954,8 @@ app.addtoCart = function (id) {
             alert('You can not add more of this product');
         }
     }
-}
-app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
+}*/
+/*app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
     //si le pasamos un valor negativo a la cantidad, se descuenta del carrito
     var curProd = _.find(cart.items, {
         'id': id
@@ -873,7 +996,7 @@ app.searchProd = function (cart, id, sku, cant, name, price, img, available, old
     app.init();
     app.getProducts();
     app.updatePayForm();
-}
+}*/
 app.getProducts = function () {
     console.log("get products");
     $$('.submitBtn').hide();
@@ -1009,8 +1132,30 @@ app.updatePayForm = function () {
     }
 }
 
-
 $$(".btn-checkout").on('click', function(){
+alert('checkout');
+var myCname = localStorage.getItem("fnMember");
+var myPoNumber = localStorage.getItem("timeandponumber");
+var myItems = $$("#thisCart").html();
+function Unix_timestamp(t) {
+    var dt = new Date(t * 1000);
+    var hr = dt.getHours();
+    var m = "0" + dt.getMinutes();
+    var s = "0" + dt.getSeconds();
+    return hr + ':' + m.substr(-2) + ':' + s.substr(-2);
+}
+var theTime = Unix_timestamp(myPoNumber);
+$$("#txtItems").val(myItems);
+$$("#txtName").val(myCname);
+$$("#txtCode").val(myPoNumber);
+$$("#txtDate").val(theTime);
+
+$$("#my-cart-screen").hide().removeClass("modal-in");
+// app.router.navigate('/confirmuser/');
+// Adicionar(txtClients);
+});
+
+$$(".btn-checkouta").on('click', function(){
     alert('checkout');
     var myCname = localStorage.getItem("fnMember");
     var myPoNumber = localStorage.getItem("timeandponumber");
