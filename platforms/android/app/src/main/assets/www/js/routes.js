@@ -11,6 +11,10 @@ routes = [
     path: '/store/',
     componentUrl: './pages/store.html',
   },
+  {
+    path: '/confirmuser/',
+    url: './pages/confirmuser.html',
+  },
   
   {
     path: '/catalogc/',

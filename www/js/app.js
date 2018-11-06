@@ -388,11 +388,10 @@ $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
         app.updatePayForm();
     }
 });
-
 $$(document).on('page:init', '.page[data-name="catalogc"]', function (e) {
     //alert("catalogc");
     //$$(function () {
-  
+
     var operation = "A"; //"A"=Adição; "E"=Edição
     var index_selected = -1; //Índice do item selecionado na lista
     var txtClients = localStorage.getItem("txtClients"); // Recupera os dados armazenados
@@ -436,18 +435,18 @@ $$(document).on('page:init', '.page[data-name="catalogc"]', function (e) {
 });
 
 
-function CustomerCartInfo(){
+function CustomerCartInfo() {
     var activeCustomer = localStorage.getItem("fnMember");
     console.log(activeCustomer);
     $$("#nowserving").html(activeCustomer);
     var timepo = localStorage.getItem("timeandponumber");
     $$("#servingpo").html(timepo);
-    alert(timepo +' '+activeCustomer);
-    
+    alert(timepo + ' ' + activeCustomer);
+
 }
 
 function Adicionar(txtClients) {
-   // CustomerCartInfo();
+    // CustomerCartInfo();
     var client = JSON.stringify({
         code: $$("#txtCode").val(),
         name: $$("#txtName").val(),
@@ -1007,8 +1006,8 @@ app.getProducts = function () {
         wrapper = $$('.cart'),
         wrapper2 = $$('.cartmemberinfo'),
         total = 0
-        wrapper.html('');
-        wrapper2.html('');
+    wrapper.html('');
+    wrapper2.html('');
     if (undefined == cart || null == cart || cart == '' || cart.items.length == 0) {
         wrapper.html('<div>Your cart is empty</div>');
         $$('.submitBtn').show();
@@ -1019,13 +1018,12 @@ app.getProducts = function () {
         var cartmemberinfo = '';
         var activeCustomer = localStorage.getItem("fnMember");
         console.log(activeCustomer);
-      //  $$("#nowserving").html(activeCustomer);
+        //  $$("#nowserving").html(activeCustomer);
         var timepo = localStorage.getItem("timeandponumber");
-       // $$("#servingpo").html(timepo);
-       // alert(timepo +' '+activeCustomer);
-
-        cartmemberinfo = '<tr><td class="left" colspan="2">Now Serving:</td><td colspan="3" class="right"><span class="title">'+activeCustomer +'</span></td></tr>'+
-        '<tr><td class="left" colspan="2">PO #:</td><td colspan="3" class="right"><span class="title">'+timepo +'</span></td></tr>'
+        // $$("#servingpo").html(timepo);
+        // alert(timepo +' '+activeCustomer);
+        cartmemberinfo = '<tr><td class="left" colspan="2">Now Serving:</td><td colspan="3" class="right"><span class="title">' + activeCustomer + '</span></td></tr>' +
+            '<tr><td class="left" colspan="2">PO #:</td><td colspan="3" class="right"><span class="title">' + timepo + '</span></td></tr>'
         _.forEach(cart.items, function (n, key) {
             var oldpricing = '';
             if (n.oldprice != 0 || n.oldprice != '') {
@@ -1037,7 +1035,7 @@ app.getProducts = function () {
             items += '<tr>'
             //items += '<td><img src="'+n.img+'" /></td>'
             items += '<td><span class="qant">' + n.cant + '</span></td>'
-            items += '<td><h3 class="title" data-id="'+ n.sku +'">' + n.name + '</h3></td>'
+            items += '<td><h3 class="title" data-id="' + n.sku + '">' + n.name + '</h3></td>'
             items += '<td colspan="2"><p class="right"><del>' + oldpricing + '</del></p>'
             items += '<p class="price right">' + currency_icon + '' + n.price.toFixed(2) + '</p></td>'
             items += '</tr>';
@@ -1045,8 +1043,8 @@ app.getProducts = function () {
         });
         //agregar el total al carrito
         items += '<tr class="total-row"><td colspan="2" > </td><td id="total" class="total right" colspan="3">' + currency_icon + '' + total.toFixed(2) + ' </td></tr>'
-      //  items += '<tr><td colspan="5" class="total"></td></tr>'
-      //  items += '<tr><td colspan="5"> <div class="submitForm"></div></td></tr>'
+        //  items += '<tr><td colspan="5" class="total"></td></tr>'
+        //  items += '<tr><td colspan="5"> <div class="submitForm"></div></td></tr>'
         wrapper.html(items);
         wrapper2.html(cartmemberinfo);
         localStorage.setItem("grndTotal", total.toFixed(2));
@@ -1107,7 +1105,7 @@ app.updatePayForm = function () {
     };
     localStorage.setItem("purchaseorder", JSON.stringify(cart));
     var grandtotal = localStorage.getItem("grndTotal");
-   
+
     //var statics = '<form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_cart"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="USD" /><input type="hidden" name="business" value="' + business_paypal + '">',
     var statics = '<form  method="post"><input type="hidden" name="cmd" value="_cart"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="PHP" /><input type="hidden" name="business" value="SUPER 8"><input type="hidden" name="grandtotal" class="grandtotal" value="' + grandtotal + '">',
         dinamic = '',
@@ -1125,51 +1123,52 @@ app.updatePayForm = function () {
             i++;
 
         })
-       // statics += dinamic + '<button type="button" class="pay btn-checkout btn btn-success">CHECKOUT<i class="ion-chevron-right"></i></button></form>'
-       //statics += dinamic + '<a href="#" type="button" class="popup-open btn-checkout btn btn-success" data-popup="#my-order-popup">CHECKOUT<i class="ion-chevron-right"></i></button></form>'
-       statics += dinamic + '</form>'
-       wrapper.html(statics)
+        // statics += dinamic + '<button type="button" class="pay btn-checkout btn btn-success">CHECKOUT<i class="ion-chevron-right"></i></button></form>'
+        //statics += dinamic + '<a href="#" type="button" class="popup-open btn-checkout btn btn-success" data-popup="#my-order-popup">CHECKOUT<i class="ion-chevron-right"></i></button></form>'
+        statics += dinamic + '</form>'
+        wrapper.html(statics)
     }
 }
 
-$$(".btn-checkout").on('click', function(){
-alert('checkout');
-var myCname = localStorage.getItem("fnMember");
-var myPoNumber = localStorage.getItem("timeandponumber");
-var myItems = $$("#thisCart").html();
-function Unix_timestamp(t) {
-    var dt = new Date(t * 1000);
-    var hr = dt.getHours();
-    var m = "0" + dt.getMinutes();
-    var s = "0" + dt.getSeconds();
-    return hr + ':' + m.substr(-2) + ':' + s.substr(-2);
-}
-var theTime = Unix_timestamp(myPoNumber);
-$$("#txtItems").val(myItems);
-$$("#txtName").val(myCname);
-$$("#txtCode").val(myPoNumber);
-$$("#txtDate").val(theTime);
+$$(".btn-checkout").on('click', function () {
+    console.log('Please confirm details on the next screens.');
+    var myCname = localStorage.getItem("fnMember");
+    var myPoNumber = localStorage.getItem("timeandponumber");
+    var myItems = $$("#thisCart").html();
 
-$$("#my-cart-screen").hide().removeClass("modal-in");
-// app.router.navigate('/confirmuser/');
-// Adicionar(txtClients);
+    function Unix_timestamp(t) {
+        var dt = new Date(t * 1000);
+        var hr = dt.getHours();
+        var m = "0" + dt.getMinutes();
+        var s = "0" + dt.getSeconds();
+        return hr + ':' + m.substr(-2) + ':' + s.substr(-2);
+    }
+    var theTime = Unix_timestamp(myPoNumber);
+    $$("#txtItems").val(myItems);
+    $$("#txtName").val(myCname);
+    $$("#txtCode").val(myPoNumber);
+    $$("#txtDate").val(theTime);
+
+    $$("#my-cart-screen").hide().removeClass("modal-in");
+     app.router.navigate('/confirmuser/');
+   //  Adicionar(txtClients);
 });
-
-$$(".btn-checkouta").on('click', function(){
+/*
+$$(".btn-checkouta").on('click', function () {
     alert('checkout');
     var myCname = localStorage.getItem("fnMember");
     var myPoNumber = localStorage.getItem("timeandponumber");
     var myItems = $$("#thisCart").html();
-    function Unix_timestamp(t)
-{
-var dt = new Date(t*1000);
-var hr = dt.getHours();
-var m = "0" + dt.getMinutes();
-var s = "0" + dt.getSeconds();
-return hr+ ':' + m.substr(-2) + ':' + s.substr(-2);  
-}
 
-var theTime = Unix_timestamp(myPoNumber);
+    function Unix_timestamp(t) {
+        var dt = new Date(t * 1000);
+        var hr = dt.getHours();
+        var m = "0" + dt.getMinutes();
+        var s = "0" + dt.getSeconds();
+        return hr + ':' + m.substr(-2) + ':' + s.substr(-2);
+    }
+
+    var theTime = Unix_timestamp(myPoNumber);
 
     $$(txtItems).val(myItems);
     $$("#txtName").val(myCname);
@@ -1177,7 +1176,7 @@ var theTime = Unix_timestamp(myPoNumber);
     $$("#txtDate").val(theTime);
     app.router.navigate('/');
     Adicionar(txtClients);
-})
+})*/
 /***************************** */
 
 app.resetCart = function () {
@@ -1227,7 +1226,8 @@ app.resetCart = function () {
          }**-/
     }
     $$("#mainOrders").html(item);
-}*//*
+}*/
+/*
 app.showMenu = function () {
     // alert("orders");
     var myObj, i, j, items = "";
@@ -1356,15 +1356,15 @@ $$(document).on('DOMContentLoaded', function () {
     app.updatePayForm();
     app.createProducts();
     app.getProducts();
-    $$(".btn-checkout").click(function () {
+   /* $$(".btn-checkout").click(function () {
         app.updatePayForm();
-    })
+    })*/
     /******************* */
     // showQuantity();
     //app.showMenu();
     //addCustomer();
     //app.loadStore();
-   // app.showOrders();
+    // app.showOrders();
     currency_icon = '₱';
     localStorage.setItem("myCurrency", currency_icon);
     /******************* */

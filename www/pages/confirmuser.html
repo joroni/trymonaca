@@ -1,4 +1,4 @@
-<div class="page" data-name="form">
+<div class="page" data-name="confirmuser">
   <div class="navbar">
     <div class="navbar-inner sliding">
       <div class="left">
@@ -7,11 +7,11 @@
           <span class="ios-only">Back</span>
         </a>
       </div>
-      <div class="title">Form</div>
+      <div class="title">Checkout</div>
     </div>
   </div>
   <div class="page-content">
-    <div class="block-title">Form Example</div>
+    <div class="block-title">Confirmation</div>
     <div class="list no-hairlines-md">
       <ul>
         <li>
@@ -19,7 +19,7 @@
             <div class="item-inner">
               <div class="item-title item-label">Name</div>
               <div class="item-input-wrap">
-                <input type="text" placeholder="Your name"/>
+                <input id="txtName" type="text" placeholder="Your name"/>
               </div>
             </div>
           </div>
@@ -27,9 +27,9 @@
         <li>
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title item-label">E-mail</div>
+              <div class="item-title item-label">PO #</div>
               <div class="item-input-wrap">
-                <input type="email" placeholder="E-mail"/>
+                <input id="txtCode" type="text" placeholder="PO Number"/>
               </div>
             </div>
           </div>
@@ -37,9 +37,9 @@
         <li>
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title item-label">URL</div>
+              <div class="item-title item-label">Date</div>
               <div class="item-input-wrap">
-                <input type="url" placeholder="URL"/>
+                <input id="txtDate" type="text" placeholder="Date"/>
               </div>
             </div>
           </div>
@@ -47,14 +47,14 @@
         <li>
           <div class="item-content item-input">
             <div class="item-inner">
-              <div class="item-title item-label">Password</div>
+              <div class="item-title item-label">Items</div>
               <div class="item-input-wrap">
-                <input type="password" placeholder="Password"/>
+                <textarea id="txtItems" type="text" ></textarea>
               </div>
             </div>
           </div>
         </li>
-        <li>
+       <!-- <li>
           <div class="item-content item-input">
             <div class="item-inner">
               <div class="item-title item-label">Phone</div>
@@ -250,6 +250,11 @@
               <div class="item-title">Drinks</div>
             </div>
           </label>
+        </li>-->
+        <li>
+            <div class="block">
+        <a href="#" class="col button button-big button-fill button-raised">Submit</a>
+    </div>
         </li>
       </ul>
     </div>

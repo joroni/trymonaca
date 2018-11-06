@@ -380,57 +380,40 @@
         </div>
       </div>
       <!-- Cart Screen -->
-      <div class="popup" id="my-cart-screen">
+       <div class="popup" id="my-cart-screen">
         <div class="view">
-          <div class="page cartscreen page-current" data-name="cartscreen">
-        <!-- Top Navbar -->
+          <div class="page">
             <div class="navbar no-border">
               <div class="navbar-inner">
                 <div class="title">Cart</div>
                 <div class="right">
-                  <a href="#" class="link popup-close"><i class="material-icons">close</i></a>
+                    <a href="#" class="link popup-close"><i class="material-icons">
+                        close
+                        </i></a>
                 </div>
               </div>
             </div>
             <div class="page-content">
               <div class="block-title"></div>
+              
               <div class="block">
-                  <table class="table table-hover">
-                      <tbody class="mycart">
-                          <tr>
-                            <td>Now Serving</td>
-                            <td class="right"><h5 id="nowserving"></h5></td>
-                          </tr>
-                          <tr>
-                              <td>PO #</td>
-                              <td class="right"><h5 id="servingpo"></h5></td>
-                            </tr>
-                  </table>
-                  </div>
-                  <div class="block">
-                <table class="table table-hover">
-                  <thead class="hidden">
-                    <tr>
-                      <th>Qty</th>
-                      <th>Product</th>
-                      <th>Price</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody class="cart"></tbody>
+                 <table class="table table-hover">
+                   <tbody id="cartInfo" class="cartmemberinfo"></tbody>
+                 </table>
+               <table class="table table-hover">
+                  <tbody id="thisCart" class="cart"></tbody>
                 </table>
               </div>
               <div class="block">
                 <div class="submitForm"></div>
               </div>
-              <div id="pocontainer"></div>
-              <div class="block submitBtn">
-                <!--<a href="#" class=" button form-to-data button btn-checkout button-raised button-fill popup-close">CHECKOUT</a>-->
-                <a href="#" class="btnSavePO button btn-success form-to-data btn-checkouts button-raised button-fill">CHECKOUT</a>
+           <div class="block submitBtn">
+                  <a href="#"  class="button form-to-data button btn-checkout button-raised button-fill popup-open" data-popup="#my-order-popup">CHECKOUT</a>
               </div>
-              <div class="block submitBtn hidden">
+
+              <!--<div class="block submitBtn hidden">
                 <a href="#" class="saveOrderLocal submitOrder button form-to-data button button-raised button-fill popup-close">Submit</a>
-              </div>
+              </div>-->
               <br>
             </div>
           </div>
@@ -489,6 +472,6 @@
   <script src="js/jquery-3.3.1.min.js"></script>
    <script src='js/lodash.min.js'></script>
     <script src='js/spin.min.js'></script>
-    <script src='js/ladda.jquery.js'></script>-
+    <script src='js/ladda.jquery.js'></script>
    <!-- <script src='js/ladda.min.js'></script>-->
 </html>

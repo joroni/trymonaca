@@ -41,7 +41,7 @@ $$(document).on('DOMContentLoaded', function () {
 
 
         $$('.submitCustomer').on('click', function() {
-            alert("test");
+            // alert("test");
             var txtId = $$('#txt-id');
             var txtFname = $$('#fname');
             var txtLname = $$('#lname');
@@ -75,7 +75,7 @@ $$(document).on('DOMContentLoaded', function () {
             }
     
             memberList();
-            //selectMemberList();
+            selectMemberList();
             mockData();
             txtFname.val(null);
             txtLname.val(null);
@@ -133,8 +133,12 @@ $$(document).on('DOMContentLoaded', function () {
 
         $$(".btnMemberID").on("click", function () {
             var mid = $$("input#memberID").val();
+            var mfn = $$("input.customername").val();
+            
             console.log(mid);
+            console.log(mfn);
             localStorage.setItem("idMember", mid);
+            localStorage.setItem("fnMember", mfn);
             var timeandponumber = new Date().getTime();
             localStorage.setItem("timeandponumber", timeandponumber);
             var timeandpo = localStorage.getItem("timeandponumber");
@@ -295,7 +299,7 @@ function selectMemberList() {
                 }
                $$(".customerInfo").on('click',function(){
 
-                var thisCustomer = $$('#ccname').val();
+                var thisCustomer = $$('.customername').val();
                 localStorage.setItem("customername", thisCustomer);
 
                })
@@ -472,7 +476,7 @@ function selectMember(idMember) {
                         '<div class="item-inner">' +
                         '<input type="hidden" class="customerid" value="' + rs.rows.item(0).ID + '" />' +
                         '<div class="item-title">' + rs.rows.item(0).FNAMES + ' ' + rs.rows.item(0).LNAMES + '</div>' +
-                        '<div class="item-after"></div>' +
+                        '<div class="item-after"><input type="hidden" class="customername" value="' + rs.rows.item(0).FNAMES + ' '+ rs.rows.item(0).LNAMES +'" /></div>' +
                         '</div>' +
                         '</div>' +
                         '</li>' +
@@ -574,7 +578,7 @@ function memberProfile(idMember) {
     });
 }
 
-
+/*
 
 function viewidMember(idMember) {
     localStorage.setItem("idMember", idMember);
@@ -599,7 +603,7 @@ function viewidMember(idMember) {
             }, error);
     });
 }
-
+*/
 function updateMember(member) {
     db.transaction(function (tx) {
         tx.executeSql('UPDATE CUSTOMERS SET FNAMES = ?, LNAMES = ?, PHONE = ?, EMAIL = ?, WHERE ID = ?', [
