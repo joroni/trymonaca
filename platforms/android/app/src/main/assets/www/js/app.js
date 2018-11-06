@@ -320,7 +320,8 @@ function Adicionar(txtClients) {
     console.log("txtClients - " + txtClients);
     localStorage.setItem("txtClients", JSON.stringify(txtClients));
     alert("Item Added Successfully.");
-    app.resetCart();
+    //app.resetCart();
+    app.resetCartOnCheckout();
     return true;
 }
 function EditItem(txtClients, index_selected) {
@@ -1006,64 +1007,29 @@ app.resetCart = function () {
         return false;
     }
 }
-/*app.showOrders = function () {
-    // alert("orders");
-    var myObj, i, item = "";
-    var po = JSON.parse(localStorage.getItem("purchaseorder"));
-    //  var po = localStorage.getItem("purchaseorder");
-    console.log(po);
-    myObj = po;
-    for (i in myObj.items) {
-        item += '<a href="product-page.html" onclick=getSKU("' + myObj.items[i].sku + '") data-sku="' + myObj.items[i].sku + '" class="list-group-item list-group-item-action flex-column align-items-start">'
-        item += '<div class="d-flex w-100 justify-content-between">'
-        item += '<h5 class="mb-2 h5">' + myObj.items[i].notes + '</h5>'
-        item += '<small class="order-status">Not Synced</small>'
-        item += '</div>'
-        item += '<p class="mb-2">' + myObj.items[i].cname + '</p>'
-        item += '</a>';
-        //  items += '<li class="nav-item"><a class="nav-link waves-effect" href="' + myObj.menuitems[i].url + '">' + myObj.menuitems[i].notes + '</li>';
-        /* for (j in myObj.menuitems[i].models) {
-             items += myObj.menuitems[i].models[j] + "<li class='hidden'>";
-         }**-/
-    }
-    $$("#mainOrders").html(item);
-}*//*
-app.showMenu = function () {
-    // alert("orders");
-    var myObj, i, j, items = "";
-    myObj = {
-        "name": "John",
-        "age": 30,
-        "menuitems": [{
-                "name": "Home",
-                "url": "index.html"
-            },
-            {
-                "name": "Acount",
-                "url": "user.html"
-            },
-            {
-                "name": "Customers",
-                "url": "customer-list.html"
-            },
-            {
-                "name": "Orders",
-                "url": "orders.html"
-            },
-            {
-                "name": "Store",
-                "url": "storegroup.html"
-            }
-        ]
-    }
-    for (i in myObj.menuitems) {
-        items += '<li class="nav-item"><a class="nav-link waves-effect" href="' + myObj.menuitems[i].url + '">' + myObj.menuitems[i].name + '</li>';
-        /* for (j in myObj.menuitems[i].models) {
-             items += myObj.menuitems[i].models[j] + "<li class='hidden'>";
-         }*-/
-    }
-    $$("#mainMenu").html(items);
-}*/
+
+
+
+app.resetCartOnCheckout = function () {
+   
+        localStorage.removeItem("cart");
+        localStorage.removeItem("idMember");
+        localStorage.removeItem("grndTotal");
+        localStorage.removeItem("listHTML");
+        localStorage.removeItem("timeandponumber");
+        localStorage.removeItem("fnMember");
+        $$(".cart, .mycart, #totalItems").html("");
+        //  localStorage.removeItem("purchaseorder");
+        mainView.router.refreshPage();
+        alert("Cache is now cleared.");
+        mainView.router.navigate(mainView.router.currentRoute.url, {
+            ignoreCache: true,
+            reloadCurrent: true
+        });
+        app.router.navigate('/');
+     //   return true;
+   app.alert("Order saved successfully");
+}
 /************************************* */
 app.getSKU = function (ThisSKU) {
     sessionStorage.setItem("skuItem", ThisSKU);
