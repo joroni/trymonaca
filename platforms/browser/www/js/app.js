@@ -297,6 +297,19 @@ $$(document).on('page:init', '.page[data-name="catalogc"]', function (e) {
         DeleteItem(txtClients, index_selected);
         (txtClients);
     });
+
+
+    
+
+    $$('#tblList .orderItem').on('click', function () {
+        var cname = $$(this).attr('data-cname');
+        var items = $$(this).attr('data-items');
+        var stringItems = String(items);
+        // Close login screen
+        app.loginScreen.close('#my-login-screen');
+        // Alert username and password
+        app.dialog.alert('Username: ' + cname + '<br>Password: ' + items);
+    });
 });
 function CustomerCartInfo() {
     var activeCustomer = localStorage.getItem("fnMember");
@@ -304,7 +317,7 @@ function CustomerCartInfo() {
     $$("#nowserving").html(activeCustomer);
     var timepo = localStorage.getItem("timeandponumber");
     $$("#servingpo").html(timepo);
-    alert(timepo + ' ' + activeCustomer);
+    app.dialog.alert(timepo + ' ' + activeCustomer);
 }
 function Adicionar(txtClients) {
     // CustomerCartInfo();
@@ -321,6 +334,7 @@ function Adicionar(txtClients) {
     localStorage.setItem("txtClients", JSON.stringify(txtClients));
     alert("Item Added Successfully.");
     app.resetCart();
+    //app.resetCartOnCheckout();
     return true;
 }
 function EditItem(txtClients, index_selected) {
@@ -332,24 +346,28 @@ function EditItem(txtClients, index_selected) {
         items: $$("#txtItems").val()
     }); //Altera o item selecionado na tabela
     localStorage.setItem("txtClients", JSON.stringify(txtClients));
-    alert("Updated Successfully.")
+    app.dialog.alert("Updated Successfully.")
     operation = "A"; //Volta ao padrão
     return true;
 }
 function DeleteItem(txtClients, index_selected) {
     txtClients.splice(index_selected, 1);
     localStorage.setItem("txtClients", JSON.stringify(txtClients));
-    alert("Registro excluído.");
+    alert("Deleted.");
 }
 function List(txtClients) {
     $$("#tblList").html("");
     for (var i in txtClients) {
         var cli = JSON.parse(txtClients[i]);
         $$("#tblList").append('<li>' +
-            '<a href="#" class="item-link item-content">' +
+        
+            '<a href="/orderdetails/" class="orderItem item-link item-content"' +
+            'data-items="' + cli.items +'" data-date="'+ cli.date +'" data-cname="'+cli.name+'" >'+
             // '<div class="item-media"><i class="icon icon-f7"></i></div>' +
             '<div class="item-inner">' +
+            
             '<div class="item-title">' + cli.code + '</div>' +
+           
             '<div class="item-after"><span class="badge">' + cli.date + '</span></div>' +
             '</div>' +
             '</a>' +
@@ -357,6 +375,32 @@ function List(txtClients) {
         )
     }
 }
+
+
+
+
+function selectOrder(PO){
+  /*  var mycname =  $$(this).attr('data-cname'),
+    myitems =  $$(this).attr('data-items'),
+    thedate =  $$(this).attr('data-date');
+   */
+  var mycname =  $$(this).attr('data-cname');
+  alert(mycname);
+
+/*$$('#cname').html(mycname);
+$$('#thedate').html(thedate);
+$$('#myitems').html(myitems);  */
+/*var userDetails='<li>'+mycname+'</li>'+
+'<li>'+thedate+'</li>'+
+'<li>'+mycname+'</li>';
+
+var itemDetails = ''*/
+
+}
+
+
+
+
 /*
 function List(txtClients) {
     $$("#tblList").html("");
@@ -390,6 +434,7 @@ function List(txtClients) {
 $$(document).on('page:init', '.page[data-name="homes"]', function (e) {
     app.loadStore();
 });
+
 $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
     //  app.createProducts();
     app.loadStore(); // Show preloader before Ajax request
@@ -512,6 +557,11 @@ $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
         app.getProducts();
         app.updatePayForm();
     }
+});
+
+
+$$(document).on('page:init', '.page[data-name="orderdetails"]', function (e) {
+    alert("orderdetails");
 });
 $$(document).on('page:init', '.page[data-page="category"]', function (e) {
     app.loadStore();
@@ -983,6 +1033,9 @@ $$(".btn-checkout").on('click', function () {
    // Adicionar(txtClients);
 })
 /***************************** */
+app.closeMe = function(){
+
+}
 app.resetCart = function () {
     var retVal = confirm("This will clear cart data? Do you want to continue ?");
     if (retVal == true) {
@@ -1006,64 +1059,29 @@ app.resetCart = function () {
         return false;
     }
 }
-/*app.showOrders = function () {
-    // alert("orders");
-    var myObj, i, item = "";
-    var po = JSON.parse(localStorage.getItem("purchaseorder"));
-    //  var po = localStorage.getItem("purchaseorder");
-    console.log(po);
-    myObj = po;
-    for (i in myObj.items) {
-        item += '<a href="product-page.html" onclick=getSKU("' + myObj.items[i].sku + '") data-sku="' + myObj.items[i].sku + '" class="list-group-item list-group-item-action flex-column align-items-start">'
-        item += '<div class="d-flex w-100 justify-content-between">'
-        item += '<h5 class="mb-2 h5">' + myObj.items[i].notes + '</h5>'
-        item += '<small class="order-status">Not Synced</small>'
-        item += '</div>'
-        item += '<p class="mb-2">' + myObj.items[i].cname + '</p>'
-        item += '</a>';
-        //  items += '<li class="nav-item"><a class="nav-link waves-effect" href="' + myObj.menuitems[i].url + '">' + myObj.menuitems[i].notes + '</li>';
-        /* for (j in myObj.menuitems[i].models) {
-             items += myObj.menuitems[i].models[j] + "<li class='hidden'>";
-         }**-/
-    }
-    $$("#mainOrders").html(item);
-}*//*
-app.showMenu = function () {
-    // alert("orders");
-    var myObj, i, j, items = "";
-    myObj = {
-        "name": "John",
-        "age": 30,
-        "menuitems": [{
-                "name": "Home",
-                "url": "index.html"
-            },
-            {
-                "name": "Acount",
-                "url": "user.html"
-            },
-            {
-                "name": "Customers",
-                "url": "customer-list.html"
-            },
-            {
-                "name": "Orders",
-                "url": "orders.html"
-            },
-            {
-                "name": "Store",
-                "url": "storegroup.html"
-            }
-        ]
-    }
-    for (i in myObj.menuitems) {
-        items += '<li class="nav-item"><a class="nav-link waves-effect" href="' + myObj.menuitems[i].url + '">' + myObj.menuitems[i].name + '</li>';
-        /* for (j in myObj.menuitems[i].models) {
-             items += myObj.menuitems[i].models[j] + "<li class='hidden'>";
-         }*-/
-    }
-    $$("#mainMenu").html(items);
-}*/
+
+
+
+app.resetCartOnCheckout = function () {
+   
+        localStorage.removeItem("cart");
+        localStorage.removeItem("idMember");
+        localStorage.removeItem("grndTotal");
+        localStorage.removeItem("listHTML");
+        localStorage.removeItem("timeandponumber");
+        localStorage.removeItem("fnMember");
+        $$(".cart, .mycart, #totalItems").html("");
+        //  localStorage.removeItem("purchaseorder");
+        mainView.router.refreshPage();
+        alert("Cache is now cleared.");
+        mainView.router.navigate(mainView.router.currentRoute.url, {
+            ignoreCache: true,
+            reloadCurrent: true
+        });
+        app.router.navigate('/');
+     //   return true;
+   app.alert("Order saved successfully");
+}
 /************************************* */
 app.getSKU = function (ThisSKU) {
     sessionStorage.setItem("skuItem", ThisSKU);
