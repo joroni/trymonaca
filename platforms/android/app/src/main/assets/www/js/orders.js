@@ -2,250 +2,158 @@
 
 var db = openDatabase('super8', '1.0', 'Customers and Order processing', 100 * 1024);
 
-//$$(document).on('pageInit', '.page[data-page="home"]', function (e) {
-$$(document).on('DOMContentLoaded', function () {
-    //  alert('Customers page');
+console.info("Initialize...");
 
-    //$$(document).ready(function () {
+init();
 
-    console.info("Initialize...");
+memberList();
+//selectMemberList();
+mockData();
+selectCustomertoShop();
+console.info("Carga Complete...");
 
-    init();
+////////////////////////////////////////////////////////////////////
+////////////////////////////Funciones jquery///////////////////////
+////////////////////////////////////////////////////////////////////
 
-    orderList();
-    //selectorderList();
-    mockData();
-    selectCustomertoShop();
-    console.info("Carga Complete...");
 
-    ////////////////////////////////////////////////////////////////////
-    ////////////////////////////Funciones jquery///////////////////////
-    ////////////////////////////////////////////////////////////////////
-    $$('#submit').click(function () {
-        var txtPo = $$('#PONUMBER');
-        var txtTotal = $$('#TOTAL');
-        /*var txtLname = $$('#lname');
-        var txtPhone = $$('#phone');
-        var txtEmail = $$('#email');
-        var txtEmail = $$('#birthdate');*/
+$$('.submitOrder').click(function () {
+    var i = 1;
+    var txtName = $$("#itemName'" + i );
+    var txtPrice = $$("#itemPrice'" + i);
+    var txtSKU = $$("#itemSKU'" + i);
+    var txtID = $$("#itemID'" + i);
+    var txtCant = $$("#itemCant'" + i);
+    var txtTotal = $$("#itemTotal'" + i);
 
-      //  var input = $$('input');
+    var input = $$('input');
 
-       /* if (txtTotal.val() === '' || txtLname.val() === '' || txtPhone.val() === '' || txtEmail.val() ===
-            ) {
-            alert("All fields are Required...");
-            return;
-        }*/
+   /* if (txtName.val() === '' || txtPrice.val() === '' || txtSKU.val() === '' || txtCant.val() ===
+        '' /*|| input === ""* ) {
+        alert("All fields are Required...");
+        return;
+    }
+*/
+    var order = Object();
 
-        var order = Object();
-
-        order.total = txtTotal.val();
-      /*  order.lname = txtLname.val();
-        order.phone = txtPhone.val();
-        order.email = txtEmail.val();*/
+    order.name = txtName.val();
+    order.price = txtPrice.val();
+    order.sku = txtSKU.val();
+    order.cant = txtCant.val();
+    order.total = txtTotal.val();
 
 
 
-        if (txtPo.val() === '') { //Lo guarda
-            //order.id = new Date().getTime();
-            order.id = parseInt(txtPo.val());
-            saveOrder(order);
-        } else { //Lo actualiza
-            order.id = parseInt(txtPo.val());
-            updateOrder(order);
-        }
+    if (txtID.val() === '') { //Lo guarda
+        order.id = new Date().getTime();
+        saveMember(order);
+    } else { //Lo actualiza
+        order.id = parseInt(txtID.val());
+        updateMember(order);
+    }
 
-        orderList();
-        //selectorderList();
-        mockData();
-        txtTotal.val(null);
-        /*txtLname.val(null);
-        txtPhone.val(null);
-        txtEmail.val(null);*/
-        txtPo.val(null);
-    });
-
-
-
-    $$('#orderList').on("click", ".btn-order-info", function () {
-        //   var idOrder = $$(this).data("id");
-        var idOrder = $$('input.customerid').value();
-
-        selectOrder(idOrder);
-        $$("label").addClass("active");
-        //$$("#modal-Title").html("View Customer");
-
-    });
+   // memberList();
+    //selectMemberList();
+   // mockData();
+    txtName.val(null);
+    txtPrice.val(null);
+    txtSKU.val(null);
+    txtCant.val(null);
+    txtID.val(null);
+    txtTotal.val(null);
+});
 
 
-    $$('#orderList').on("click", ".btn-editar", function () {
-        // var idOrder = $$(this).data("id");
-        var idOrder = $$('input.customerid').value();
-        selectOrder(idOrder);
-        $$("label").addClass("active");
-        $$("#modal-Title").html("Edit Customer");
+/*
+$$('#customerList').on("click", ".btn-user-info", function () {
 
-    });
+    var idMember = $$('input.customerid').value();
+ 
+    selectMember(idMember);
+    $$("label").addClass("active");
+    //$$("#modal-Title").html("View Customer");
 
-    $$('#orderList').on("click", ".btn-eliminar", function () {
-        //  var idOrder = $$(this).data("id");
-        var idOrder = $$('input.customerid').value();
-        removeOrder(idOrder);
-        orderList();
-        //selectorderList();
-    });
-
-    $$(document).on('page:init', '.page[data-name="catalogb"]', function (e) {
-        orderList();
-        app.preloader.show();
-        setTimeout(function () {
-            app.preloader.hide();
-            orderList();
-
-        }, 3000);
-        console.log("Catalogb");
+});
 
 
-        btns.removeClass("tab-link-active");
-        $$("#btnCustomers").addClass("tab-link-active");
+$$('#customerList').on("click", ".btn-editar", function () {
+   // var idMember = $$(this).data("id");
+    var idMember = $$('input.customerid').value();
+    selectMember(idMember);
+    $$("label").addClass("active");
+    $$("#modal-Title").html("Edit Customer");
 
-    });
+});
+
+$$('#customerList').on("click", ".btn-eliminar", function () {
+  //  var idMember = $$(this).data("id");
+    var idMember = $$('input.customerid').value();
+    removeMember(idMember);
+    memberList();
+    //selectMemberList();
+});
 
 
-    $$(document).on('page:init', '.page[data-name="orderInfo"]', function (e) {
-        console.log('Customer Info');
-        $$('.page-content').on('click', function () {
-            orderList();
-        })
-
-
-        $$(".btn-eliminar").on("click", function () {
-            var idOrder = $$(this).data("id");
-            removeOrder(idOrder);
-            orderList();
-            //selectorderList();
-        });
-
-        $$(".btnOrderID").on("click", function () {
-            var mid = $$("input#orderID").val();
-            console.log(mid);
-            localStorage.setItem("idOrder", mid);
-
-            if (!localStorage.getItem("idOrder")) {
-
-                alert("Please select a customer.");
-
-                app.router.navigate('/catalogb/');
-
-                return false;
-            } else {
-             app.router.navigate('/catalog/');
-                console.log("continue shopping");
-            }
-        })
-
+$$(document).on('page:init', '.page[data-name="customerinfo"]', function (e) {
+    console.log('Customer Info');
+    $$('.page-content').on('click', function () {
+        memberList();
     })
 
 
-    $$('#btnCustomers').on('click', function () {
-        orderList();
-        //selectorderList();
+    $$(".btn-eliminar").on("click", function () {
+        var idMember = $$(this).data("id");
+        removeMember(idMember);
+        memberList();
+        //selectMemberList();
     });
 
+    $$(".btnMemberID").on("click", function () {
+        var mid = $$("input#memberID").val();
+        console.log(mid);
+        localStorage.setItem("idMember", mid);
 
-    $$('#btnStore').on('click', function () {
-        app.loadStore();
-    });
+        if (!localStorage.getItem("idMember")) {
 
+            alert("Please select a customer.");
+
+            app.router.navigate('/catalogb/');
+
+            return false;
+        } else {
+            app.router.navigate('/store/');
+            console.log("continue shopping");
+        }
+    })
+
+})
+
+
+$$('#btnCustomers').on('click', function () {
+    memberList();
+    //selectMemberList();
 });
+
+
+$$('#btnStore').on('click', function () {
+    loadStore();
+});
+*/
+//});
 
 ////////////////////////////////////////////////////////////////////
 ///////////////////////funciones para el CRUd///////////////////////
 ////////////////////////////////////////////////////////////////////
 function init() {
     db.transaction(function (tx) {
-            tx.executeSql('create table if not exists PURCHASEORDER(ID, FNAMES, LNAMES,PHONE, EMAIL)');
-            //  tx.executeSql('create table if not exists PURCHASEORDER(id,sku,cant,name,price,img,available,oldprice,smname,notes,email,timestamp,total)');
-
-        },
-        error, exito);
+        //tx.executeSql('create table if not exists PURCHASEORDER(id,name,price,sku,cant,img,available,oldprice,smname,notes,cant,timestamp,total)');
+        tx.executeSql('create table if not exists PURCHASEORDER(id,name,price,sku,cant,total)');
+    }, error, exito);
 }
 
-
-
-function orderList() {
+function memberList() {
     db.readTransaction(function (t) {
-        t.executeSql('SELECT rowid, ID, FNAMES, LNAMES, PHONE, EMAIL FROM PURCHASEORDERS', [], function (t, rs) {
-            if (rs.rows.length > 0) {
-                var lisHtml = "";
-                myJson = [];
-               for (var i = 0; i < rs.rows.length; i++) {
-                    var order = rs.rows.item(i);
-                    var id = order.ID;
-                   // var fullname = order.FNAMES + ' ' + order.LNAMES;
-
-                    lisHtml += '<li><a href="/orderInfo/" onclick="selectOrder(' + id + ')">' + fullname + '</a></li>';
-                   // myJson.push({ order: order,  fullname: fullname, FNAMES: order.FNAMES, LNAMES:order.LNAMES, ID: order.ID,});
-                 //  myJson.push({order});
-               //  myJson.push({ order: order,  fullname: fullname, FNAMES: order.FNAMES, LNAMES:order.LNAMES, ID: order.ID,});
-                }
-
-
-
-                function showAll(item, id, cid, title, fname, phone, description) {
-                    $$('#orderList').append('<li>' + title + ' ' + fname + ' ' + id + '</li>');
-                }
-                //mybase.init.getAll();
-
-                localStorage.setItem("listHTML", lisHtml);
-
-                // var permdata = localStorage.getItem("listHTML");
-                // console.log(permdata);
-              //  console.log(JSON.stringify(myJson));
-                //localStorage.setItem("customers", JSON.stringify(myJson));
-                $$('#orderList').html(lisHtml);
-
-
-                /* $$(function () {
-                     $$('.icon-btn').on('click', function () {
-                         $$('.showData').toggle();
-                     });
-                 });*/
-
-
-                $$('[data-toggle="class"]').click(function () {
-                    var $target = $$($$(this).data('target'));
-                    var classes = $$(this).data('classes');
-
-                    $target.toggleClass(classes);
-                    return false;
-                });
-
-
-
-
-                $$("#btnNew").click(function () {
-                    console.log("reset fields");
-                    $$('#dynamic-form')[0].reset();
-                    $$('#modalBody').html("")
-                    $$('#txt-id').val("");
-                    $$("#modal-Title").html("Add Customer");
-
-                })
-
-
-
-            }
-
-        }, error);
-    });
-}
-
-
-
-function selectorderList() {
-    db.readTransaction(function (t) {
-        t.executeSql('SELECT rowid, ID, FNAMES, LNAMES, PHONE, EMAIL FROM PURCHASEORDERS', [], function (t, rs) {
+        t.executeSql('SELECT rowid, ID, FNAMES, LNAMES, PHONE, EMAIL FROM PURCHASEORDER', [], function (t, rs) {
             if (rs.rows.length > 0) {
                 var lisHtml = "";
 
@@ -254,7 +162,7 @@ function selectorderList() {
                     var id = order.ID;
                     var fullname = order.FNAMES + ' ' + order.LNAMES;
 
-                    lisHtml += '<li><a href="/catalog/" onclick="selectOrder(' + id + ')">' + fullname + '</a></li>';
+                    lisHtml += '<li><a href="/customerinfo/" onclick="selectMember(' + id + ')">' + fullname + '</a></li>';
                     // $$('#ccompleteName').html(fullname);
 
                 }
@@ -264,7 +172,7 @@ function selectorderList() {
                 // var permdata = localStorage.getItem("listHTML");
                 // console.log(permdata);
 
-                $$('#orderListSelect').html(lisHtml);
+                $$('#customerList').html(lisHtml);
 
 
                 /* $$(function () {
@@ -304,66 +212,165 @@ function selectorderList() {
 
 
 
-function saveOrder(order) {
-    db.transaction(function (tx) {
-        tx.executeSql('INSERT INTO PURCHASEORDERS(ID, FNAMES, LNAMES, PHONE, EMAIL) VALUES(?, ?, ?,?,?)', [
-            order.id, order.fname, order.lname, order.phone, order.email
-        ]);
-    }, error, function () {
-        alert("Item Saved.");
-        // $$(".close, .pop-up").trigger();
-        $$(".popup-backdrop").removeClass("backdrop-in");
+function selectMemberList() {
+    db.readTransaction(function (t) {
+        t.executeSql('SELECT rowid, ID, FNAMES, LNAMES, PHONE, EMAIL FROM PURCHASEORDER', [], function (t, rs) {
+            if (rs.rows.length > 0) {
+                var lisHtml = "";
 
+                for (var i = 0; i < rs.rows.length; i++) {
+                    var order = rs.rows.item(i);
+                    var id = order.ID;
+                    var fullname = order.FNAMES + ' ' + order.LNAMES;
+
+                    lisHtml += '<li><a href="/catalog/" onclick="selectMember(' + id + ')">' + fullname + '</a></li>';
+                    // $$('#ccompleteName').html(fullname);
+
+                }
+
+                //localStorage.setItem("listHTML", lisHtml);
+
+                // var permdata = localStorage.getItem("listHTML");
+                // console.log(permdata);
+
+                $$('#customerListSelect').html(lisHtml);
+
+
+                /* $$(function () {
+                     $$('.icon-btn').on('click', function () {
+                         $$('.showData').toggle();
+                     });
+                 });*/
+
+
+                $$('[data-toggle="class"]').click(function () {
+                    var $target = $$($$(this).data('target'));
+                    var classes = $$(this).data('classes');
+
+                    $target.toggleClass(classes);
+                    return false;
+                });
+
+
+
+
+                $$("#btnNew").click(function () {
+                    console.log("reset fields");
+                    $$('#dynamic-form')[0].reset();
+                    $$('#modalBody').html("")
+                    $$('#txt-id').val("");
+                    $$("#modal-Title").html("Add Customer");
+
+                })
+
+
+
+            }
+
+        }, error);
     });
 }
 
 
-/*
-function saveOrderLocal(order) {
-    var order = Object();
-    var i = 1;
-    order.smname = $$("#ssmname").val();
-    order.cname = $$("#ccname").val();
-    order.total = $$("#grandtotal").val();
-    order.timestamp = i++;
 
 
-    db.transaction(function (tx) {
-        tx.executeSql('INSERT INTO PURCHASEORDER(ID, CNAME, SMNAME,TOTAL, TIMESTAMP) VALUES(?, ?, ?,?,?)', [
-            order.id, order.cname, order.smname, order.total, order.timestamp
-        ]);
-    }, error, function () {
-        alert("Item Saved.");
-        // $$(".close, .pop-up").trigger();
-        $$(".popup-backdrop").removeClass("backdrop-in");
+function selectCustomertoShop() {
+    db.readTransaction(function (t) {
+        t.executeSql('SELECT ID, FNAMES, LNAMES, PHONE, EMAIL FROM PURCHASEORDER', [], function (t, rs) {
+            if (rs.rows.length > 0) {
+                var lisHtml = '';
 
-    });
-}
+                for (var i = 0; i < rs.rows.length; i++) {
+                    var order = rs.rows.item(i);
+                    var id = order.ID;
+
+
+
+                    /*    lisHtml += '<div class="list-group-item customer-list list-group-item-action">'+
+                                '<div class="media"><i class="material-icons"></i>' +
+                                    '<a href="#" onclick="viewidMember('+ id +')"><img src="img/user.svg" class="mr-3 btn-user-info img-circle" width="48" alt=' + order.FNAMES + ' ' + order.LNAMES +" /></a>" +
+                                    '<div class="media-body"><h5 class="mt-0 customer-name">' + order.FNAMES + ' ' + order.LNAMES + '</h5><p> ' + order.PHONE + '</p></div>'+
+                                '</div>'+
+                            '</div>';
 */
 
-function selectOrder(idOrder) {
-    // localStorage.setItem("customer-name",idOrder);
+                    lisHtml += '<li><a href="#" onclick="viewidMember(' + id + ')">' + order.FNAMES + ' ' + order.LNAMES + '</li>'
+
+                }
+
+
+                $$('#customerList').html(lisHtml);
+
+
+
+                $$('[data-toggle="class"]').click(function () {
+                    var $target = $$($$(this).data('target'));
+                    var classes = $$(this).data('classes');
+
+                    $target.toggleClass(classes);
+                    return false;
+                });
+
+
+
+
+                $$("#btnNew").click(function () {
+                    console.log("reset fields");
+                    $$('#dynamic-form')[0].reset();
+                    $$('#modalBody').html("")
+                    $$('#txt-id').val("");
+                    $$("#modal-Title").html("Add Customer");
+
+                })
+
+
+
+            }
+
+        }, error);
+    });
+}
+
+
+
+function saveMember(order) {
+    db.transaction(function (tx) {
+        tx.executeSql('INSERT INTO PURCHASEORDER(id,name,price,sku,cant,total) VALUES(?, ?, ?,?,?,?)', [
+            order.id, order.name, order.price, order.sku, order.cant, order.total
+        ]);
+    }, error, function () {
+        alert("Item Saved.");
+        // $$(".close, .pop-up").trigger();
+        $$(".popup-backdrop").removeClass("backdrop-in");
+
+    });
+}
+
+
+
+function selectMember(idMember) {
+    // localStorage.setItem("customer-name",idMember);
     db.readTransaction(function (t) {
-        t.executeSql('SELECT ID, FNAMES, LNAMES , PHONE, EMAIL FROM PURCHASEORDERS WHERE ID = ?', [idOrder],
+        t.executeSql('SELECT ID, FNAMES, LNAMES , PHONE, EMAIL FROM PURCHASEORDER WHERE ID = ?', [idMember],
             function (t, rs) {
                 if (rs.rows.length > 0) {
                     var lisHtml = '';
                     var order = new Object();
                     order.id = rs.rows.item(0).ID;
-                    order.fname = rs.rows.item(0).FNAMES;
-                    order.lname = rs.rows.item(0).LNAMES;
-                    order.phone = rs.rows.item(0).PHONE;
-                    order.email = rs.rows.item(0).EMAIL;
+                    order.name = rs.rows.item(0).FNAMES;
+                    order.price = rs.rows.item(0).LNAMES;
+                    order.sku = rs.rows.item(0).PHONE;
+                    order.cant = rs.rows.item(0).EMAIL;
                     /* $$('#txt-id').val(rs.rows.item(0).ID);
-                     $$('#fname').val(rs.rows.item(0).FNAMES);
-                     $$('#lname').val(rs.rows.item(0).LNAMES);
-                     $$('#phone').val(rs.rows.item(0).PHONE);
-                     $$('#email').val(rs.rows.item(0).EMAIL);*/
-                    $$('#orderInfo').html('<li>' +
+                     $$('#name').val(rs.rows.item(0).FNAMES);
+                     $$('#price').val(rs.rows.item(0).LNAMES);
+                     $$('#sku').val(rs.rows.item(0).PHONE);
+                     $$('#cant').val(rs.rows.item(0).EMAIL);*/
+                    $$('#customerInfo').html('<li>' +
                         '<div class="item-content">' +
                         '<div class="item-media"><i class="material-icons icon-f7">person</i></div>' +
                         '<div class="item-inner">' +
-                        '<input type="hidden" class="customerid" value="' + rs.rows.item(0).ID + '" />' +
+                        '<input type="hidden" class="customerid" value="'+ rs.rows.item(0).ID + '" />'+
                         '<div class="item-title">' + rs.rows.item(0).FNAMES + ' ' + rs.rows.item(0).LNAMES + '</div>' +
                         '<div class="item-after"></div>' +
                         '</div>' +
@@ -371,7 +378,7 @@ function selectOrder(idOrder) {
                         '</li>' +
                         '<li>' +
                         '<div class="item-content">' +
-                        '<div class="item-media"><i class="material-icons icon-f7">phone</i></div>' +
+                        '<div class="item-media"><i class="material-icons icon-f7">sku</i></div>' +
                         '<div class="item-inner">' +
                         '<div class="item-title"> ' + rs.rows.item(0).PHONE + '</div>' +
                         '<div class="item-after"></div>' +
@@ -391,7 +398,7 @@ function selectOrder(idOrder) {
                         '<div class="item-content">' +
                         '<div class="item-media"><i class="material-icons icon-f7">mail</i></div>' +
                         '<div class="item-inner">' +
-                        '<div class="item-title">' + rs.rows.item(0).ID + '<input id="orderID" type="hidden" value="' + rs.rows.item(0).ID + '"/></div>' +
+                        '<div class="item-title">' + rs.rows.item(0).ID + '<input id="memberID" type="hidden" value="' + rs.rows.item(0).ID + '"/></div>' +
                         '<div class="item-after"></div>' +
                         '</div>' +
                         '</div>' +
@@ -405,9 +412,9 @@ function selectOrder(idOrder) {
 
 
 
-function orderProfile(idOrder) {
+function memberProfile(idMember) {
     db.readTransaction(function (t) {
-        t.executeSql('SELECT ID, FNAMES, LNAMES , PHONE, EMAIL FROM PURCHASEORDERS WHERE ID = ?', [idOrder],
+        t.executeSql('SELECT ID, FNAMES, LNAMES , PHONE, EMAIL FROM PURCHASEORDER WHERE ID = ?', [idMember],
             function (t, rs) {
                 if (rs.rows.length > 0) {
 
@@ -416,27 +423,27 @@ function orderProfile(idOrder) {
                     for (var i = 0; i < rs.rows.length; i++) {
                         var order = rs.rows.item(i);
                         var id = order.ID;
-                        var fname = order.FNAMES;
-                        var lname = order.LNAMES;
-                        var phone = order.PHONE;
-                        var email = order.EMAIL;
+                        var name = order.FNAMES;
+                        var price = order.LNAMES;
+                        var sku = order.PHONE;
+                        var cant = order.EMAIL;
 
 
                         lisHtml += '<li>'
                         '<div class="item-content">'
                         '<div class="item-media"><i class="material-icons icon-f7">person</i></div>'
                         '<div class="item-inner">'
-                        '<input type="hidden" class="customerid" value="' + id + '" />' +
-                            '<div class="item-title">' + fname + ' ' + lname + '</div>'
+                        '<input type="hidden" class="customerid" value="'+ id + '" />'+
+                        '<div class="item-title">' + name + ' ' + price + '</div>'
                         '<div class="item-after"></div>'
                         '</div>'
                         '</div>'
                         '</li>'
                         '<li>'
                         '<div class="item-content">'
-                        '<div class="item-media"><i class="material-icons icon-f7">phone</i></div>'
+                        '<div class="item-media"><i class="material-icons icon-f7">sku</i></div>'
                         '<div class="item-inner">'
-                        '<div class="item-title">' + phone + '</div>'
+                        '<div class="item-title">' + sku + '</div>'
                         '<div class="item-after"></div>'
                         '</div>'
                         '</div>'
@@ -445,7 +452,7 @@ function orderProfile(idOrder) {
                         '<div class="item-content">'
                         '<div class="item-media"><i class="material-icons icon-f7">mail</i></div>'
                         '<div class="item-inner">'
-                        '<div class="item-title">' + email + '</div>'
+                        '<div class="item-title">' + cant + '</div>'
                         '<div class="item-after"></div>'
                         '</div>'
                         '</div>'
@@ -455,7 +462,7 @@ function orderProfile(idOrder) {
                     }
 
 
-                    $$('#orderInfo').html(lisHtml);
+                    $$('#customerInfo').html(lisHtml);
 
 
 
@@ -468,23 +475,48 @@ function orderProfile(idOrder) {
 }
 
 
-function updateOrder(order) {
+
+function viewidMember(idMember) {
+    localStorage.setItem("idMember", idMember);
+    console.log(idMember);
+    // viewidMember(idMembre);
+    db.readTransaction(function (t) {
+        t.executeSql('SELECT ID, FNAMES, LNAMES , PHONE, EMAIL FROM PURCHASEORDER WHERE ID = ?', [idMember],
+            function (t, rs) {
+                if (rs.rows.length > 0) {
+                    var order = new Object();
+                    order.name = rs.rows.item(0).FNAMES;
+                    order.price = rs.rows.item(0).LNAMES;
+                    order.sku = rs.rows.item(0).PHONE;
+                    order.cant = rs.rows.item(0).EMAIL;
+                    $$('#txt-id').val(rs.rows.item(0).ID);
+                    $$('#name').html(rs.rows.item(0).FNAMES);
+                    $$('#price').html(rs.rows.item(0).PRICE);
+                    $$('#sku').html(rs.rows.item(0).PHONE);
+                    $$('#cant').html(rs.rows.item(0).EMAIL);
+                    //console.log($$(this).attr([id]));
+                }
+            }, error);
+    });
+}
+
+function updateMember(order) {
     db.transaction(function (tx) {
-        tx.executeSql('UPDATE PURCHASEORDERS SET FNAMES = ?, LNAMES = ?, PHONE = ?, EMAIL = ?, WHERE ID = ?', [
-            order.phone, order.fname, order.lname, order.id
+        tx.executeSql('UPDATE PURCHASEORDER SET name = ?, price = ?, sku = ?, cant = ?,  total = ?, WHERE id = ?', [
+             order.name, order.price, order.sku,  order.cant, order.total
         ]);
     }, error, function () {
         alert("The order has been updated successfully");
     });
 }
 
-function removeOrder(idOrder) {
+function removeMember(idMember) {
 
 
     var retVal = confirm("This will delete the selected record? Do you want to continue ?");
     if (retVal == true) {
         db.transaction(function (tx) {
-            tx.executeSql('DELETE FROM PURCHASEORDERS WHERE ID = ?', [idOrder]);
+            tx.executeSql('DELETE FROM PURCHASEORDER WHERE ID = ?', [idMember]);
         }, error, function () {
             alert("The order has been removed successfully");
         })
@@ -497,7 +529,7 @@ function removeOrder(idOrder) {
 
 
     /*  db.transaction(function (tx) {
-          tx.executeSql('DELETE FROM PURCHASEORDERS WHERE ID = ?', [idOrder]);
+          tx.executeSql('DELETE FROM PURCHASEORDER WHERE ID = ?', [idMember]);
       }, error, function () {
           alert("The order has been rem successfully");
       });*/
@@ -505,8 +537,8 @@ function removeOrder(idOrder) {
 
 function savePO(order) {
     db.transaction(function (tx) {
-        tx.executeSql('INSERT INTO PURCHASEORDERS(ID, FNAMES, LNAMES, PHONE, EMAIL) VALUES(?, ?, ?,?,?)', [
-            order.id, order.fname, order.lname, order.phone, order.email
+        tx.executeSql('INSERT INTO PURCHASEORDER(ID, FNAMES, LNAMES, PHONE, EMAIL) VALUES(?, ?, ?,?,?)', [
+            order.id, order.name, order.price, order.sku, order.cant
         ]);
     }, error, function () {
         alert("Item Saved.");
@@ -515,16 +547,37 @@ function savePO(order) {
 }
 
 
-/*
-function saveOrderLocals(order) {
-    var str = localStorage.getItem("purchaseorder");
+function saveMember(order) {
     db.transaction(function (tx) {
-        tx.executeSql('INSERT INTO PURCHASEORDER (id,sku,cant,name,price,img,available,oldprice,smname,notes,email,timestamp,total) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)', [94, JSON.parse(str)]);
+        tx.executeSql('id,sku,cant,name,price,img,available,oldprice,smname,notes,cant,timestamp,total) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)', [
+            order.id, order.sku, order.price, order.sku, order.cant
+        ]);
     }, error, function () {
         alert("Item Saved.");
-        $$(".close").trigger();
+        // $$(".close, .pop-up").trigger();
+        $$(".popup-backdrop").removeClass("backdrop-in");
+
     });
-}*/
+}
+
+
+
+
+function saveOrderLocal(order){
+    var str  = localStorage.getItem("purchaseorder");
+    var order = new Object();
+    order.id = rs.rows.item(0).ID;
+    order.name = rs.rows.item(0).FNAMES;
+    order.price = rs.rows.item(0).LNAMES;
+    order.sku = rs.rows.item(0).PHONE;
+    order.cant = rs.rows.item(0).EMAIL;
+    db.transaction(function (tx) {
+    tx.executeSql('INSERT INTO PURCHASEORDER (id,sku,cant,name,price,img,available,oldprice,smname,notes,cant,timestamp,total) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',[94,JSON.parse(str)]);
+}, error, function () {
+    alert("Item Saved.");
+    $$(".close").trigger();
+});
+}
 
 ////////////////////////////////////////////////////////////////////
 ////////////////////////Funciones de logueo////////////////////

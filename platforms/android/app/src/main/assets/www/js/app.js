@@ -1,6 +1,7 @@
 // Dom7
 var $$ = Dom7;
 // Framework7 App main instance
+var orderItems = localStorage.getItem("txtClients");
 var customers = localStorage.getItem("customers");
 var app = new Framework7({
     root: '#app', // App root element
@@ -13,50 +14,64 @@ var app = new Framework7({
                 firstName: 'John',
                 lastName: 'Doe',
             },
-            productbs: JSON.parse(customers),
+            // productbs: JSON.parse(customers),
             // productbs: [{"id":1,"cid":1540562584936,"title":"John","fname":"Doe","phone":"12345646","description":"john.doe@email.com"},{"id":2,"cid":1540818411406,"title":"Melissa","fname":"De Leon","phone":"093482940","description":"2014-04-30"},{"id":3,"cid":1540825840882,"title":"Joanne","fname":"Amparo","phone":"123456789","description":"2014-04-08"},{"id":4,"cid":1540918462991,"title":"JKJk","fname":"weieoidfp","phone":"12459","description":"2014-04-30"}],
+            productcs: JSON.parse(orderItems),
+            //productbs:["{\"Code\":\"1\",\"Name\":\"User\",\"Cid\":\"12345\",\"Date\":\"10-28-18\",\"Items\":\"Test\"}"],
+            //productbs: ["{\"id\":\"1\",\"cid\":\"3495894823022\",\"title\":\"Test User1\",\"Date\":\"10-20.18\",\"Items\":\"<table>   <tbody><tr>     <th>Name</th>   </tr>     </tbody><tbody id=\\\"countries\\\"><tr><td>France</td><td><button onclick=\\\"app.Edit(0)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(0)\\\">Delete</button></td></tr><tr><td>Germany</td><td><button onclick=\\\"app.Edit(1)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(1)\\\">Delete</button></td></tr><tr><td>England</td><td><button onclick=\\\"app.Edit(2)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(2)\\\">Delete</button></td></tr><tr><td>Spain</td><td><button onclick=\\\"app.Edit(3)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(3)\\\">Delete</button></td></tr><tr><td>Belgium</td><td><button onclick=\\\"app.Edit(4)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(4)\\\">Delete</button></td></tr><tr><td>Italy</td><td><button onclick=\\\"app.Edit(5)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(5)\\\">Delete</button></td></tr><tr><td>Portugal</td><td><button onclick=\\\"app.Edit(6)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(6)\\\">Delete</button></td></tr><tr><td>Irland</td><td><button onclick=\\\"app.Edit(7)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(7)\\\">Delete</button></td></tr><tr><td>Luxembourg</td><td><button onclick=\\\"app.Edit(8)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(8)\\\">Delete</button></td></tr></tbody> </table>\"}"],
             // productbs: [customers],
-            items: [{
-                    "cant": 1,
-                    "check": "notsync",
-                    "cname": "1540562584936",
-                    "email": "",
-                    "id": 1,
-                    "img": "img/products/14.jpg",
-                    "name": "Cool Shirt",
-                    "notes": "",
-                    "oldprice": "",
-                    "stock":4,
-                    title: "1541246715150",
-                    "desc":'',
-                    "price": 99,
-                    "select": "",
-                    "sku": "A0000003",
-                    "smname": "1111111111111",
-                    "timestamp": "1541246715150",
-                    "total": "598.00",
+            /*items: [{
+                    id: '1',
+                    title: 'John',
+                    fname: 'Dough',
+                    phone: '0995475142',
+                    desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.',
+                    birth_month: '11',
+                    birth_day: '12',
+                    birth_yr: '1982',
+                    add_street: 'Taylo Street',
+                    add_unit: 'Unit 1 Dough Apartments',
+                    add_city: 'Quezon City',
+                    add_area: 'Brgy. Gumamela',
+                    add_zip: '1068',
+                    add_landmark: 'Near EastWest',
+                    timestamp: '150495687901'
                 },
                 {
-                    "cant": 2,
-                    "check": "notsync",
-                    "cname": "1540562584209",
-                    "email": "",
-                    "id": 3,
-                    "img": "img/products/14.jpg",
-                    "name": "Cool Shirt",
-                    "notes": "",
-                    "oldprice": "",
-                    "stock": 4,
-                    "title": "1541246715150",
-                    "desc":"",
-                    "price": 99,
-                    "select": "",
-                    "sku": "A0000003",
-                    "smname": "1111111111111",
-                    "timestamp": "1541246715150",
-                    "total": "598.00"
+                    id: '2',
+                    title: 'Anne',
+                    fname: 'Hattaway',
+                    phone: '0995475142',
+                    desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.',
+                    birth_month: '12',
+                    birth_day: '20',
+                    birth_yr: '1978',
+                    add_street: 'Melon Street',
+                    add_unit: 'The Heights Subd',
+                    add_city: 'Quezon City',
+                    add_area: 'Brgy. 6',
+                    add_zip: '1223',
+                    add_landmark: 'Near EastWest',
+                    timestamp: '150495687978'
+                },
+                {
+                    id: '3',
+                    title: 'Rafael',
+                    fname: 'Domingo',
+                    phone: '0995475143',
+                    desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.',
+                    birth_month: '12',
+                    birth_day: '20',
+                    birth_yr: '1978',
+                    add_street: 'Melon Street',
+                    add_unit: 'The Heights Subd',
+                    add_city: 'Quezon City',
+                    add_area: 'Brgy. 6',
+                    add_zip: '1223',
+                    add_landmark: 'Near EastWest',
+                    timestamp: '150495687975'
                 }
-            ],
+            ],*/
             products: [{
                     id: '1',
                     sku: 'A0000001',
@@ -195,9 +210,7 @@ var app = new Framework7({
                     ponumber: '',
                     total: ''
                 }
-
-
-            ],
+            ]
         };
     },
     // App root methods
@@ -209,6 +222,9 @@ var app = new Framework7({
     // App routes
     routes: routes,
 });
+
+
+var orderItems = JSON.parse(localStorage.getItem("txtClients"));
 // Init/Create main view
 var mainView = app.views.create('.view-main', {
     url: '/'
@@ -248,16 +264,157 @@ $$('a.category').on('click', function () {
     app.dialog.alert(selectedCat);
 });
 
+/****************************************** */
+
+$$(document).on('page:init', '.page[data-name="catalogc"]', function (e) {
+    //alert("catalogc");
+    //$$(function () {
+  
+    var operation = "A"; //"A"=Adição; "E"=Edição
+    var index_selected = -1; //Índice do item selecionado na lista
+    var txtClients = localStorage.getItem("txtClients"); // Recupera os dados armazenados
+    txtClients = JSON.parse(txtClients); // Converte string para objeto
 
 
-$$(document).on('page:init', '.page[data-name="cartscreen"]', function (e) {
 
-   
-    
+
+    if (txtClients == null) { // Caso não haja conteúdo, iniciamos um vetor vazio
+        txtClients = [];
+    }
+
+    $$("#frmCadastro").on("submit", function () {
+        if (operation == "A") {
+            return Adicionar(txtClients);
+        } else {
+            return EditItem(txtClients, index_selected);
+        }
+    });
+
+    List(txtClients);
+    console.log('list orders');
+    $$("#tblList").on("click", ".btnEdit", function () {
+        operation = "E";
+        index_selected = parseInt($$(this).attr("alt"));
+        var cli = JSON.parse(txtClients[index_selected]);
+        $$("#txtCode").val(cli.code);
+        $$("#txtName").val(cli.name);
+        $$("#txtCid").val(cli.cid);
+        $$("#txtDate").val(cli.date);
+        $$("#txtItems").val(cli.items);
+        $$("#txtCode").attr("readonly", "readonly");
+        $$("#txtName").focus();
+    });
+
+    $$("#tblList").on("click", ".btnDeleteItem", function () {
+        index_selected = parseInt($$(this).attr("alt"));
+        DeleteItem(txtClients, index_selected);
+        (txtClients);
+    });
 });
+
+
+function CustomerCartInfo(){
+    var activeCustomer = localStorage.getItem("fnMember");
+    console.log(activeCustomer);
+    $$("#nowserving").html(activeCustomer);
+    var timepo = localStorage.getItem("timeandponumber");
+    $$("#servingpo").html(timepo);
+    alert(timepo +' '+activeCustomer);
+    
+}
+
+function Adicionar(txtClients) {
+   // CustomerCartInfo();
+    var client = JSON.stringify({
+        code: $$("#txtCode").val(),
+        name: $$("#txtName").val(),
+        cid: $$("#txtCid").val(),
+        date: $$("#txtDate").val(),
+        items: $$("#txtItems").val()
+    });
+    CustomerCartInfo();
+    txtClients.push(client);
+    console.log("txtClients - " + txtClients);
+    localStorage.setItem("txtClients", JSON.stringify(txtClients));
+    alert("Item Added Successfully.");
+    app.resetCart();
+    return true;
+}
+
+function EditItem(txtClients, index_selected) {
+    txtClients[index_selected] = JSON.stringify({
+        code: $$("#txtCode").val(),
+        name: $$("#txtName").val(),
+        cid: $$("#txtCid").val(),
+        date: $$("#txtDate").val(),
+        items: $$("#txtItems").val()
+    }); //Altera o item selecionado na tabela
+    localStorage.setItem("txtClients", JSON.stringify(txtClients));
+    alert("Updated Successfully.")
+    operation = "A"; //Volta ao padrão
+    return true;
+}
+
+function DeleteItem(txtClients, index_selected) {
+    txtClients.splice(index_selected, 1);
+    localStorage.setItem("txtClients", JSON.stringify(txtClients));
+    alert("Registro excluído.");
+
+}
+
+function List(txtClients) {
+    $$("#tblList").html("");
+    for (var i in txtClients) {
+        var cli = JSON.parse(txtClients[i]);
+        $$("#tblList").append('<li>' +
+            '<a href="#" class="item-link item-content">' +
+            // '<div class="item-media"><i class="icon icon-f7"></i></div>' +
+            '<div class="item-inner">' +
+            '<div class="item-title">' + cli.code + '</div>' +
+            '<div class="item-after"><span class="badge">' + cli.date + '</span></div>' +
+            '</div>' +
+            '</a>' +
+            '</li>'
+        )
+    }
+}
+
+/*
+function List(txtClients) {
+    $$("#tblList").html("");
+    $$("#tblList").html(
+        "<thead>" +
+        "   <tr>" +
+        "   <th></th>" +
+        "   <th>Code</th>" +
+      //  "   <th>Name</th>" +
+  //      "   <th>Cid</th>" +
+        "   <th>Date</th>" +
+   //     "   <th>Items</th>" +
+        "   </tr>" +
+        "</thead>" +
+        "<tbody>" +
+        "</tbody>"
+    );
+    for (var i in txtClients) {
+        var cli = JSON.parse(txtClients[i]);
+        $$("#tblList tbody").append("<tr>");
+        $$("#tblList tbody").append("<td><img src='img/edit.png' alt='" + i + "'class='btnEdit' width='32'/><img src='img/delete.png' width='32' alt='" + i + "' class='btnDeleteItem'/></td>");
+        $$("#tblList tbody").append("<td>" + cli.code + "</td>");
+     //   $$("#tblList tbody").append("<td>" + cli.name + "</td>");
+       // $$("#tblList tbody").append("<td>" + cli.cid + "</td>");
+        $$("#tblList tbody").append("<td>" + cli.date + "</td>");
+        //$$("#tblList tbody").append("<td>" + cli.items + "</td>");
+        $$("#tblList tbody").append("</tr>");
+    }
+}*/
+
+
+//});
+
+
 $$(document).on('page:init', '.page[data-name="homes"]', function (e) {
     app.loadStore();
-    
 
 });
 $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
@@ -273,7 +430,7 @@ $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
     setTimeout(function () {
         app.preloader.hide();
         app.loadStore();
-    }, 1500);
+    }, 800);
     console.log("Catalog");
     app.addToMyCart = function (id) {
         // alert("test");
@@ -284,10 +441,6 @@ $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
             return false;
         } else {
             console.log("continue shopping");
-            var timeandpo = localStorage.getItem("timeandponumber");
-            var idMember = localStorage.getItem("idMember");
-            $$("#nowserving").html(idMember);
-            $$("#servingpo").html(timeandpo);
             //
             //console.log("add to cart");
             // var l = Ladda.create(document.querySelector('.prod-' + id));
@@ -348,8 +501,7 @@ $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
         //si le pasamos un valor negativo a la cantidad, se descuenta del carrito
         var curProd = _.find(cart.items, {
             'id': id
-        });
-        
+        })
         console.log("search products");
         if (undefined != curProd && curProd != null) {
             //ya existe el producto, aÃ±adimos uno mÃ¡s a su cantidad
@@ -360,12 +512,12 @@ $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
             }
             $$('#prod_' + curProd.id).val(curProd.cant);
         } else {
-            //sino existe lo agregamos al carrito       
-            // var timeandponumber = new Date().getTime();
+            //sino existe lo agregamos al carrito
+            var timeandponumber = new Date().getTime();
+            localStorage.setItem("timeandponumber", timeandponumber);
             var timeandpo = localStorage.getItem("timeandponumber");
-            //localStorage.setItem("timeandponumber", timeandponumber);
-
             var prod = {
+
 
                 cant: cant,
                 check: check,
@@ -401,79 +553,6 @@ $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
         app.updatePayForm();
     }
 });
-
-
-$$('#my-cart-screen .btnSavePO').on('click', function () {
-    var purchaseorder = (JSON.parse(localStorage.getItem('purchaseorder')) != null) ? JSON.parse(localStorage.getItem('purchaseorder')) : {
-        items: []
-    };
-    var productArray=purchaseorder;
-    var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
-        items: []
-      
-    };
-
-  $(this).html('<i class="fa fa-check"></i>Added to cart');
-  console.log('Item added ');
-  //var productJSON={"id":$(this).attr('pr_id'), "nameEn":$(this).attr('pr_name_en'), "price":$(this).attr('pr_price'), "image":$(this).attr('pr_image')};
-
-  var productJSON=cart;
-
-
-  if(localStorage.getItem('purchaseorder')!==null){
-    productArray=JSON.parse(localStorage.getItem('purchaseorder'));
-    productArray.push(productJSON);  
-    localStorage.setItem('purchaseorder', productArray);  
-  }
-  else{
-    productArray.push(productJSON);  
-    localStorage.setItem('purchaseorder', productArray);  
-  }
-
-
-Storage.prototype.setObj = function(key, value) {
-    this.setItem(key, JSON.stringify(value));
-}
-
-Storage.prototype.getObj = function(key) {
-    var value = this.getItem(key);
-    return value && JSON.parse(value);
-}
-   /* var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
-        items: []
-      
-    };
-    console.log(cart);
-    var purchaseorder = (JSON.parse(localStorage.getItem('purchaseorder')) != null) ? JSON.parse(localStorage.getItem('purchaseorder')) : {
-        items: []
-    };
-    if (undefined != purchaseorder && null != purchaseorder && purchaseorder != '') {
-       // var i = 1;
-        localStorage.setItem("purchaseorder", JSON.stringify(cart));
-        purchaseorder.push(cart);
-        $$("#pocontainer").html(purchaseOrders);
-    }else{
-        purchaseorder.push(cart); 
-        console.log(purchaseorder);
-        $$("#pocontainer").html(purchaseOrders);
-
-    }
-
-
-    */
-    // alert("save po");
-   /* var purchaseOrders =localStorage.getItem("purchaseorder");
-     //var fruits = ["Banana", "Orange", "Apple", "Mango"];
-     $$("#pocontainer").html(JSON.stringify(purchaseOrders));
-     var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
-        items: [],
-       
-    };
-    purchaseOrders.push(cart);
-    $$("#pocontainer").html(purchaseOrders);
-   */
-    
- });
 
 $$(document).on('page:init', '.page[data-page="category"]', function (e) {
     app.loadStore();
@@ -690,7 +769,7 @@ function callFunction(func) {
 }
 
 
-/*
+
 app.addtoCart = function (id) {
     //function checkHasUer(){
     if (!localStorage.getItem("idMember")) {
@@ -752,8 +831,8 @@ app.addtoCart = function (id) {
             alert('You can not add more of this product');
         }
     }
-}*/
-/*app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
+}
+app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
     //si le pasamos un valor negativo a la cantidad, se descuenta del carrito
     var curProd = _.find(cart.items, {
         'id': id
@@ -794,37 +873,36 @@ app.addtoCart = function (id) {
     app.init();
     app.getProducts();
     app.updatePayForm();
-}*/
+}
 app.getProducts = function () {
     console.log("get products");
-    var custmername = localStorage.getItem("custmername");
-    var timeandpo = localStorage.getItem("timeandponumber");
-    var idMember = localStorage.getItem("idMember");
-
+    $$('.submitBtn').hide();
     var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
             items: []
         },
         msg = '',
         wrapper = $$('.cart'),
-        personwrapper = $$('.mycart'),
-        total = 0;
-    personwrapper.html('');
-    wrapper.html('');
+        wrapper2 = $$('.cartmemberinfo'),
+        total = 0
+        wrapper.html('');
+        wrapper2.html('');
     if (undefined == cart || null == cart || cart == '' || cart.items.length == 0) {
         wrapper.html('<div>Your cart is empty</div>');
+        $$('.submitBtn').show();
         $$('.cart').css('left', '-400%')
     } else {
-        var personcart = '<tr>' +
-            '<td>Now Serving</td>' +
-            '<td class="right"><h5 id="nowservingw">' + idMember + '</h5><small>' + idMember + '</small></td>' +
-
-            ' </tr>' +
-            '<tr>' +
-
-            ' <td>PO #</td>' +
-            '  <td class="right"><h5 id="servingpos">' + timeandpo + '</h5></td>' +
-            '</tr>';
         var items = '';
+        $$('.submitBtn').show();
+        var cartmemberinfo = '';
+        var activeCustomer = localStorage.getItem("fnMember");
+        console.log(activeCustomer);
+      //  $$("#nowserving").html(activeCustomer);
+        var timepo = localStorage.getItem("timeandponumber");
+       // $$("#servingpo").html(timepo);
+       // alert(timepo +' '+activeCustomer);
+
+        cartmemberinfo = '<tr><td class="left" colspan="2">Now Serving:</td><td colspan="3" class="right"><span class="title">'+activeCustomer +'</span></td></tr>'+
+        '<tr><td class="left" colspan="2">PO #:</td><td colspan="3" class="right"><span class="title">'+timepo +'</span></td></tr>'
         _.forEach(cart.items, function (n, key) {
             var oldpricing = '';
             if (n.oldprice != 0 || n.oldprice != '') {
@@ -836,7 +914,7 @@ app.getProducts = function () {
             items += '<tr>'
             //items += '<td><img src="'+n.img+'" /></td>'
             items += '<td><span class="qant">' + n.cant + '</span></td>'
-            items += '<td><h3 class="title">' + n.name + '</h3></td>'
+            items += '<td><h3 class="title" data-id="'+ n.sku +'">' + n.name + '</h3></td>'
             items += '<td colspan="2"><p class="right"><del>' + oldpricing + '</del></p>'
             items += '<p class="price right">' + currency_icon + '' + n.price.toFixed(2) + '</p></td>'
             items += '</tr>';
@@ -844,11 +922,10 @@ app.getProducts = function () {
         });
         //agregar el total al carrito
         items += '<tr class="total-row"><td colspan="2" > </td><td id="total" class="total right" colspan="3">' + currency_icon + '' + total.toFixed(2) + ' </td></tr>'
-        items += '<tr><td colspan="5" class="total"></td></tr>'
-        items += '<tr><td colspan="5"> <div class="submitForm"></div></td></tr>'
+      //  items += '<tr><td colspan="5" class="total"></td></tr>'
+      //  items += '<tr><td colspan="5"> <div class="submitForm"></div></td></tr>'
         wrapper.html(items);
-        personwrapper.html(personcart);
-
+        wrapper2.html(cartmemberinfo);
         localStorage.setItem("grndTotal", total.toFixed(2));
         $$('.cart').css('left', '0')
     }
@@ -905,26 +982,11 @@ app.updatePayForm = function () {
     var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
         items: []
     };
-
-    var purchaseorder = (JSON.parse(localStorage.getItem('purchaseorder')) != null) ? JSON.parse(localStorage.getItem('purchaseorder')) : {
-        items: []
-    };
-    if (undefined != purchaseorder && null != purchaseorder && purchaseorder != '') {
-       // var i = 1;
-        localStorage.setItem("purchaseorder", JSON.stringify(cart));
-    }else{
-       // productArray.push(productJSON); 
-    }
-    var grandtotal = localStorage.getItem("grndTotal")
-    var ponumber = localStorage.getItem("timeandponumber");
+    localStorage.setItem("purchaseorder", JSON.stringify(cart));
+    var grandtotal = localStorage.getItem("grndTotal");
+   
     //var statics = '<form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_cart"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="USD" /><input type="hidden" name="business" value="' + business_paypal + '">',
-    var statics = '<form  method="post">' +
-        '<input type="hidden" name="cmd" value="_cart">' +
-        '<input type="hidden" name="upload" value="1">' +
-        '<input type="hidden" name="currency_code" value="PHP" />' +
-        '<input type="hidden" name="business" value="SUPER 8">' +
-        '<input type="hidden" class="PONUMBER" name="ponumber" value="' + ponumber + '">' +
-        '<input type="hidden" class="TOTAL" name="grandtotal" class="grandtotal" value="' + grandtotal + '">',
+    var statics = '<form  method="post"><input type="hidden" name="cmd" value="_cart"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="PHP" /><input type="hidden" name="business" value="SUPER 8"><input type="hidden" name="grandtotal" class="grandtotal" value="' + grandtotal + '">',
         dinamic = '',
         wrapper = $$('.submitForm')
     wrapper.html('')
@@ -933,21 +995,45 @@ app.updatePayForm = function () {
         _.forEach(cart.items, function (prod, key) {
             dinamic += '<input type="hidden" name="item_name_' + i + '" value="' + prod.name + '">'
             dinamic += '<input type="hidden" name="amount_' + i + '" value="' + prod.price + '">'
-            dinamic += '<input type="hidden" name="item_sku_' + i + '" value="' + prod.sku + '">'
-            dinamic += '<input type="hidden" name="item_ponum_' + i + '" value="' + prod.ponumber + '">'
+            dinamic += '<input type="hidden" name="iuem_sku_' + i + '" value="' + prod.sku + '">'
             dinamic += '<input type="hidden" name="item_number_' + i + '" value="' + prod.id + '" />'
             dinamic += '<input type="hidden" name="quantity_' + i + '" value="' + prod.cant + '" />'
             dinamic += '<input type="hidden" class="grndTotal" name="total_' + i + '" value="' + grandtotal + '" />' // added by jrn
             i++;
-        })
-       // statics += dinamic + '<button type="submit" class="pay btn btn-success">Submit<i class="ion-chevron-right"></i></button></form>'
 
-       statics += dinamic + '<button type="button" class="btn btnSavePO btn-success hidden">Submit PO</button></form>'
-        wrapper.html(statics)
+        })
+       // statics += dinamic + '<button type="button" class="pay btn-checkout btn btn-success">CHECKOUT<i class="ion-chevron-right"></i></button></form>'
+       //statics += dinamic + '<a href="#" type="button" class="popup-open btn-checkout btn btn-success" data-popup="#my-order-popup">CHECKOUT<i class="ion-chevron-right"></i></button></form>'
+       statics += dinamic + '</form>'
+       wrapper.html(statics)
     }
 }
-/***************************** */
 
+
+$$(".btn-checkout").on('click', function(){
+    alert('checkout');
+    var myCname = localStorage.getItem("fnMember");
+    var myPoNumber = localStorage.getItem("timeandponumber");
+    var myItems = $$("#thisCart").html();
+    function Unix_timestamp(t)
+{
+var dt = new Date(t*1000);
+var hr = dt.getHours();
+var m = "0" + dt.getMinutes();
+var s = "0" + dt.getSeconds();
+return hr+ ':' + m.substr(-2) + ':' + s.substr(-2);  
+}
+
+var theTime = Unix_timestamp(myPoNumber);
+
+    $$(txtItems).val(myItems);
+    $$("#txtName").val(myCname);
+    $$("#txtCode").val(myPoNumber);
+    $$("#txtDate").val(theTime);
+    app.router.navigate('/');
+    Adicionar(txtClients);
+})
+/***************************** */
 
 app.resetCart = function () {
     var retVal = confirm("This will clear cart data? Do you want to continue ?");
@@ -957,23 +1043,25 @@ app.resetCart = function () {
         localStorage.removeItem("grndTotal");
         localStorage.removeItem("listHTML");
         localStorage.removeItem("timeandponumber");
+        localStorage.removeItem("fnMember");
         $$(".cart, .mycart, #totalItems").html("");
-        
-      //  localStorage.removeItem("purchaseorder");
+
+        //  localStorage.removeItem("purchaseorder");
         mainView.router.refreshPage();
         alert("Cache is now cleared.");
         mainView.router.navigate(mainView.router.currentRoute.url, {
             ignoreCache: true,
             reloadCurrent: true
         });
+        app.router.navigate('/');
         return true;
-      
+
     } else {
         return false;
     }
 }
 
-app.showOrders = function () {
+/*app.showOrders = function () {
     // alert("orders");
     var myObj, i, item = "";
     var po = JSON.parse(localStorage.getItem("purchaseorder"));
@@ -991,10 +1079,10 @@ app.showOrders = function () {
         //  items += '<li class="nav-item"><a class="nav-link waves-effect" href="' + myObj.menuitems[i].url + '">' + myObj.menuitems[i].notes + '</li>';
         /* for (j in myObj.menuitems[i].models) {
              items += myObj.menuitems[i].models[j] + "<li class='hidden'>";
-         }*/
+         }**-/
     }
     $$("#mainOrders").html(item);
-}
+}*//*
 app.showMenu = function () {
     // alert("orders");
     var myObj, i, j, items = "";
@@ -1027,10 +1115,10 @@ app.showMenu = function () {
         items += '<li class="nav-item"><a class="nav-link waves-effect" href="' + myObj.menuitems[i].url + '">' + myObj.menuitems[i].name + '</li>';
         /* for (j in myObj.menuitems[i].models) {
              items += myObj.menuitems[i].models[j] + "<li class='hidden'>";
-         }*/
+         }*-/
     }
     $$("#mainMenu").html(items);
-}
+}*/
 /************************************* */
 app.getSKU = function (ThisSKU) {
     sessionStorage.setItem("skuItem", ThisSKU);
@@ -1053,7 +1141,7 @@ btns.on("click", function () {
     this.addClass("tab-link-active")
   });
 }*/
-app.productsPage = function () {
+/*app.productsPage = function () {
     var activeSKU = sessionStorage.getItem("skuItem");
     console.log(activeSKU);
     //var ThisSKU = $$(this).attr("data-sku");
@@ -1106,7 +1194,7 @@ app.productsPage = function () {
         /* $$("#thisAddCart").html('<input type="number" value="1" id="prod_'+id +'" readonly name="quant['+id+']"  aria-label="Search" class="form-control" style="width: 100px">'+
          '<button class="btn btn-primary btn-md my-0 btn-number waves-effect  submit ladda-button waves-light" type="button"  onclick="app.addtoCart(' +id + ');">Add to cart'+
            '<i class="fa fa-shopping-cart ml-1"></i>'+
-        '</button>');*/
+        '</button>');*-8/
         $$("#footerBtns").html('<div class="row"><div class="btn-group" role="group" aria-label="Basic">' +
             '<button type="button" class="btn btn-success manage-qtty btn-number h-40 waves-effect waves-light" onclick="app.updateItem(' + id + ',' + stock + ')" data-type="minus"><i class="material-icons">remove</i></button>' +
             '<input type="number"id="prod_' + id + '" readonly="" name="quant[' + id + ']" class="form-control input-number quantity manage-qtty h-40" value="0" min="0" max="100" style="height:40px; width:80px;">' +
@@ -1114,7 +1202,7 @@ app.productsPage = function () {
             //'<button type="button" class="btn btn-number waves-effect  submit ladda-button waves-light grey-borders btn-success prod-'+id+'" data-type="plus" data-style="slide-right" onclick="app.addtoCart('+id+');">Add to Cart</button>');
             '<a class="btn btn-info waves-effect waves-light h-40 pl-4 pr-4" href="#" role="button" data-toggle="modal" data-target="#modalCart">View Cart</a></div></div>');
     }
-}
+}*/
 /***************************** */
 //  $$(document).ready(function () {
 $$(document).on('DOMContentLoaded', function () {
@@ -1128,10 +1216,10 @@ $$(document).on('DOMContentLoaded', function () {
     })
     /******************* */
     // showQuantity();
-    app.showMenu();
+    //app.showMenu();
     //addCustomer();
     //app.loadStore();
-    app.showOrders();
+   // app.showOrders();
     currency_icon = '₱';
     localStorage.setItem("myCurrency", currency_icon);
     /******************* */

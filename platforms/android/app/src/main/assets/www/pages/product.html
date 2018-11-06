@@ -48,6 +48,16 @@
                    <div data-id="{{product.id}}" class="mystepper{{product.id}}">
                    </div>
                  
+                   <div id="stepper_center_prod_{{product.id}}" data-id="{{product.id}}" class="centered">
+                      <div class="stepper stepper-small stepper-init">
+                          <div class="stepper-button-minus prod_{{product.id}}" onclick="app.updateItem({{product.id}} ,{{product.stock}})"  ></div>
+                          <div class="stepper-input-wrap">
+                            <input type="number" id="prod_{{product.id}}" readonly name="quant[{{product.id}}]" class="form-control input-number quantity manage-qtty" value="0" min="0" max="100">
+                          </div>
+                         <!-- <div class="stepper-button-plus prod_{{id}}" onclick="app.addToCart('{{id}}')"></div>-->
+                         <div class="stepper-button-plus prod_{{product.id}}" data-id="plus_{{product.id}}" onclick="app.addToMyCart({{product.id}})"></div>
+                        </div>
+                      </div>
                 </div>
                 <!--Content-->
   
