@@ -297,19 +297,6 @@ $$(document).on('page:init', '.page[data-name="catalogc"]', function (e) {
         DeleteItem(txtClients, index_selected);
         (txtClients);
     });
-
-
-    
-
-    $$('#tblList .orderItem').on('click', function () {
-        var cname = $$(this).attr('data-cname');
-        var items = $$(this).attr('data-items');
-        var stringItems = String(items);
-        // Close login screen
-        app.loginScreen.close('#my-login-screen');
-        // Alert username and password
-        app.dialog.alert('Username: ' + cname + '<br>Password: ' + items);
-    });
 });
 function CustomerCartInfo() {
     var activeCustomer = localStorage.getItem("fnMember");
@@ -317,7 +304,7 @@ function CustomerCartInfo() {
     $$("#nowserving").html(activeCustomer);
     var timepo = localStorage.getItem("timeandponumber");
     $$("#servingpo").html(timepo);
-    app.dialog.alert(timepo + ' ' + activeCustomer);
+    alert(timepo + ' ' + activeCustomer);
 }
 function Adicionar(txtClients) {
     // CustomerCartInfo();
@@ -333,8 +320,8 @@ function Adicionar(txtClients) {
     console.log("txtClients - " + txtClients);
     localStorage.setItem("txtClients", JSON.stringify(txtClients));
     alert("Item Added Successfully.");
-    app.resetCart();
-    //app.resetCartOnCheckout();
+    //app.resetCart();
+    app.resetCartOnCheckout();
     return true;
 }
 function EditItem(txtClients, index_selected) {
@@ -346,14 +333,14 @@ function EditItem(txtClients, index_selected) {
         items: $$("#txtItems").val()
     }); //Altera o item selecionado na tabela
     localStorage.setItem("txtClients", JSON.stringify(txtClients));
-    app.dialog.alert("Updated Successfully.")
+    alert("Updated Successfully.")
     operation = "A"; //Volta ao padrão
     return true;
 }
 function DeleteItem(txtClients, index_selected) {
     txtClients.splice(index_selected, 1);
     localStorage.setItem("txtClients", JSON.stringify(txtClients));
-    alert("Deleted.");
+    alert("Registro excluído.");
 }
 function List(txtClients) {
     $$("#tblList").html("");
@@ -361,8 +348,8 @@ function List(txtClients) {
         var cli = JSON.parse(txtClients[i]);
         $$("#tblList").append('<li>' +
         
-            '<a href="/orderdetails/" class="orderItem item-link item-content"' +
-            'data-items="' + cli.items +'" data-date="'+ cli.date +'" data-cname="'+cli.name+'" >'+
+            '<a href="/orderdetails/" onclick="selectOrder(' + cli.code +')" class="item-link item-content"' +
+            'data-date="'+ cli.date +'" data-cname="'+cli.name+'" >'+
             // '<div class="item-media"><i class="icon icon-f7"></i></div>' +
             '<div class="item-inner">' +
             
@@ -377,25 +364,13 @@ function List(txtClients) {
 }
 
 
-
-
 function selectOrder(PO){
-  /*  var mycname =  $$(this).attr('data-cname'),
-    myitems =  $$(this).attr('data-items'),
-    thedate =  $$(this).attr('data-date');
-   */
-  var mycname =  $$(this).attr('data-cname');
-  alert(mycname);
+    var mycname =  $$(this).attr('data-cname');
+   
+   
 
-/*$$('#cname').html(mycname);
-$$('#thedate').html(thedate);
-$$('#myitems').html(myitems);  */
-/*var userDetails='<li>'+mycname+'</li>'+
-'<li>'+thedate+'</li>'+
-'<li>'+mycname+'</li>';
 
-var itemDetails = ''*/
-
+    
 }
 
 
@@ -1033,9 +1008,6 @@ $$(".btn-checkout").on('click', function () {
    // Adicionar(txtClients);
 })
 /***************************** */
-app.closeMe = function(){
-
-}
 app.resetCart = function () {
     var retVal = confirm("This will clear cart data? Do you want to continue ?");
     if (retVal == true) {
