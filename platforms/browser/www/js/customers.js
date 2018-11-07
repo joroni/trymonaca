@@ -14,87 +14,17 @@ $$(document).on('DOMContentLoaded', function () {
 
     memberList();
     //selectMemberList();
-    mockData();
-    selectCustomertoShop();
+    //mockData();
+    //selectCustomertoShop();
     console.info("Carga Complete...");
 
     ////////////////////////////////////////////////////////////////////
     ////////////////////////////Funciones jquery///////////////////////
     ////////////////////////////////////////////////////////////////////
-    $$('#submit').click(function () {
-        var txtId = $$('#txt-id');
-        var txtFname = $$('#fname');
-        var txtLname = $$('#lname');
-        var txtPhone = $$('#phone');
-        var txtEmail = $$('#email');
-        var txtEmail = $$('#birthdate');
-
-        var input = $$('input');
-
-        if (txtFname.val() === '' || txtLname.val() === '' || txtPhone.val() === '' || txtEmail.val() ===
-            '' /*|| input === ""*/ ) {
-            alert("All fields are Required...");
-            return;
-        }
-
-        var member = Object();
-
-        member.fname = txtFname.val();
-        member.lname = txtLname.val();
-        member.phone = txtPhone.val();
-        member.email = txtEmail.val();
-
-
-
-        if (txtId.val() === '') { //Lo guarda
-            member.id = new Date().getTime();
-            saveMember(member);
-        } else { //Lo actualiza
-            member.id = parseInt(txtId.val());
-            updateMember(member);
-        }
-
-        memberList();
-        //selectMemberList();
-        mockData();
-        txtFname.val(null);
-        txtLname.val(null);
-        txtPhone.val(null);
-        txtEmail.val(null);
-        txtId.val(null);
-    });
-
-
-
-    $$('#customerList').on("click", ".btn-user-info", function () {
-        //   var idMember = $$(this).data("id");
-        var idMember = $$('input.customerid').value();
-
-        selectMember(idMember);
-        $$("label").addClass("active");
-        //$$("#modal-Title").html("View Customer");
-
-    });
-
-
-    $$('#customerList').on("click", ".btn-editar", function () {
-        // var idMember = $$(this).data("id");
-        var idMember = $$('input.customerid').value();
-        selectMember(idMember);
-        $$("label").addClass("active");
-        $$("#modal-Title").html("Edit Customer");
-
-    });
-
-    $$('#customerList').on("click", ".btn-eliminar", function () {
-        //  var idMember = $$(this).data("id");
-        var idMember = $$('input.customerid').value();
-        removeMember(idMember);
-        memberList();
-        //selectMemberList();
-    });
+   
 
     $$(document).on('page:init', '.page[data-name="catalogb"]', function (e) {
+     // alert("catalogb");
         memberList();
         app.preloader.show();
         setTimeout(function () {
@@ -107,6 +37,91 @@ $$(document).on('DOMContentLoaded', function () {
 
         btns.removeClass("tab-link-active");
         $$("#btnCustomers").addClass("tab-link-active");
+
+
+
+        $$('.submitCustomer').on('click', function() {
+<<<<<<< HEAD
+            // alert("test");
+=======
+            alert("test");
+>>>>>>> 40e71a98e01825030cf5243445c33a2739521c0c
+            var txtId = $$('#txt-id');
+            var txtFname = $$('#fname');
+            var txtLname = $$('#lname');
+            var txtPhone = $$('#phone');
+            var txtEmail = $$('#email');
+            var txtEmail = $$('#birthdate');
+    
+           // var input = $$('input');
+    
+            if (txtFname.val() === '' || txtLname.val() === '' || txtPhone.val() === '' || txtEmail.val() ===
+                '' /*|| input === ""*/ ) {
+                alert("All fields are Required...");
+                return;
+            }
+    
+            var member = Object();
+    
+            member.fname = txtFname.val();
+            member.lname = txtLname.val();
+            member.phone = txtPhone.val();
+            member.email = txtEmail.val();
+    
+    
+    
+            if (txtId.val() === '') { //Lo guarda
+                member.id = new Date().getTime();
+                saveMember(member);
+            } else { //Lo actualiza
+                member.id = parseInt(txtId.val());
+                updateMember(member);
+            }
+    
+            memberList();
+<<<<<<< HEAD
+          //  selectMemberList();
+          //  mockData();
+=======
+            //selectMemberList();
+            mockData();
+>>>>>>> 40e71a98e01825030cf5243445c33a2739521c0c
+            txtFname.val(null);
+            txtLname.val(null);
+            txtPhone.val(null);
+            txtEmail.val(null);
+            txtId.val(null);
+        });
+    
+    
+    
+        $$('#customerList').on("click", ".btn-user-info", function() {
+            //   var idMember = $$(this).data("id");
+            var idMember = $$('input.customerid').value();
+    
+            selectMember(idMember);
+            $$("label").addClass("active");
+            //$$("#modal-Title").html("View Customer");
+    
+        });
+    
+    
+        $$('#customerList').on("click", ".btn-editar", function() {
+            // var idMember = $$(this).data("id");
+            var idMember = $$('input.customerid').value();
+            selectMember(idMember);
+            $$("label").addClass("active");
+            $$("#modal-Title").html("Edit Customer");
+    
+        });
+    
+        $$('#customerList').on("click", ".btn-eliminar", function() {
+            //  var idMember = $$(this).data("id");
+            var idMember = $$('input.customerid').value();
+            removeMember(idMember);
+            memberList();
+            //selectMemberList();
+        });
 
     });
 
@@ -127,11 +142,19 @@ $$(document).on('DOMContentLoaded', function () {
 
         $$(".btnMemberID").on("click", function () {
             var mid = $$("input#memberID").val();
-            var mfn = $$("input#memberFN").val();
+<<<<<<< HEAD
+            var mfn = $$("input.customername").val();
+            
+=======
+>>>>>>> 40e71a98e01825030cf5243445c33a2739521c0c
             console.log(mid);
+            console.log(mfn);
             localStorage.setItem("idMember", mid);
+<<<<<<< HEAD
             localStorage.setItem("fnMember", mfn);
-            var timeandponumber = new Date().toGMTString();
+=======
+>>>>>>> 40e71a98e01825030cf5243445c33a2739521c0c
+            var timeandponumber = new Date().getTime();
             localStorage.setItem("timeandponumber", timeandponumber);
             var timeandpo = localStorage.getItem("timeandponumber");
 
@@ -273,7 +296,7 @@ function memberList() {
     });
 }
 
-
+/*
 
 function selectMemberList() {
     db.readTransaction(function (t) {
@@ -291,7 +314,7 @@ function selectMemberList() {
                 }
                $$(".customerInfo").on('click',function(){
 
-                var thisCustomer = $$('#ccname').val();
+                var thisCustomer = $$('.customername').val();
                 localStorage.setItem("customername", thisCustomer);
 
                })
@@ -311,7 +334,7 @@ function selectMemberList() {
                  });*/
 
 
-                $$('[data-toggle="class"]').click(function () {
+               /* $$('[data-toggle="class"]').click(function () {
                     var $target = $$($$(this).data('target'));
                     var classes = $$(this).data('classes');
 
@@ -338,10 +361,10 @@ function selectMemberList() {
         }, error);
     });
 }
+*/
 
 
-
-
+/*
 function selectCustomertoShop() {
     db.readTransaction(function (t) {
         t.executeSql('SELECT ID, FNAMES, LNAMES, PHONE, EMAIL FROM CUSTOMERS', [], function (t, rs) {
@@ -360,7 +383,7 @@ function selectCustomertoShop() {
                                     '<div class="media-body"><h5 class="mt-0 customer-name">' + member.FNAMES + ' ' + member.LNAMES + '</h5><p> ' + member.PHONE + '</p></div>'+
                                 '</div>'+
                             '</div>';
-*/
+*
 
                     lisHtml += '<li><a href="#" onclick="viewidMember(' + id + ')">' + member.FNAMES + ' ' + member.LNAMES + '</li>'
 
@@ -405,7 +428,7 @@ function mockData() {
     db.transaction(function (tx) {
         tx.executeSql('INSERT INTO CUSTOMERS (ID, FNAMES, LNAMES, PHONE, EMAIL) VALUES(?, ?, ?,?,?)', [str]);
     });
-}
+}*/
 
 function saveMember(member) {
     db.transaction(function (tx) {
@@ -467,8 +490,12 @@ function selectMember(idMember) {
                         '<div class="item-media"><i class="material-icons icon-f7">person</i></div>' +
                         '<div class="item-inner">' +
                         '<input type="hidden" class="customerid" value="' + rs.rows.item(0).ID + '" />' +
-                        '<div class="item-title">' + rs.rows.item(0).FNAMES + ' ' + rs.rows.item(0).LNAMES + '<input id="memberFN" type="hidden" value="' + rs.rows.item(0).FNAMES +' '+ rs.rows.item(0).LNAMES + '"/></div>' +
+                        '<div class="item-title">' + rs.rows.item(0).FNAMES + ' ' + rs.rows.item(0).LNAMES + '</div>' +
+<<<<<<< HEAD
+                        '<div class="item-after"><input type="hidden" class="customername" value="' + rs.rows.item(0).FNAMES + ' '+ rs.rows.item(0).LNAMES +'" /></div>' +
+=======
                         '<div class="item-after"></div>' +
+>>>>>>> 40e71a98e01825030cf5243445c33a2739521c0c
                         '</div>' +
                         '</div>' +
                         '</li>' +
@@ -506,7 +533,7 @@ function selectMember(idMember) {
     });
 }
 
-
+/*
 
 function memberProfile(idMember) {
     db.readTransaction(function (t) {
@@ -570,7 +597,8 @@ function memberProfile(idMember) {
     });
 }
 
-
+*/
+/*
 
 function viewidMember(idMember) {
     localStorage.setItem("idMember", idMember);
@@ -595,7 +623,7 @@ function viewidMember(idMember) {
             }, error);
     });
 }
-
+*/
 function updateMember(member) {
     db.transaction(function (tx) {
         tx.executeSql('UPDATE CUSTOMERS SET FNAMES = ?, LNAMES = ?, PHONE = ?, EMAIL = ?, WHERE ID = ?', [

@@ -41,7 +41,15 @@ $$(document).on('DOMContentLoaded', function () {
 
 
         $$('.submitCustomer').on('click', function() {
+<<<<<<< HEAD
             // alert("test");
+=======
+<<<<<<< HEAD
+            // alert("test");
+=======
+            alert("test");
+>>>>>>> 40e71a98e01825030cf5243445c33a2739521c0c
+>>>>>>> d8e9dd4ae4ad3b170fab48ba0bb1a658a975e19a
             var txtId = $$('#txt-id');
             var txtFname = $$('#fname');
             var txtLname = $$('#lname');
@@ -75,8 +83,18 @@ $$(document).on('DOMContentLoaded', function () {
             }
     
             memberList();
+<<<<<<< HEAD
           //  selectMemberList();
           //  mockData();
+=======
+<<<<<<< HEAD
+          //  selectMemberList();
+          //  mockData();
+=======
+            //selectMemberList();
+            mockData();
+>>>>>>> 40e71a98e01825030cf5243445c33a2739521c0c
+>>>>>>> d8e9dd4ae4ad3b170fab48ba0bb1a658a975e19a
             txtFname.val(null);
             txtLname.val(null);
             txtPhone.val(null);
@@ -133,12 +151,26 @@ $$(document).on('DOMContentLoaded', function () {
 
         $$(".btnMemberID").on("click", function () {
             var mid = $$("input#memberID").val();
+<<<<<<< HEAD
             var mfn = $$("input.customername").val();
             
+=======
+<<<<<<< HEAD
+            var mfn = $$("input.customername").val();
+            
+=======
+>>>>>>> 40e71a98e01825030cf5243445c33a2739521c0c
+>>>>>>> d8e9dd4ae4ad3b170fab48ba0bb1a658a975e19a
             console.log(mid);
             console.log(mfn);
             localStorage.setItem("idMember", mid);
+<<<<<<< HEAD
             localStorage.setItem("fnMember", mfn);
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 40e71a98e01825030cf5243445c33a2739521c0c
+>>>>>>> d8e9dd4ae4ad3b170fab48ba0bb1a658a975e19a
             var timeandponumber = new Date().getTime();
             localStorage.setItem("timeandponumber", timeandponumber);
             var timeandpo = localStorage.getItem("timeandponumber");
@@ -476,7 +508,15 @@ function selectMember(idMember) {
                         '<div class="item-inner">' +
                         '<input type="hidden" class="customerid" value="' + rs.rows.item(0).ID + '" />' +
                         '<div class="item-title">' + rs.rows.item(0).FNAMES + ' ' + rs.rows.item(0).LNAMES + '</div>' +
+<<<<<<< HEAD
                         '<div class="item-after"><input type="hidden" class="customername" value="' + rs.rows.item(0).FNAMES + ' '+ rs.rows.item(0).LNAMES +'" /></div>' +
+=======
+<<<<<<< HEAD
+                        '<div class="item-after"><input type="hidden" class="customername" value="' + rs.rows.item(0).FNAMES + ' '+ rs.rows.item(0).LNAMES +'" /></div>' +
+=======
+                        '<div class="item-after"></div>' +
+>>>>>>> 40e71a98e01825030cf5243445c33a2739521c0c
+>>>>>>> d8e9dd4ae4ad3b170fab48ba0bb1a658a975e19a
                         '</div>' +
                         '</div>' +
                         '</li>' +
