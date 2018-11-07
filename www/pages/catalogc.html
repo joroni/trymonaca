@@ -5,32 +5,19 @@
                     <div class="title">Orders</div>
                 </div>
             </div>
-            <div class="fab fab-right-bottom">
-                    <a href="#" class="fill popup-open" data-popup="#my-order-popup">
-                        <i class="icon f7-icons">add</i>
-                    </a>
-                </div>
             <div class="page-content">
-                 <!-- <table id="tblList" class="table"> </table>-->
-    <div class="list list-block">
-                    
+                <div class="list list-block">
                     <ul id="tblList">
-                        </ul>
-    </div>
-                      
-    <!--<div class="list hidden list-block">
-                    
-                    <ul>
-                        {{#each productbs}}
+                     <!--     {{#each items}}
     
-                    <li>
+                  <li>
                            
-                                <a href="/productbs/{{code}}/" class="item-link item-content">
+                                <a href="/productc/{{id}}/" class="item-link item-content">
                                    
                                     <div class="item-inner">
                                         <div class="item-title">
-                                            <div class="item-header"><small>CUSTOMER #: </small>{{cid}}</div>
-                                            <small>PO #: </small>{{name}}
+                                            <div class="item-header"><small>CUSTOMER #: </small>{{cname}}</div>
+                                            <small>PO #: </small>{{title}}
                                         </div>
                                         <div class="item-after"><span>{{check}}</span></div>
                                     </div>
@@ -43,9 +30,9 @@
     
     
                         </li>
-                        {{/each}}
+                        {{/each}}-->
                     </ul>
-                </div>-->
+                </div>
             </div>
         </div>
     </template>
@@ -53,7 +40,7 @@
         return {
             data: function () {
                 return {
-                    productbs: this.$root.productbs,
+                    items: this.$root.items,
                 };
             }
         }
