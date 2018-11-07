@@ -8,12 +8,12 @@ routes = [
     url: './pages/about.html',
   },
   {
-    path: '/confirmuser/',
-    url: './pages/confirmuser.html',
-  },
-  {
     path: '/store/',
     componentUrl: './pages/store.html',
+  },
+  {
+    path: '/confirmuser/',
+    url: './pages/confirmuser.html',
   },
   
   {
@@ -44,11 +44,6 @@ routes = [
     path: '/productdetails/',
     componentUrl: './pages/productdetails.html',
   },
-  {
-    path: '/orderdetails/',
-    componentUrl: './pages/orderdetails.html',
-  },
-  
   {
     path: '/productb/:id/',
     componentUrl: './pages/productb.html',

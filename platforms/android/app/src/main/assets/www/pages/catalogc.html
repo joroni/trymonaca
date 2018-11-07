@@ -1,10 +1,49 @@
 <template>
-        <div class="page" data-name="catalogc" id="catalogc">
-            <div class="navbar">
-                <div class="navbar-inner sliding">
-                    <div class="title">Orders</div>
-                </div>
+    <div class="page" data-name="catalogc" id="catalogc">
+        <div class="navbar">
+            <div class="navbar-inner sliding">
+                <div class="title">Orders</div>
             </div>
+<<<<<<< HEAD
+        </div>
+        <div class="page-content">
+            <div class="list list-block">
+                <ul id="tblList">
+                 <!--     {{#each items}}
+
+              <li>
+                       
+                            <a href="/productc/{{id}}/" class="item-link item-content">
+                               
+                                <div class="item-inner">
+                                    <div class="item-title">
+                                        <div class="item-header"><small>CUSTOMER #: </small>{{cname}}</div>
+                                        <small>PO #: </small>{{title}}
+                                    </div>
+                                    <div class="item-after"><span>{{check}}</span></div>
+                                </div>
+                              
+                     
+                        </a>
+                       
+
+
+
+
+                    </li>
+                    {{/each}}-->
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+    return {
+        data: function () {
+            return {
+                items: this.$root.items,
+            };
+=======
             <div class="page-content">
                 <div class="list list-block">
                     <ul id="tblList">
@@ -43,5 +82,7 @@
                     items: this.$root.items,
                 };
             }
+>>>>>>> d8e9dd4ae4ad3b170fab48ba0bb1a658a975e19a
         }
-    </script>
+    }
+</script>

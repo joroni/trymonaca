@@ -473,14 +473,9 @@ function Adicionar(txtClients) {
     var listPO =   localStorage.setItem("txtClients");
     console.log(listPO);
     alert("Item Added Successfully.");
-<<<<<<< HEAD
-    //app.resetCart();
-    app.resetCartOnCheckout();
-=======
     $$('#frmCadastro').hide();
     app.router.navigate('/catalogc/');
     app.resetCart();
->>>>>>> d8e9dd4ae4ad3b170fab48ba0bb1a658a975e19a
     return true;
 }
 
@@ -510,23 +505,11 @@ function List(txtClients) {
     for (var i in txtClients) {
         var cli = JSON.parse(txtClients[i]);
         $$("#tblList").append('<li>' +
-<<<<<<< HEAD
-        
-            '<a href="/orderdetails/" onclick="selectOrder(' + cli.code +')" class="item-link item-content"' +
-            'data-date="'+ cli.date +'" data-cname="'+cli.name+'" >'+
-            // '<div class="item-media"><i class="icon icon-f7"></i></div>' +
-            '<div class="item-inner">' +
-            
-            '<div class="item-title">' + cli.code + '</div>' +
-           
-            '<div class="item-after"><span class="badge">' + cli.date + '</span></div>' +
-=======
             '<a href="#" class="item-link item-content" alt="">' +
             // '<div class="item-media"><i class="icon icon-f7"></i></div>' +
             '<div class="item-inner">' +
             '<div class="item-title">' + cli.code + '<p><small>' +cli.date +'</small></p></div>' +
             '<div class="item-after"><span class="badge">' + cli.notes + '</span></div>' +
->>>>>>> d8e9dd4ae4ad3b170fab48ba0bb1a658a975e19a
             '</div>' +
             '</a>' +
             '</li>'
@@ -534,22 +517,6 @@ function List(txtClients) {
     }
 }
 
-<<<<<<< HEAD
-
-function selectOrder(PO){
-    var mycname =  $$(this).attr('data-cname');
-   
-   
-
-
-    
-}
-
-
-
-
-=======
->>>>>>> d8e9dd4ae4ad3b170fab48ba0bb1a658a975e19a
 /*
 function List(txtClients) {
     $$("#tblList").html("");
@@ -588,7 +555,6 @@ $$(document).on('page:init', '.page[data-name="homes"]', function (e) {
     app.loadStore();
 
 });
-
 $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
     //  app.createProducts();
     app.loadStore(); // Show preloader before Ajax request
@@ -726,13 +692,6 @@ $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
     }
 });
 
-<<<<<<< HEAD
-
-$$(document).on('page:init', '.page[data-name="orderdetails"]', function (e) {
-    alert("orderdetails");
-});
-=======
->>>>>>> d8e9dd4ae4ad3b170fab48ba0bb1a658a975e19a
 $$(document).on('page:init', '.page[data-page="category"]', function (e) {
     app.loadStore();
     console.log('Category');
@@ -1269,30 +1228,6 @@ app.resetCart = function () {
     }
 }
 
-<<<<<<< HEAD
-
-
-app.resetCartOnCheckout = function () {
-   
-        localStorage.removeItem("cart");
-        localStorage.removeItem("idMember");
-        localStorage.removeItem("grndTotal");
-        localStorage.removeItem("listHTML");
-        localStorage.removeItem("timeandponumber");
-        localStorage.removeItem("fnMember");
-        $$(".cart, .mycart, #totalItems").html("");
-        //  localStorage.removeItem("purchaseorder");
-        mainView.router.refreshPage();
-        alert("Cache is now cleared.");
-        mainView.router.navigate(mainView.router.currentRoute.url, {
-            ignoreCache: true,
-            reloadCurrent: true
-        });
-        app.router.navigate('/');
-     //   return true;
-   app.alert("Order saved successfully");
-}
-=======
 /*app.showOrders = function () {
     // alert("orders");
     var myObj, i, item = "";
@@ -1352,7 +1287,6 @@ app.showMenu = function () {
     }
     $$("#mainMenu").html(items);
 }*/
->>>>>>> d8e9dd4ae4ad3b170fab48ba0bb1a658a975e19a
 /************************************* */
 app.getSKU = function (ThisSKU) {
     sessionStorage.setItem("skuItem", ThisSKU);
