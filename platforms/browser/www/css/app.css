@@ -1,0 +1,22 @@
+/* Your app styles here */
+.bg-green {
+    background: green;
+}
+
+.bg-blue {
+    background: blue;
+}
+
+.bg-yellow{
+    background:yellow;
+
+}
+
+
+.parent {
+    z-index: 200000;
+}
+
+div#thisList{
+    margin-top: 0 !important;
+}

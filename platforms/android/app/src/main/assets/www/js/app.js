@@ -404,10 +404,22 @@ $$(document).on('page:init', '.page[data-name="catalogc"]', function (e) {
         txtClients = [];
     }
 
-    $$("#frmCadastro").on("submit", function () {
+    /*$$("#frmCadastro").on("submit", function () {
         if (operation == "A") {
             return Adicionar(txtClients);
         } else {
+            return EditItem(txtClients, index_selected);
+        }
+    });*/
+
+
+
+    $$('.btn-submit-po').on('click', function () {
+        if (operation == "A") {
+            return Adicionar(txtClients);
+            
+        } else {
+          
             return EditItem(txtClients, index_selected);
         }
     });
@@ -458,7 +470,11 @@ function Adicionar(txtClients) {
     txtClients.push(client);
     console.log("txtClients - " + txtClients);
     localStorage.setItem("txtClients", JSON.stringify(txtClients));
+    var listPO =   localStorage.setItem("txtClients");
+    console.log(listPO);
     alert("Item Added Successfully.");
+    $$('#frmCadastro').hide();
+    app.router.navigate('/catalogc/');
     app.resetCart();
     return true;
 }
@@ -489,11 +505,11 @@ function List(txtClients) {
     for (var i in txtClients) {
         var cli = JSON.parse(txtClients[i]);
         $$("#tblList").append('<li>' +
-            '<a href="#" class="item-link item-content">' +
+            '<a href="#" class="item-link item-content" alt="">' +
             // '<div class="item-media"><i class="icon icon-f7"></i></div>' +
             '<div class="item-inner">' +
-            '<div class="item-title">' + cli.code + '</div>' +
-            '<div class="item-after"><span class="badge">' + cli.date + '</span></div>' +
+            '<div class="item-title">' + cli.code + '<p><small>' +cli.date +'</small></p></div>' +
+            '<div class="item-after"><span class="badge">' + cli.notes + '</span></div>' +
             '</div>' +
             '</a>' +
             '</li>'
@@ -1131,11 +1147,11 @@ app.updatePayForm = function () {
 }
 
 $$(".btn-checkout").on('click', function () {
-    console.log('Please confirm details on the next screens.');
+    alert('Please confirm details on the next screens.');
     var myCname = localStorage.getItem("fnMember");
     var myPoNumber = localStorage.getItem("timeandponumber");
     var myItems = $$("#thisCart").html();
-
+   
     function Unix_timestamp(t) {
         var dt = new Date(t * 1000);
         var hr = dt.getHours();
@@ -1150,9 +1166,16 @@ $$(".btn-checkout").on('click', function () {
     $$("#txtDate").val(theTime);
 
     $$("#my-cart-screen").hide().removeClass("modal-in");
-     app.router.navigate('/confirmuser/');
-   //  Adicionar(txtClients);
+    $$(".popup-backdrop").removeClass("backdrop-in");
+  //  my-popup-confirmation
+     app.router.navigate('/');
+     ///Adicionar(txtClients);
 });
+
+
+
+
+
 /*
 $$(".btn-checkouta").on('click', function () {
     alert('checkout');

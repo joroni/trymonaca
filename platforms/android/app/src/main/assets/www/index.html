@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="eng" class="md device-pixel-ratio-1 device-desktop device-windows support-position-sticky">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Security-Policy" content="default-src * 'self' gap://ready data: blob: 'unsafe-inline' 'unsafe-eval' ws: wss:;">
@@ -18,6 +19,7 @@
   <link rel="stylesheet" href="components/loader.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
   <div id="app">
     <!-- Status bar overlay for fullscreen mode-->
@@ -43,7 +45,8 @@
         <div class="page">
           <div class="navbar white">
             <div class="navbar-inner">
-              <div class="title" style="width:100%; text-align:center;"><img class="small-logo centered" src="img/logo.svg" height="40"></div>
+              <div class="title" style="width:100%; text-align:center;"><img class="small-logo centered" src="img/logo.svg"
+                  height="40"></div>
             </div>
           </div>
           <div class="page-content">
@@ -86,13 +89,13 @@
             <i class="icon material-icons md-only">person</i>
             <span class="tabbar-label">Customers</span>
           </a>
-           <a href="/category/" id="btnStore"  class="tab-link">
-              <i class="icon f7-icons ios-only">shopping_basket</i>
-              <i class="icon f7-icons ios-only icon-ios-fill">shopping_basket_fill</i>
-              <i class="icon material-icons md-only">shopping_basket</i>
-              <span class="tabbar-label">Store</span>
-            </a>
-       <a href="/catalogc/" class="tab-link">
+          <a href="/category/" id="btnStore" class="tab-link">
+            <i class="icon f7-icons ios-only">shopping_basket</i>
+            <i class="icon f7-icons ios-only icon-ios-fill">shopping_basket_fill</i>
+            <i class="icon material-icons md-only">shopping_basket</i>
+            <span class="tabbar-label">Store</span>
+          </a>
+          <a href="/catalogc/" class="tab-link">
             <i class="icon f7-icons ios-only">playlist_add_check</i>
             <i class="icon f7-icons ios-only icon-ios-fill">playlist_add_check_fill</i>
             <i class="icon material-icons md-only">playlist_add_check</i>
@@ -112,11 +115,12 @@
           <div class="navbar-inner">
             <div class="left">
               <a href="#" class="link icon-only panel-opens" data-panel="left">
-                  <i class="icon f7-icons ios-only" style="color:transparent;">menu</i>
-                <i class="icon material-icons md-only"  style="color:transparent;">menu</i>
+                <i class="icon f7-icons ios-only" style="color:transparent;">menu</i>
+                <i class="icon material-icons md-only" style="color:transparent;">menu</i>
               </a>
             </div>
-            <div class="title sliding" style="width:100%; text-align:center;"> <img src="img/logo.svg" height="30" style="display:inline-block;"> </div>
+            <div class="title sliding" style="width:100%; text-align:center;"> <img src="img/logo.svg" height="30"
+                style="display:inline-block;"> </div>
             <div class="right">
               <a href="#" class="link icon-only panel-open" data-panel="right">
                 <i class="icon f7-icons ios-only">menu</i>
@@ -130,7 +134,7 @@
           <div class="block block-strong">
             <div class="content-block centered">
               <div>
-               <!-- <a class="navbar-brand waves-effects pl-3" style="margin:0 auto;" href="#">
+                <!-- <a class="navbar-brand waves-effects pl-3" style="margin:0 auto;" href="#">
                   <img src="img/logo.svg" height="40">
                 </a>-->
               </div>
@@ -138,29 +142,29 @@
                 <div class="col-50 tablet-25">
                   <div class="card">
                     <a href="/catalogb/">
-                    <div class="card-content card-content-padding color-white no-border" valign="bottom" style="background-image:url(img/products/btn-1.jpg); background-size:contain; height:170px;">CUSTOMERS</div>
-                  </a>
+                      <div class="card-content card-content-padding color-white no-border" valign="bottom" style="background-image:url(img/products/btn-1.jpg); background-size:contain; height:170px;">CUSTOMERS</div>
+                    </a>
                   </div>
                 </div>
                 <div class="col-50 tablet-25">
                   <div class="card">
-                      <a href="/category/">
-                    <div class="card-content card-content-padding color-white no-border" valign="bottom" style="background-image:url(img/products/btn-2.jpg); background-size:cover; height:170px;">STORE</div>
-                  </a>
-                   </div>
+                    <a href="/category/">
+                      <div class="card-content card-content-padding color-white no-border" valign="bottom" style="background-image:url(img/products/btn-2.jpg); background-size:cover; height:170px;">STORE</div>
+                    </a>
+                  </div>
                 </div>
                 <div class="col-50 tablet-25">
-                    <div class="card">
-                      <a href="/catalogc/">
+                  <div class="card">
+                    <a href="/catalogc/">
                       <div class="card-content card-content-padding color-white no-border" valign="bottom" style="background-image:url(img/products/btn-3.jpg); background-size:contain; height:170px;">ORDERS</div>
-                      </a>
-                    </div>
+                    </a>
                   </div>
-                  <div class="col-50 tablet-25">
-                    <div class="card">
-                      <div class="card-content card-content-padding color-white no-border" valign="bottom" style="background-image:url(img/products/btn-4.jpg); background-size:contain; height:170px;">CREATE</div>
-                    </div>
+                </div>
+                <div class="col-50 tablet-25">
+                  <div class="card">
+                    <div class="card-content card-content-padding color-white no-border" valign="bottom" style="background-image:url(img/products/btn-4.jpg); background-size:contain; height:170px;">CREATE</div>
                   </div>
+                </div>
               </div>
             </div>
           </div>
@@ -187,8 +191,8 @@
     <div id="view-store" class="view tab">
       <!-- Customers page will be loaded here dynamically from /customers/ route -->
     </div>
-    <!-- Popup Products 
-    <div class="popup" id="my-popup-products">
+    <!-- Popup Products -->
+    <div class="popup" id="frmCadastro">
       <div class="view">
         <div class="page">
           <div class="navbar">
@@ -196,22 +200,66 @@
               <div class="left">
                 <a href="#" class="link popup-close">Back</a>
               </div>
-              <div class="title"></div>
+              <div class="title">Confirmation</div>
             </div>
           </div>
           <div class="page-content" style="padding-top:30px;">
-            <!-  <div class="list list-block media-list">
-                            <ul id="productosWrapper" ></ul>
-                        <div id="productosWrapper" class="row wow fadeIn list no-hairlines-md"> </div>
-                    </div>->
-            <div id="thisList" class="list no-hairlines-md mt-0">
-              <div id="productosWrapper" class="productosWrapper row wow fadeIn list no-hairlines-md"> </div>
-            </div>
+              <div class="list no-hairlines-md">
+                  <ul>
+                    <li>
+                      <div class="item-content item-input">
+                        <div class="item-inner">
+                          <div class="item-title item-label">Name</div>
+                          <div class="item-input-wrap">
+                            <input id="txtName" type="text" placeholder="Your name"/>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="item-content item-input">
+                        <div class="item-inner">
+                          <div class="item-title item-label">PO #</div>
+                          <div class="item-input-wrap">
+                            <input id="txtCode" type="text" placeholder="PO Number"/>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="item-content item-input">
+                        <div class="item-inner">
+                          <div class="item-title item-label">Date</div>
+                          <div class="item-input-wrap">
+                            <input id="txtDate" type="text" placeholder="Date"/>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="item-content item-input">
+                        <div class="item-inner">
+                          <div class="item-title item-label">Items</div>
+                          <div class="item-input-wrap">
+                            <textarea id="txtItems" type="text" ></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                 
+                    <li>
+                        <div class="block">
+                  <!--  <button type="submit" class="submit btn-submit-po col button button-big button-fill button-raised">Submit</button>-->
+                    <a href="#" class="submit btn-submit-po col button button-big button-fill button-raised">Submit</a>
+                </div>
+                    </li>
+                  </ul>
+                </div>
             <br>
           </div>
         </div>
       </div>
-    </div>-->
+    </div>
     <!-- Popup -->
     <div class="popup" id="my-popup">
       <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -366,7 +414,8 @@
     <!-- Customer Select Screen -->
     <div class="popup" id="my-customer-popup">
       <div class="view">
-        <div class="page" id="catalogb" data-name="catalogb">
+        <!--<div class="page" id="catalogb" data-name="catalogb">-->
+        <div class="page" data-name="catalogb">
           <div class="navbar">
             <div class="navbar-inner sliding">
               <div class="title">Customers</div>
@@ -380,40 +429,39 @@
         </div>
       </div>
       <!-- Cart Screen -->
-       <div class="popup" id="my-cart-screen">
+      <div class="popup" id="my-cart-screen">
         <div class="view">
           <div class="page">
             <div class="navbar no-border">
               <div class="navbar-inner">
                 <div class="title">Cart</div>
                 <div class="right">
-                    <a href="#" class="link popup-close"><i class="material-icons">
-                        close
-                        </i></a>
+                  <a href="#" class="link popup-close"><i class="material-icons">
+                      close
+                    </i></a>
                 </div>
               </div>
             </div>
             <div class="page-content">
               <div class="block-title"></div>
-              
+
               <div class="block">
-                 <table class="table table-hover">
-                   <tbody id="cartInfo" class="cartmemberinfo"></tbody>
-                 </table>
-               <table class="table table-hover">
+                <table class="table table-hover">
+                  <tbody id="cartInfo" class="cartmemberinfo"></tbody>
+                </table>
+                <table class="table table-hover">
                   <tbody id="thisCart" class="cart"></tbody>
                 </table>
               </div>
               <div class="block">
                 <div class="submitForm"></div>
               </div>
-           <div class="block submitBtn">
-                  <a href="#"  class="button form-to-data button btn-checkout button-raised button-fill popup-open" data-popup="#my-order-popup">CHECKOUT</a>
+              <div class="block submitBtn">
+                <!--<a href="#" class="button form-to-data button btn-checkout button-raised button-fill popup-open"
+                  data-popup="#my-order-popup">CHECKOUT</a>-->
+                  <a href="#" class="button form-to-data button btn-checkout button-raised button-fill popup-open"
+                  data-popup="#frmCadastro">CHECKOUT</a>
               </div>
-
-              <!--<div class="block submitBtn hidden">
-                <a href="#" class="saveOrderLocal submitOrder button form-to-data button button-raised button-fill popup-close">Submit</a>
-              </div>-->
               <br>
             </div>
           </div>
@@ -457,21 +505,22 @@
           </div>
         </div>
       </div>
-    <!-- Framework7 library -->
-    <script src="framework7/js/framework7.min.js"></script>
-    <!-- Monaca JS library -->
-    <!--<script src="components/loader.js"></script>-->
-    <!-- App routes -->
-    <script src="js/routes.js"></script>
-   <!-- Your custom app scripts -->
-    <script src="js/app.js"></script>
-     <script src="js/customers.js"></script>
-    <!-- <script src="js/orders.js"></script> -->
+      <!-- Framework7 library -->
+      <script src="framework7/js/framework7.min.js"></script>
+      <!-- Monaca JS library -->
+      <!--<script src="components/loader.js"></script>-->
+      <!-- App routes -->
+      <script src="js/routes.js"></script>
+      <!-- Your custom app scripts -->
+      <script src="js/app.js"></script>
+      <script src="js/customers.js"></script>
+      <!-- <script src="js/orders.js"></script> -->
     </div>
 </body>
-  <script src="js/jquery-3.3.1.min.js"></script>
-   <script src='js/lodash.min.js'></script>
-    <script src='js/spin.min.js'></script>
-    <script src='js/ladda.jquery.js'></script>
-   <!-- <script src='js/ladda.min.js'></script>-->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src='js/lodash.min.js'></script>
+<script src='js/spin.min.js'></script>
+<script src='js/ladda.jquery.js'></script>
+<!-- <script src='js/ladda.min.js'></script>-->
+
 </html>

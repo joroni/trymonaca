@@ -14,8 +14,8 @@ $$(document).on('DOMContentLoaded', function () {
 
     memberList();
     //selectMemberList();
-    mockData();
-    selectCustomertoShop();
+    //mockData();
+    //selectCustomertoShop();
     console.info("Carga Complete...");
 
     ////////////////////////////////////////////////////////////////////
@@ -75,8 +75,8 @@ $$(document).on('DOMContentLoaded', function () {
             }
     
             memberList();
-            selectMemberList();
-            mockData();
+          //  selectMemberList();
+          //  mockData();
             txtFname.val(null);
             txtLname.val(null);
             txtPhone.val(null);
@@ -281,7 +281,7 @@ function memberList() {
     });
 }
 
-
+/*
 
 function selectMemberList() {
     db.readTransaction(function (t) {
@@ -319,7 +319,7 @@ function selectMemberList() {
                  });*/
 
 
-                $$('[data-toggle="class"]').click(function () {
+               /* $$('[data-toggle="class"]').click(function () {
                     var $target = $$($$(this).data('target'));
                     var classes = $$(this).data('classes');
 
@@ -346,10 +346,10 @@ function selectMemberList() {
         }, error);
     });
 }
+*/
 
 
-
-
+/*
 function selectCustomertoShop() {
     db.readTransaction(function (t) {
         t.executeSql('SELECT ID, FNAMES, LNAMES, PHONE, EMAIL FROM CUSTOMERS', [], function (t, rs) {
@@ -368,7 +368,7 @@ function selectCustomertoShop() {
                                     '<div class="media-body"><h5 class="mt-0 customer-name">' + member.FNAMES + ' ' + member.LNAMES + '</h5><p> ' + member.PHONE + '</p></div>'+
                                 '</div>'+
                             '</div>';
-*/
+*
 
                     lisHtml += '<li><a href="#" onclick="viewidMember(' + id + ')">' + member.FNAMES + ' ' + member.LNAMES + '</li>'
 
@@ -413,7 +413,7 @@ function mockData() {
     db.transaction(function (tx) {
         tx.executeSql('INSERT INTO CUSTOMERS (ID, FNAMES, LNAMES, PHONE, EMAIL) VALUES(?, ?, ?,?,?)', [str]);
     });
-}
+}*/
 
 function saveMember(member) {
     db.transaction(function (tx) {
@@ -514,7 +514,7 @@ function selectMember(idMember) {
     });
 }
 
-
+/*
 
 function memberProfile(idMember) {
     db.readTransaction(function (t) {
@@ -578,6 +578,7 @@ function memberProfile(idMember) {
     });
 }
 
+*/
 /*
 
 function viewidMember(idMember) {
